@@ -1,0 +1,2712 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Voter Guide - 2026 Midterms</title>
+<style>
+    :root {
+      --card: #fffdf8;
+      --ink: #1f2933;
+      --muted: #5f6b76;
+      --line: #d8d4c8;
+      --accent: #0b7285;
+      --accent-soft: #d8f1f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 20% 10%, #fff 0%, #f7f4ed 45%, #efe9da 100%);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 14px 35px rgba(20, 26, 30, 0.08);
+    }
+
+    .panel-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      letter-spacing: -0.03em;
+    }
+
+    .subhead {
+      margin: 0 0 20px;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .controls {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .search-row {
+      position: relative;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      min-width: 220px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 1rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: inherit;
+      width: fit-content;
+    }
+
+    .btn:hover {
+      background: #f8fbfc;
+    }
+
+    .status {
+      min-height: 1.5em;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(20, 26, 30, 0.12);
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 10;
+      display: none;
+    }
+
+    .suggestions.show {
+      display: block;
+    }
+
+    .dropdown-inner {
+      padding: 8px;
+    }
+
+    .dropdown-filter {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .state-list {
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .suggestion {
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      color: var(--ink);
+      border: 0;
+      border-bottom: 1px solid #f0ece2;
+      border-radius: 0;
+      padding: 10px 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .suggestion:last-child {
+      border-bottom: 0;
+    }
+
+    .suggestion:hover,
+    .suggestion:focus {
+      background: var(--accent-soft);
+      outline: none;
+    }
+
+    .race-results {
+      margin-top: 6px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .office-block {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .office-title {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .candidate-list {
+      margin: 4px 0 0 18px;
+      padding: 0;
+    }
+
+    .race-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .race-table th,
+    .race-table td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .race-table th {
+      background: #faf7ef;
+      font-weight: 700;
+    }
+
+    .state-section {
+      margin-top: 32px;
+    }
+
+    .state-header {
+      position: sticky;
+      top: 0;
+      background: var(--card);
+      z-index: 5;
+      margin: 0 0 12px;
+      padding: 10px 0 8px;
+      border-bottom: 2px solid var(--line);
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+
+
+    @media (max-width: 700px) {
+      body {
+        padding: 14px;
+      }
+
+      .panel {
+        padding: 16px;
+        border-radius: 14px;
+      }
+
+      .panel-top {
+        flex-direction: column;
+      }
+
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+<section class="panel">
+<div class="panel-top">
+<h1>AI Voter Guide (2026 Midterms)</h1>
+<a class="btn" href="?all" id="modeToggleBtn">See all</a>
+</div>
+<p class="subhead">
+        Search for your state, then review who is currently running by office.
+      </p>
+<div class="controls">
+<label for="stateSearch">Find your state</label>
+<div class="search-row">
+<input autocomplete="off" id="stateSearch" placeholder="Select a state" readonly="" type="text"/>
+<div aria-label="State suggestions" class="suggestions" id="suggestions" role="listbox">
+<div class="dropdown-inner">
+<input autocomplete="off" class="dropdown-filter" id="stateFilter" placeholder="Search states..." type="text"/>
+<div class="state-list" id="stateList"></div>
+</div>
+</div>
+</div>
+<button class="btn" id="detectStateBtn" type="button">Use My Location</button>
+<p class="status" id="status">No state selected yet.</p>
+<div class="race-results" id="raceResults"></div>
+</div>
+</section>
+</main>
+<script id="voter-data" type="application/json">[
+  {
+    "state": "Arizona",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Katie Hobbs",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Launched Arizona's first AI Steering Committee (19 experts from govt/academia/industry)",
+            "url": "https://azgovernor.gov/office-arizona-governor/news/2025/05/governor-katie-hobbs-announces-members-arizonas-first-ai"
+          },
+          {
+            "description": "OSI announcement of AI Steering Committee members",
+            "url": "https://osi.az.gov/news/governor-katie-hobbs-announces-members-arizonas-first-ai-steering-committee"
+          },
+          {
+            "description": "AZ Tech Council coverage – committee focused on privacy / fairness / access",
+            "url": "https://www.aztechcouncil.org/news/governor-hobbs-announces-arizonas-first-ai-steering-committee/"
+          },
+          {
+            "description": "KJZZ coverage – committee to deliver policy recommendations by spring 2026",
+            "url": "https://www.kjzz.org/politics/2025-05-21/governor-hobbs-announces-members-of-ai-steering-committee"
+          }
+        ]
+      },
+      {
+        "candidate": "David Schweikert",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "'We're in trouble' on AI adoption pace – op-ed on regulating AI",
+            "url": "https://schweikert.house.gov/2025/03/27/were-in-trouble-congressman-david-schweikert-on-ai-adoption-societal-resistance-on-regulating-ai/"
+          },
+          {
+            "description": "Dedicated Innovation & AI issues page",
+            "url": "https://schweikert.house.gov/issues/innovation-ai/"
+          },
+          {
+            "description": "Introduced AI healthcare bills – Healthy Technology Act of 2025 (first AI bills of 119th Congress)",
+            "url": "https://insideaipolicy.com/ai-daily-news/rep-schweikert-offers-first-ai-bills-119th-congress-focusing-healthcare-uses"
+          },
+          {
+            "description": "NDAA amendments passed to expand AI integration in Dept of Defense",
+            "url": "https://schweikert.house.gov/2025/09/26/congress-votes-yay-on-rep-schweikerts-ndaa-amendments-2025/"
+          },
+          {
+            "description": "Op-ed: Using AI to stabilize national debt",
+            "url": "https://schweikert.house.gov/2024/05/01/schweikert-using-ai-to-our-advantage-can-help-us-stabilize-the-debt/"
+          },
+          {
+            "description": "American Bazaar coverage of AI adoption / regulation views",
+            "url": "https://americanbazaaronline.com/2025/03/27/congressman-david-schweikert-on-ai-adoption-societal-resistance-on-regulating-ai-461187/"
+          }
+        ]
+      },
+      {
+        "candidate": "Andy Biggs",
+        "party": "R",
+        "status": "GOP Primary Frontrunner",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Discussed AI data center growth and SMRs for energy at ASU event",
+            "url": "https://news.asu.edu/20250818-local-national-and-global-affairs-us-rep-andy-biggs-arizona-energy-path-asu-event"
+          },
+          {
+            "description": "House Oversight Committee AI hearing (June 2025 – transcript)",
+            "url": "https://www.congress.gov/119/meeting/house/118339/documents/HHRG-119-GO00-Transcript-20250605.pdf"
+          },
+          {
+            "description": "Congress.gov profile",
+            "url": "https://www.congress.gov/member/andy-biggs/B001302"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "California",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Katie Porter",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "CalMatters 2024 Senate voter guide: Porter called for 'meaningful regulation of AI, as well as greater clean energy investments that empower workers'",
+            "url": "https://calmatters.org/california-voter-guide-2024/us-senate/katie-porter/"
+          },
+          {
+            "description": "Katie Porter campaign website — official platform",
+            "url": "https://katieporter.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Tom Steyer",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Steyer AI/tech plan: tougher AI regulations, sovereign wealth fund from AI profits, require data centers to pay their own way, protect workers and kids from AI",
+            "url": "https://www.eenews.net/articles/tom-steyers-tech-and-ai-plan/"
+          },
+          {
+            "description": "Axios: Steyer joins race — emphasizes AI regulation as major issue, refuses to let California's AI boom benefit only billionaires",
+            "url": "https://www.axios.com/2025/11/19/tom-steyer-2026-race-california-governor"
+          },
+          {
+            "description": "CalMatters: Steyer first major candidate to detail AI policy — sovereign wealth fund, data center costs, worker protections",
+            "url": "https://calmatters.org/politics/2025/11/california-governors-race-tom-steyer/"
+          }
+        ]
+      },
+      {
+        "candidate": "Eric Swalwell",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Swalwell serves on House Courts/IP/Artificial Intelligence/Internet subcommittee — key AI oversight role in Congress",
+            "url": "https://swalwell.house.gov/about/committees-and-caucuses"
+          },
+          {
+            "description": "Swalwell tweet mocking Greene for missing AI state-preemption clause in OBBBA — voted against the bill (which contained 10-year moratorium on state AI laws)",
+            "url": "https://x.com/RepSwalwell/status/1929953816709083470"
+          },
+          {
+            "description": "Swalwell announces 2026 governor bid — background includes congressional AI oversight work",
+            "url": "https://calmatters.org/politics/2026/03/california-governor-candidates/"
+          }
+        ]
+      },
+      {
+        "candidate": "Tony Thurmond",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Thurmond convened CA AI in Education workgroup as Superintendent — 'AI should complement not replace' human relationships; focused on K-12 AI literacy",
+            "url": "https://www.cde.ca.gov/nr/ne/yr25/yr25rel39.asp"
+          },
+          {
+            "description": "AACTE: Thurmond sponsored SB 1288 establishing CA as first state with legislatively mandated statewide K-12 AI workgroup",
+            "url": "https://edprepmatters.aacte.org/california-convenes-statewide-ai-in-education-workgroup-for-public-schools/"
+          }
+        ]
+      },
+      {
+        "candidate": "Antonio Villaraigosa",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Villaraigosa campaign focuses on public safety, housing, affordability — no AI policy positions found; recently served as Coinbase advisor",
+            "url": "https://www.antonio2026.com/"
+          },
+          {
+            "description": "CalMatters profile: Villaraigosa on second gubernatorial run — no tech/AI platform mentioned",
+            "url": "https://calmatters.org/newsletter/antonio-villaraigosa-california-governor-2026/"
+          }
+        ]
+      },
+      {
+        "candidate": "Ian Calderon",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "CalMatters: confirmed filed candidate — former Assembly majority leader; no AI policy positions found",
+            "url": "https://calmatters.org/politics/2026/03/california-governor-candidates/"
+          }
+        ]
+      },
+      {
+        "candidate": "Xavier Becerra",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Becerra campaign focuses on healthcare and affordability — no AI policy positions found despite serving as HHS Secretary during major AI health debates",
+            "url": "https://www.xavierbecerra2026.com/"
+          },
+          {
+            "description": "SF Examiner profile of Becerra's 2026 candidacy — no AI positions mentioned",
+            "url": "https://www.sfexaminer.com/news/politics/2026-california-governor-race-get-to-know-xavier-beccera/article_00b241f6-3fd1-456f-bb91-9a3162a89241.html"
+          }
+        ]
+      },
+      {
+        "candidate": "Chad Bianco",
+        "party": "R",
+        "status": "Gubernatorial Candidate",
+        "verdict": "naughty",
+        "sources": [
+          {
+            "description": "ABC7: Bianco says he's 'antithesis to California state government' — will 'take a nuclear bomb' to Sacramento; 'regulations destroying this state are going to be removed with me as governor'",
+            "url": "https://abc7.com/post/republican-governor-candidate-chad-bianco-says-hes-antithesis-california-state-government/18677627/"
+          },
+          {
+            "description": "Bianco campaign priorities page — tech sector framing is 'innovation capital' without any safety or oversight positions",
+            "url": "https://biancoforgovernor.com/priorities/"
+          }
+        ]
+      },
+      {
+        "candidate": "Matt Mahan",
+        "party": "D",
+        "status": "Gubernatorial Candidate",
+        "verdict": "naughty",
+        "sources": [
+          {
+            "description": "Bloomberg: Mahan aims to make San Jose 'most AI-enabled city hall' — pushing AI adoption across 7000 city workers",
+            "url": "https://www.bloomberg.com/news/articles/2025-07-18/san-jose-mayor-vies-to-create-most-ai-enabled-city-hall"
+          },
+          {
+            "description": "Semafor: Mahan using AI to speed up transportation and government — 20% bus speed improvement, AI grant-writing",
+            "url": "https://www.semafor.com/article/09/05/2025/how-san-joses-mayor-is-using-ai-to-speed-up-transportation-government"
+          },
+          {
+            "description": "Bay Area Council: Mahan launches 'AI for All' platform with tech companies — frames AI adoption as civic good, no safety regulation positions",
+            "url": "https://www.bayareacouncil.org/artificial-intelligence/council-partners-with-san-jose-mayor-matt-mahan-tech-companies-to-launch-ai-for-all-platform/"
+          },
+          {
+            "description": "San Jose Mayor's office: $200K grants to early-stage AI startups — active AI industry incentive program",
+            "url": "https://www.sjmayormatt.com/news-room/proposed-last-year-by-mayor-matt-mahan-applications-open-today-for-50k-grants-to-support-early-stage-ai-startups-looking-to-join-vibrant-tech-ecosystem-in-san-jos"
+          }
+        ]
+      },
+      {
+        "candidate": "Steve Hilton",
+        "party": "R",
+        "status": "Gubernatorial Candidate",
+        "verdict": "naughty",
+        "sources": [
+          {
+            "description": "Hilton campaign platform: lower taxes, ease business regulations, deregulation-first agenda — no AI safety positions; echoes anti-China AI arms race framing",
+            "url": "https://stevehiltonforgovernor.com/"
+          },
+          {
+            "description": "SF Examiner: Hilton outlines governor plans — gas prices, tax cuts, homelessness; regulation removal central to platform",
+            "url": "https://www.sfexaminer.com/news/politics/republican-steve-hilton-outlines-california-governor-plans/article_9d22eb1c-91a6-40b7-bbe7-0151f84fd392.html"
+          },
+          {
+            "description": "Fox News/Hilton op-ed: China will use AI against us — anti-China framing to justify deregulating US AI development",
+            "url": "https://www.foxnews.com/opinion/steve-hilton-silicon-valleys-surveillance-capitalism-has-resulted-in-big-tech-killing-off-human-privacy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Colorado",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Michael Bennet",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Bennet campaign policy page promises 'common-sense guardrails' for AI chatbots and AI companions to protect kids",
+            "url": "https://www.michaelbennet.com/priorities/keeping-colorados-kids-safe-online/"
+          },
+          {
+            "description": "Bennet opposed Trump executive order blocking state AI laws and called for common-sense state safeguards",
+            "url": "https://www.bennet.senate.gov/2025/12/16/bennet-statement-on-president-trumps-executive-order-blocking-state-level-ai-laws/"
+          },
+          {
+            "description": "Bennet urged platforms and AI developers to label AI-generated content and limit misleading deepfakes",
+            "url": "https://www.bennet.senate.gov/2023/06/29/press-releases-id-653e18a2-5bb8-40e9-a95d-98c5d0941a29/"
+          }
+        ]
+      },
+      {
+        "candidate": "Phil Weiser",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Weiser warned voters about AI deepfakes and highlighted Colorado law requiring disclosure in political communications",
+            "url": "https://coag.gov/2024/9-9-2024/"
+          },
+          {
+            "description": "Weiser urged a transparent, risk-based approach to AI governance with testing, assessment, and government oversight",
+            "url": "https://coag.gov/press-releases/6-13-23/"
+          },
+          {
+            "description": "Weiser joined bipartisan warning to AI election robocallers and framed AI misinformation as a democracy threat",
+            "url": "https://coag.gov/2024/2-6-24/"
+          }
+        ]
+      },
+      {
+        "candidate": "Victor Marx",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Campaign newsletter says AI will shape Colorado's future and calls for responsible oversight and security measures",
+            "url": "https://www.victor2026.com/post/team-victor-weekly-update-february-16-2026"
+          }
+        ]
+      },
+      {
+        "candidate": "Barbara Kirkmeyer",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Colorado legislative and launch materials reviewed; no AI-specific campaign or policy position found",
+            "url": "https://leg.colorado.gov/legislators/barbara-kirkmeyer"
+          }
+        ]
+      },
+      {
+        "candidate": "Jason Clark",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign platform emphasizes taxes, crime, and energy; no AI-specific policy position found",
+            "url": "https://www.jasonclarkforcogov.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Jason Mikesell",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign priorities focus on housing, public safety, and energy; no AI-specific policy position found",
+            "url": "https://www.mikesell4gov.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Joe Oltmann",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign site focuses on election integrity and constitutional issues; no AI-specific policy position found",
+            "url": "https://oltmann2026.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Scott Bottoms",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Public profile and campaign-facing materials reviewed; no AI-specific policy position found",
+            "url": "https://www.coloradohouserepublicans.com/scott-bottoms"
+          }
+        ]
+      },
+      {
+        "candidate": "Greg Lopez",
+        "party": "I",
+        "status": "Independent Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign launch announcement focuses on affordability, safety, and education; no AI-specific policy position found",
+            "url": "https://www.greglopez.co/press/2026-announcement"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Colorado",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "John Hickenlooper",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Hickenlooper introduced VET AI Act — directs NIST to develop guidelines for independent third-party audits of AI systems; passed Senate Commerce Committee",
+            "url": "https://www.hickenlooper.senate.gov/press_releases/hickenlooper-capito-reintroduce-bipartisan-bill-to-boost-ai-standards-create-guidelines-for-third-party-evaluations-of-ai/"
+          },
+          {
+            "description": "Hickenlooper introduced ARIA Act (AI Research Innovation and Accountability Act) — establishes transparency measures for AI developers and deployers",
+            "url": "https://www.hickenlooper.senate.gov/press_releases/hickenlooper-bipartisan-senators-introduce-ai-bill-to-accelerate-innovation-strengthen-u-s-leadership/"
+          },
+          {
+            "description": "Hickenlooper chaired Senate Commerce subcommittee hearing on AI transparency and consumer trust; proposed AI auditing standards and consumer data protections",
+            "url": "https://www.hickenlooper.senate.gov/press_releases/video-hickenlooper-chairs-senate-hearing-on-protecting-consumers-from-ai-deepfakes/"
+          },
+          {
+            "description": "Hickenlooper co-sponsored TAKE IT DOWN Act — criminalizes AI-generated deepfake pornography, requires platform removal",
+            "url": "https://www.hickenlooper.senate.gov/press_releases/icymi-hickenlooper-charts-path-for-ai-regulation/"
+          },
+          {
+            "description": "Hickenlooper + Thune urge federal AI standards: 'consumers should be empowered to trust the AI systems they interact with'",
+            "url": "https://www.hickenlooper.senate.gov/press_releases/hickenlooper-thune-urge-federal-action-on-artificial-intelligence/"
+          },
+          {
+            "description": "On AI self-regulation: 'We can't let an industry with so many unknowns and potential harms police itself' — called for qualified third-party audits",
+            "url": "https://www.hickenlooper.senate.gov/press_releases/hickenlooper-proposes-ai-auditing-standards-calls-for-protecting-consumer-data-increasing-transparency/"
+          }
+        ]
+      },
+      {
+        "candidate": "Janak Joshi",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Joshi: former state Rep, first-time Senate candidate — no AI policy positions found",
+            "url": "https://ballotpedia.org/Janak_Joshi"
+          }
+        ]
+      },
+      {
+        "candidate": "Julie Gonzales",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Gonzales engaged in CO AI law negotiations as state senator: 'All thirty-five of us know the stunning brunt of AI leverage' — specific positions not documented for Senate campaign",
+            "url": "https://coloradosun.com/2025/08/25/colorado-ai-law-tweak-dies/"
+          },
+          {
+            "description": "Gonzales Senate campaign platform: running as progressive challenger to Hickenlooper — no AI-specific Senate campaign positions found",
+            "url": "https://www.julieforcolorado.com"
+          }
+        ]
+      },
+      {
+        "candidate": "Mark Baisley",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "naughty",
+        "sources": [
+          {
+            "description": "Baisley wants to repeal Colorado SB 205 (landmark state AI regulation law) — replace software-level regulation with just an anti-discrimination statement; 'the new AI law takes the wrong approach'",
+            "url": "https://www.coloradopolitics.com/2025/08/13/amend-or-repeal-proposals-surface-to-effectively-undo-ai-regulation-law-in-colorado-2/"
+          },
+          {
+            "description": "Baisley: 'critical that we fix Colorado's AI law to keep jobs in Colorado' — frames AI deregulation as economic development, not safety",
+            "url": "https://coloradopolitics.com/news/artificial-intelligence-regulations-in-colorado/article_d566655d-da19-49b5-90f1-5db762a62192.html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Florida",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Paul Renner",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Renner called Donalds' AI data center support 'greed-mongering at its worst' — criticized collusion between Big Tech and utility companies; demanded Donalds renounce AI data center funding",
+            "url": "https://voterenner.com/paul-renner-for-governor-byron-donalds-the-state-of-florida-is-not-for-sale/"
+          },
+          {
+            "description": "Renner supports using AI to detect government corruption; wants parental opt-in for children's AI use; favors age restrictions; opposes unregulated data center expansion",
+            "url": "https://www.wlrn.org/government-politics/2025-09-03/former-florida-house-speaker-paul-renner-enters-race-for-florida-governor/"
+          }
+        ]
+      },
+      {
+        "candidate": "David Jolly",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Jolly campaign focuses on affordability, insurance reform, gun safety — no AI-specific policy positions found across website or news coverage",
+            "url": "https://floridaphoenix.com/2025/06/05/its-official-david-jolly-is-a-democratic-candidate-for-governor-in-26/"
+          }
+        ]
+      },
+      {
+        "candidate": "James Fishback",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Fishback pledges to block AI data center construction as governor — motivated by energy cost increases (30-40%) and water usage (500K+ gallons/day); not specifically AI safety-focused",
+            "url": "https://x.com/j_fishback/status/2000223922143273227"
+          }
+        ]
+      },
+      {
+        "candidate": "Jay Collins",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Collins (Lt. Gov.) warned about AI energy demands and 'dangers of flawed data influencing public opinion'; expressed concern about children's mental health from AI relationships — no legislative AI record",
+            "url": "https://www.news4jax.com/news/local/2026/01/18/lt-gov-jay-collins-enters-governors-race-emphasizing-economy-education-and-community-safety/"
+          }
+        ]
+      },
+      {
+        "candidate": "Jerry Demings",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Demings touts Orange County's 20-year AI use: prevented 4M+ cyber intrusions, AI-powered 911 translation, traffic optimization — pragmatic government user; no AI regulatory stance published",
+            "url": "https://theapopkachief.com/demings-touts-fiscal-prudence-ai-use-in-2025-state-of-county/"
+          }
+        ]
+      },
+      {
+        "candidate": "Byron Donalds",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "naughty",
+        "sources": [
+          {
+            "description": "Donalds breaks with DeSantis — calls AI 'something magical' and embraces 'creative destruction'; explicitly opposes state-level AI regulation",
+            "url": "https://floridapolitics.com/archives/778801-byron-donalds-breaks-with-ron-desantis-on-magical-ai-embraces-technologys-creative-destruction/"
+          },
+          {
+            "description": "AI super PAC 'Leading the Future' pledges $5M to Donalds — funded by OpenAI co-founder Greg Brockman and Andreessen Horowitz; industry bet against DeSantis-style regulation",
+            "url": "https://www.nbcnews.com/politics/2026-election/super-pac-backed-ai-titans-pledges-5-million-boost-byron-donalds-run-f-rcna258612"
+          },
+          {
+            "description": "Donalds: 'parents and Florida should lead regulation of AI' — frames as pro-innovation with only minimal guardrails on IP and deepfakes",
+            "url": "https://floridianpress.com/2026/02/byron-donalds-says-parents-florida-should-lead-regulation-of-ai/"
+          },
+          {
+            "description": "Donalds supports AI data center expansion in FL; dismisses 'performative' AI critiques; proposes nuclear power to support data center energy demand",
+            "url": "https://floridapolitics.com/archives/781341-ai-donalds-byron/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Georgia",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Jason Esteves",
+        "party": "D",
+        "status": "Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Served on Georgia Senate Study Committee on Artificial Intelligence (2024); co-sponsored SB 37 (AI Accountability Act) to create state AI board and require all government entities to develop AI usage plans; stated 'the legislature must support AI while also protecting people from its repercussions'",
+            "url": "https://ballotpedia.org/Jason_Esteves"
+          },
+          {
+            "description": "SB 37 would have required local governments to report AI system usage and created a Georgia Board for Artificial Intelligence — bill did not pass but reflects clear regulatory posture on accountability and oversight",
+            "url": "https://atlantaciviccircle.org/2025/03/12/georgia-artificial-intelligence-ai-state-bill-local-government/"
+          }
+        ]
+      },
+      {
+        "candidate": "Brad Raffensperger",
+        "party": "R",
+        "status": "Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Warned publicly about AI deepfake threats to elections; stated 'We're very concerned, because what happens when the fake is so good you don't even know that you've been faked out?' — called for election official preparedness against AI-generated disinformation",
+            "url": "https://ballotpedia.org/Brad_Raffensperger"
+          },
+          {
+            "description": "Referenced AI-generated Biden robocall (NH 2024) as warning example of AI election interference; advocates resources and training for election officials to combat AI threats; framed as preparedness not regulation",
+            "url": "https://dailyprogress.com/news/local/government-politics/ai-threat-haunting-2024-elections-says-brad-raffensperger/article_83fdeee2-f5b2-11ee-90e4-5b8822928919.html"
+          }
+        ]
+      },
+      {
+        "candidate": "Burt Jones",
+        "party": "R",
+        "status": "Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "As Lt. Governor, empaneled 2025 Senate Study Committee on Impact of Social Media and Artificial Intelligence on Children; backed child safety social media law; no AI governance planks in governor's campaign",
+            "url": "https://ballotpedia.org/Burt_Jones"
+          },
+          {
+            "description": "Large AI data center project proposed on Jones family land in Butts County — raises conflict-of-interest concerns about his relationship to AI infrastructure; framed as economic development not regulation",
+            "url": "https://ltgov.georgia.gov/press-releases/2025-05-22/2025-senate-study-committee-appointments"
+          }
+        ]
+      },
+      {
+        "candidate": "Gregg Kirkpatrick",
+        "party": "R",
+        "status": "Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Proposes using AI in government via 'Department of Anti-Corruption' to reduce waste; advocates for responsible AI data center growth requiring environmental protection plans from operators; most explicit AI policy platform in Republican field",
+            "url": "https://ballotpedia.org/Gregg_Kirkpatrick"
+          }
+        ]
+      },
+      {
+        "candidate": "Michael Thurmond",
+        "party": "D",
+        "status": "Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Thurmond has made AI workforce readiness a campaign pillar — wants to build 'most AI-proficient workforce in America' using GA technical colleges and universities; focuses on retraining workers for AI economy; no regulatory stance found",
+            "url": "https://ballotpedia.org/Michael_Thurmond"
+          },
+          {
+            "description": "Thurmond stated 'there's a major transformation taking place, and we are not doing enough as a state to retool the current workforce and to prepare our students to be successful' — framing AI as economic opportunity, not regulatory challenge",
+            "url": "https://www.gpb.org/news/2025/08/06/democrat-michael-thurmond-launches-2026-run-for-georgia-governor"
+          }
+        ]
+      },
+      {
+        "candidate": "Chris Carr",
+        "party": "R",
+        "status": "Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "No AI positions identified; campaign focuses on public safety, job creation, cost of living, and mental health — no AI regulatory actions from AG office",
+            "url": "https://ballotpedia.org/Chris_Carr_(Georgia)"
+          }
+        ]
+      },
+      {
+        "candidate": "Geoff Duncan",
+        "party": "D",
+        "status": "Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Former Lt. Gov. championed GA as 'Technology Capital of the East Coast' and launched Partnership for Inclusive Innovation; no AI safety or regulation positions identified in current governor's race campaign",
+            "url": "https://ballotpedia.org/Geoff_Duncan"
+          }
+        ]
+      },
+      {
+        "candidate": "Keisha Lance Bottoms",
+        "party": "D",
+        "status": "Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign focuses on Medicaid expansion, teacher tax relief, housing, and healthcare; joined Coinbase advisory council (crypto) but no AI governance or safety positions identified in gubernatorial campaign",
+            "url": "https://ballotpedia.org/Keisha_Lance_Bottoms"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Georgia",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Jon Ossoff",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "AI & Human Rights hearing (chaired – Senate Human Rights Subcommittee)",
+            "url": "https://www.ossoff.senate.gov/press-releases/watch-sen-ossoff-convenes-hearing-on-implications-of-artificial-intelligence-for-human-rights/"
+          },
+          {
+            "description": "Oversight of AI: Rules for Artificial Intelligence – Senate hearing (participated)",
+            "url": "https://www.congress.gov/event/118th-congress/senate-event/LC71543/text"
+          },
+          {
+            "description": "DoD/Grok inquiry – pushed back on Pentagon using xAI Grok over antisemitic outputs",
+            "url": "https://www.ossoff.senate.gov/press-releases/sen-ossoff-colleagues-launch-inquiry-into-department-of-defenses-use-of-ai-software-known-for-antisemitic-content/"
+          },
+          {
+            "description": "General legislation tracker (GovTrack)",
+            "url": "https://www.govtrack.us/congress/members/jon_ossoff/456857"
+          }
+        ]
+      },
+      {
+        "candidate": "Mike Collins",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Federal Science Agencies and the Promise of AI hearing – opening statement (chaired)",
+            "url": "https://science.house.gov/2024/2/opening-statement-of-subcommittee-chairman-mike-collins-at-joint-research-technology-and-energy-subcommittee-hearing-federal-science-agencies-and-the-promise-of-ai-in-driving-scientific-discoveries"
+          },
+          {
+            "description": "Federal Science Agencies and the Promise of AI – full hearing record (Congress.gov)",
+            "url": "https://www.congress.gov/event/118th-congress/house-event/LC74488/text"
+          },
+          {
+            "description": "AI deepfake campaign ad of Ossoff – CBS Atlanta coverage",
+            "url": "https://www.cbsnews.com/atlanta/news/georgia-rep-mike-collins-campaign-uses-ai-generated-deepfake-of-senator-jon-ossoff-in-tight-senate-showdown/"
+          },
+          {
+            "description": "AI deepfake campaign ad – ethical concerns coverage",
+            "url": "https://www.atlantanewsfirst.com/2025/11/18/ai-campaign-ad-hotly-contested-us-senate-race-raises-ethical-questions/"
+          }
+        ]
+      },
+      {
+        "candidate": "Buddy Carter",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Congress.gov profile (Energy & Commerce Committee)",
+            "url": "https://www.congress.gov/member/earl-carter/C001103"
+          },
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Earl_%22Buddy%22_Carter"
+          }
+        ]
+      },
+      {
+        "candidate": "Derek Dooley",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Derek_Dooley"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Illinois",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Juliana Stratton",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Stratton platform: restrict landlords from using AI to set rents/screen applicants; workers must have seat at table on AI implementation; protect jobs displaced by AI",
+            "url": "https://capitolnewsillinois.com/news/stratton-aims-to-bring-pritzker-administration-policies-to-national-stage/"
+          },
+          {
+            "description": "Stratton blueprint: AI innovation must not benefit only the wealthy — worker upskilling, anti-offshoring, pro-worker AI implementation rules",
+            "url": "https://capitolnewsillinois.com/wp-content/uploads/2025/10/JS-LG-Blueprint-Issue-Pamphlet.pdf"
+          },
+          {
+            "description": "IL Pritzker admin (which Stratton seeks to bring to national stage) signed employer AI notification law + anti-discrimination in AI hiring decisions",
+            "url": "https://www.employmentlawinsights.com/2024/08/illinois-civil-rights-protection-goes-high-tech-illinois-human-rights-act-expanded-to-include-ai-regulation/"
+          }
+        ]
+      },
+      {
+        "candidate": "Raja Krishnamoorthi",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Krishnamoorthi: 'We can't repeat with AI what we did with social media' — co-chair of Congressional AI Caucus, pushes for AI safeguards",
+            "url": "https://www.nbcchicago.com/illinois-election-2026/raja-krishnamoorthi-lays-out-his-case-in-2026-illinois-senate-primary/3904645/"
+          },
+          {
+            "description": "Krishnamoorthi + Moolenaar introduce No Adversarial AI Act to bar federal agencies from DeepSeek and CCP-linked AI — China arms race framing",
+            "url": "https://democrats-selectcommitteeontheccp.house.gov/media/press-releases/krishnamoorthi-and-moolenaar-lead-bipartisan-bicameral-bill-protect-federal"
+          },
+          {
+            "description": "Krishnamoorthi + Bera: legislation requiring Congressional approval before sale of advanced AI chips to China — export control focus",
+            "url": "https://democrats-selectcommitteeontheccp.house.gov/media/press-releases/krishnamoorthi-bera-introduce-legislation-require-congressional-approval-sale"
+          },
+          {
+            "description": "Ranking Member of House Select Committee on CCP — his AI work overwhelmingly framed around US-China competition not domestic safety",
+            "url": "https://democrats-selectcommitteeontheccp.house.gov/about-committee/ranking-member-raja-krishnamoorthi"
+          }
+        ]
+      },
+      {
+        "candidate": "Don Tracy",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Tracy campaign platform: lower cost of living, decrease tax burden, border security — no AI policy positions found; former IL GOP chairman",
+            "url": "https://chicago.suntimes.com/elections/2026/candidate-questionnaires/don-tracy-illinois-primary-united-states-senate"
+          },
+          {
+            "description": "IL GOP Senate debate: Tracy, Evans, Chlebek pitched on cost-of-living and border issues — no AI positions surfaced",
+            "url": "https://www.stlpr.org/government-politics-issues/2026-02-12/illinois-gop-senate-candidates-first-major-debate"
+          }
+        ]
+      },
+      {
+        "candidate": "Robin Kelly",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Kelly tech platform: ensure workers 'prepared to work with AI as a positive tool' — no safety regulation positions; bipartisan work with Hurd to cut China AI chip access and push US AI development",
+            "url": "https://robinkelly.house.gov/issues/technology-and-telecommunications"
+          },
+          {
+            "description": "Kelly-Hurd bipartisan plan: cut China's AI chip access, push US resources toward AI development — arms race framing, no safety dimension",
+            "url": "https://robinkelly.house.gov/media-center/in-the-news/whats-bipartisan-plan-ai-and-national-security"
+          },
+          {
+            "description": "CBS Chicago 2026 candidate profile: Kelly focuses on Medicare for All, wages, childcare — no AI safety positions in campaign platform",
+            "url": "https://www.cbsnews.com/chicago/news/senate-candidate-profile-illinois-congresswoman-robin-kelly/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Iowa",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Ashley Hinson",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Hinson (Rep. IA-2) supports AI for rural economic development (Google/Microsoft data centers) and national security competitiveness vs. China — no AI safety or consumer protection positions identified",
+            "url": "https://punchbowl.news/the-ones-to-watch/advancing-with-ai/ashley-hinson/"
+          }
+        ]
+      },
+      {
+        "candidate": "J.D. Scholten",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Scholten (IA state Rep., former pro baseball player) entered race after Ernst's Medicaid comments — no AI policy positions identified",
+            "url": "https://www.thegazette.com/campaigns-elections/iowa-veteran-democrat-launches-senate-bid-against-joni-ernst/"
+          }
+        ]
+      },
+      {
+        "candidate": "Nathan Sage",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Sage (Marine/Army veteran, sports announcer) entered race to connect with working-class voters — no AI policy positions identified",
+            "url": "https://www.nbcnews.com/politics/2026-election/iowa-sen-joni-ernst-first-democratic-challenger-2026-nathan-sage-rcna201299"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Maine",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Janet Mills",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Mills signed exec order creating Maine AI Task Force (Dec 2024) — 34 recommendations to 'strengthen guardrails against potential harms' while bolstering innovation",
+            "url": "https://www.maine.gov/governor/mills/news/governor-mills-signs-executive-order-establishing-task-force-artificial-intelligence-2024-12"
+          },
+          {
+            "description": "Task Force final report: 34 recommendations covering workforce, public sector deployment, and consumer protections — Mills allocated $6.7M in budget for AI safeguards",
+            "url": "https://www.maine.gov/governor/mills/news/task-force-releases-report-artificial-intelligence-maine-2025-11-10"
+          },
+          {
+            "description": "Mills signed AI chatbot transparency law: prohibits misleading consumers into thinking they're talking to a human",
+            "url": "https://www.verrill-law.com/news/maine-law-now-requires-limited-disclosures-of-artificial-intelligence-technology/"
+          },
+          {
+            "description": "Mills signed two AI deepfake protection bills — updated state law to cover AI-generated non-consensual intimate images",
+            "url": "https://www.maine.gov/housedems/news/governor-signs-kuhn-legislation-protect-mainers-deceptive-artificial-intelligence"
+          }
+        ]
+      },
+      {
+        "candidate": "Susan Collins",
+        "party": "R",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Collins co-sponsored Protect Elections from Deceptive AI Act — bipartisan bill banning AI-generated deepfakes in political ads",
+            "url": "https://www.collins.senate.gov/newsroom/senator-collins-bipartisan-group-introduce-bill-to-ban-deceptive-ai-generated-content-in-elections"
+          },
+          {
+            "description": "Collins + Klobuchar introduced Preparing Election Administrators for AI Act — voluntary EAC guidelines for election offices on AI risks and disinformation",
+            "url": "https://www.collins.senate.gov/newsroom/senators-collins-klobuchar-introduce-bipartisan-bill-to-provide-ai-guidelines-for-election-offices"
+          },
+          {
+            "description": "Collins joined bipartisan amendment (passed 99-1) to STRIKE 10-year state AI law moratorium from reconciliation bill — actively opposed federal preemption of state AI regulation",
+            "url": "https://www.nextgov.com/artificial-intelligence/2025/07/senate-overwhelmingly-passes-amendment-removing-state-ai-moratorium/406448/"
+          },
+          {
+            "description": "39 Maine state lawmakers signed letter urging Collins to oppose AI moratorium — she complied; broke with Cruz and Senate GOP leadership on this",
+            "url": "https://www.maine.gov/housedems/news/39-state-lawmakers-sign-letter-calling-sen-collins-oppose-ai-regulation-moratorium"
+          }
+        ]
+      },
+      {
+        "candidate": "Graham Platner",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Platner campaign: veteran, oyster farmer, anti-establishment economic populist — no AI policy positions found",
+            "url": "https://www.grahamforsenate.com"
+          },
+          {
+            "description": "PBS profile: Platner focuses on working class economics and anti-oligarchy message — no tech or AI positions mentioned",
+            "url": "https://www.pbs.org/newshour/politics/maines-graham-platner-thinks-voters-will-overlook-his-past-to-support-a-new-type-of-candidate"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Maryland",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Wes Moore",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Moore signed executive order (Jan 2024) on responsible AI in state government — established principles of fairness, equity, privacy, safety, transparency, accountability; created AI Subcabinet to develop guardrails for all state agencies",
+            "url": "https://governor.maryland.gov/news/press/pages/governor-moore-announces-action-to-transform-maryland-executive-branch-digital-services.aspx"
+          },
+          {
+            "description": "Moore's AI executive order established comprehensive AI action plan for state government; directed AI Subcabinet to operationalize safety principles; paired with digital accessibility policy and cybersecurity task force",
+            "url": "https://www.washingtonpost.com/dc-md-va/2024/01/08/maryland-ai-government-wes-moore/"
+          }
+        ]
+      },
+      {
+        "candidate": "John Myrick",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Myrick is the main filed Republican challenger — no AI policy positions identified; Republican field includes no major technology-focused candidates",
+            "url": "https://electiondesk.org/2026/01/13/2026-maryland-governors-race-what-we-know-so-far/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Massachusetts",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Ed Markey",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Markey introduced AI Civil Rights Act — comprehensive guardrails on algorithmic decisions; requires pre/post-deployment testing; targets bias in hiring, housing, credit, healthcare",
+            "url": "https://www.markey.senate.gov/news/press-releases/senator-markey-introduces-ai-civil-rights-act-to-eliminate-ai-bias-enact-guardrails-on-use-of-algorithms-in-decisions-impacting-peoples-rights-civil-liberties-livelihoods"
+          },
+          {
+            "description": "Markey introduced States' Right to Regulate AI Act (Dec 2025) — led 10 colleagues to block Trump executive order preempting state AI regulation; 'states should be able to protect their residents'",
+            "url": "https://www.markey.senate.gov/news/press-releases/senator-markey-introduces-legislation-to-block-trumps-executive-order-blocking-state-ai-regulation"
+          },
+          {
+            "description": "Markey touted win when Senate scrapped proposal to ban state AI regulation (July 2025) — had fought 10-year federal preemption moratorium included in budget reconciliation",
+            "url": "https://www.wbur.org/news/2025/07/01/ai-regulation-states-scrapped"
+          },
+          {
+            "description": "Markey introduced Eliminating BIAS Act — requires every federal agency that uses or funds AI to have a civil rights office focused on combating AI discrimination",
+            "url": "https://www.markey.senate.gov/news/press-releases/sen-markey-rep-lee-reintroduce-legislation-to-mandate-civil-rights-offices-in-federal-agencies-that-manage-artificial-intelligence"
+          },
+          {
+            "description": "Markey co-introduced AI Environmental Impacts Act with Heinrich — requires NIST to develop standards measuring AI energy/water use and e-waste",
+            "url": "https://www.markey.senate.gov/news/press-releases/markey-heinrich-eshoo-beyer-introduce-legislation-to-investigate-measure-environmental-impacts-of-artificial-intelligence"
+          },
+          {
+            "description": "Markey introduced bipartisan Strategy for Public Health Preparedness and Response to AI Threats Act — prepares federal public health infrastructure for AI-enabled health threats",
+            "url": "https://www.markey.senate.gov/news/press-releases/markey-budd-introduce-bipartisan-bill-to-prepare-for-ai-public-health-threats"
+          },
+          {
+            "description": "Markey and Warren urged Democratic colleagues to oppose the 2026 NDAA if it included an AI regulation moratorium, calling it 'a massive giveaway to Big Tech' that would prevent states from protecting residents from AI risks",
+            "url": "https://www.markey.senate.gov/news/press-releases/senators-markey-warren-urge-democratic-colleagues-to-stand-firm-against-big-tech-attempt-to-sneak-ai-regulation-moratorium-into-defense-bill"
+          }
+        ]
+      },
+      {
+        "candidate": "Seth Moulton",
+        "party": "D",
+        "status": "Primary Challenger",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Moulton (Armed Services Committee) calls for 'Geneva Convention for AI' — wants international treaty framework for autonomous weapons; warned AI weapons could surpass nuclear weapons in danger",
+            "url": "https://www.bostonglobe.com/2023/05/24/opinion/seth-moulton-ai-autonomous-weapons/"
+          },
+          {
+            "description": "Moulton also advocates faster US military AI adoption: 'every new weapons system should have an AI component'; led Future of Defense Task Force on AI integration",
+            "url": "https://defensescoop.com/2022/11/23/hasc-lawmaker-seth-moulton-urges-faster-adoption-and-more-restraint-of-military-ai/"
+          },
+          {
+            "description": "Co-sponsored bipartisan resolution calling for a national AI strategy across workforce, national security, R&D, and ethics; warned 'If we don't set the rules of the road for AI, China or Russia will'",
+            "url": "https://moulton.house.gov/news/press-releases/moulton-joins-hurd-kelly-resolution-create-national-artificial-intelligence"
+          },
+          {
+            "description": "In 2026 Senate campaign, called for government intervention to support AI-displaced workers; supports 'tight restrictions' on AI companies in communities (electricity/water); says AI is 'a huge issue' that will eliminate entry-level jobs",
+            "url": "https://www.tuftsdaily.com/article/2026/03/seth-moulton-discusses-senate-campaign-with-the-daily"
+          }
+        ]
+      },
+      {
+        "candidate": "John Deaton",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Deaton (crypto/blockchain attorney, 2024 Senate candidate against Warren) — no AI safety or regulation positions identified; campaign focused on crypto rights and constitutional law",
+            "url": "https://ballotpedia.org/John_Deaton"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Michigan",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Jocelyn Benson",
+        "party": "D",
+        "status": "Dem Primary Frontrunner",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Pushed to regulate AI in political ads – Michigan joined effort to require deepfake disclosure",
+            "url": "https://www.pbs.org/newshour/politics/michigan-to-join-state-level-effort-to-regulate-ai-political-ads-as-federal-legislation-is-pending"
+          },
+          {
+            "description": "Called on Senate to pass federal Deceptive AI Act – argued states need federal funding to tackle AI challenges",
+            "url": "https://gandernewsroom.com/2023/11/29/michigan-to-join-effort-to-regulate-deepfake-political-ads/"
+          },
+          {
+            "description": "Wants data centers to create good-paying union jobs while protecting natural resources and lowering energy costs",
+            "url": "https://eu.detroitnews.com/story/news/politics/2026/02/21/michigan-democrats-data-center-jocelyn-benson-tom-leonard-ice-baldwin-haley-stevens-hillary-scholten/88775665007/"
+          },
+          {
+            "description": "Conflict of interest flag: husband tied to major data center project in Saline MI – says he will recuse if she's elected",
+            "url": "https://michiganadvance.com/2025/11/14/bensons-husband-to-recuse-from-state-work-on-controversial-data-center-if-she-is-elected-governor/"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://www.jocelynbenson.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "John James",
+        "party": "R",
+        "status": "GOP Primary Frontrunner",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign website",
+            "url": "https://johnjamesmi.com/"
+          },
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/John_James_(Michigan)"
+          },
+          {
+            "description": "Wikipedia profile",
+            "url": "https://en.wikipedia.org/wiki/John_James_(Michigan_politician)"
+          }
+        ]
+      },
+      {
+        "candidate": "Mike Duggan",
+        "party": "I",
+        "status": "Independent Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Bridge Michigan – Duggan running as independent after leaving Democratic Party",
+            "url": "https://bridgemi.com/michigan-government/whos-running-michigan-governor-former-house-speaker-tom-leonard-jumps/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Michigan",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Mallory McMorrow",
+        "party": "D",
+        "status": "Dem Primary Frontrunner",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Issued policy plan taking on Big Tech to keep kids safe – Axios exclusive",
+            "url": "https://www.axios.com/2026/02/09/senate-mallory-mcmorrow-michigan-kids-online-safety"
+          },
+          {
+            "description": "Sponsored legislation targeting predatory AI chatbots and social media addiction – Michigan Advance",
+            "url": "https://michiganadvance.com/2026/01/22/predatory-ai-social-media-addiction-targeted-by-new-legislation-from-michigan-senate-democrats/"
+          },
+          {
+            "description": "Plan: hold platforms accountable for AI chatbots promoting suicide / eating disorders / substance abuse to minors",
+            "url": "https://michiganadvance.com/2026/02/09/mcmorrow-issues-policy-plan-taking-on-big-tech-to-keep-kids-safe/"
+          },
+          {
+            "description": "Plan: prohibit AI chatbots from misrepresenting output as coming from licensed professionals (doctors / lawyers / therapists)",
+            "url": "https://gandernewsroom.com/2026/02/09/michigans-mallory-mcmorrow-takes-on-big-tech-as-us-senate-run-heats-up/"
+          },
+          {
+            "description": "Said Michigan has opportunity to handle AI infrastructure properly where other states have failed",
+            "url": "https://michiganadvance.com/2026/02/09/mcmorrow-issues-policy-plan-taking-on-big-tech-to-keep-kids-safe/"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://senatedems.com/mcmorrow/"
+          }
+        ]
+      },
+      {
+        "candidate": "Abdul El-Sayed",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Abdul_El-Sayed"
+          }
+        ]
+      },
+      {
+        "candidate": "Haley Stevens",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Congress.gov profile",
+            "url": "https://www.congress.gov/member/haley-stevens/S001215"
+          }
+        ]
+      },
+      {
+        "candidate": "Mike Rogers",
+        "party": "R",
+        "status": "GOP Nominee",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign website – national security / cybersecurity focus but no AI policy positions",
+            "url": "https://rogersforsenate.com/"
+          },
+          {
+            "description": "Wikipedia profile",
+            "url": "https://en.wikipedia.org/wiki/Mike_Rogers_(Michigan_politician)"
+          },
+          {
+            "description": "Congress.gov profile",
+            "url": "https://www.congress.gov/member/mike-rogers/R000572"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Minnesota",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Amy Klobuchar",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Klobuchar co-authored TAKE IT DOWN Act — criminalizes AI-generated deepfake pornography; requires platform removal within 48 hours; signed into law May 2025",
+            "url": "https://www.klobuchar.senate.gov/public/index.cfm/2025/5/klobuchar-s-bipartisan-take-it-down-act-signed-into-law"
+          },
+          {
+            "description": "Klobuchar co-authored NO FAKES Act — creates federal right to one's own voice/likeness; prohibits unauthorized AI-generated digital replicas; backed by OpenAI, Disney, SAG-AFTRA",
+            "url": "https://www.coons.senate.gov/news/press-releases/senators-coons-blackburn-klobuchar-tillis-introduce-bill-to-protect-individuals-voices-and-likenesses-from-ai-generated-replicas/"
+          },
+          {
+            "description": "Klobuchar co-authored Protect Elections from Deceptive AI Act — prohibits AI deepfakes of federal candidates in political ads; advanced out of Rules Committee 2024",
+            "url": "https://www.klobuchar.senate.gov/public/index.cfm/2024/5/klobuchar-statement-on-rules-committee-passage-of-three-bipartisan-ai-and-elections-bills"
+          },
+          {
+            "description": "Klobuchar co-authored AIRIA Act — establishes testing standards for high-risk AI, transparency requirements, and watermarking research",
+            "url": "https://www.klobuchar.senate.gov/public/index.cfm/2023/11/klobuchar-thune-commerce-committee-colleagues-introduce-bipartisan-ai-bill-to-strengthen-accountability-and-boost-innovation"
+          },
+          {
+            "description": "Klobuchar personally victimized by AI deepfake voice impersonation on X; wrote NYT op-ed on 'powerlessness' to get it removed; renewed legislative push for NO FAKES Act",
+            "url": "https://aicommission.org/2025/08/press-release-klobuchar-discusses-ai-deepfake-experience-and-calls-for-legislative-action-in-new-op-ed/"
+          },
+          {
+            "description": "Klobuchar co-signed Senate Bipartisan AI Policy Roadmap (May 2024); chaired Rules Committee hearings on AI in elections; one of the most prolific AI legislators in the Senate",
+            "url": "https://www.klobuchar.senate.gov/public/index.cfm/2024/5/klobuchar-statement-on-bipartisan-senate-ai-working-group-roadmap"
+          }
+        ]
+      },
+      {
+        "candidate": "Kendall Qualls",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Qualls (healthcare technology executive, 2022 gov. candidate) — no AI policy positions found; campaign focuses on affordability, public safety, and immigration",
+            "url": "https://www.mprnews.org/story/2025/05/08/qualls-makes-second-run-for-minnesota-governor"
+          }
+        ]
+      },
+      {
+        "candidate": "Lisa Demuth",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Demuth (MN House Speaker, GOP frontrunner) backed AI tools for fraud prevention in state programs — pragmatic government use; no AI safety or regulation positions identified",
+            "url": "https://www.axios.com/local/twin-cities/2026/01/09/legislative-leaders-ai-tools-fraud-minnesota"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Minnesota",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Angie Craig",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Craig (Rep. MN-2) introduced Seniors Deserve SMARTER Care Act to block AI in Medicare coverage decisions; pressed Instacart on AI price discrimination — narrow healthcare/consumer focus, no comprehensive AI governance",
+            "url": "https://craig.house.gov/media/press-releases/rep-craig-introduces-bill-block-use-ai-medicare-coverage-decisions-prevent"
+          }
+        ]
+      },
+      {
+        "candidate": "David Hann",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Hann (former MN Senate Minority Leader, MN GOP Chair) — campaign focuses on affordability and public safety; no AI-specific positions identified",
+            "url": "https://www.hannforsenate.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Melissa Lopez Franzen",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Lopez Franzen (former MN state senator) entered Democratic primary March 2026 — no AI policy positions identified",
+            "url": "https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Minnesota"
+          }
+        ]
+      },
+      {
+        "candidate": "Peggy Flanagan",
+        "party": "D",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Flanagan (Lt. Gov.) opposes Trump/HHS use of AI for Medicare prior authorizations — framing it as AI overriding doctors; no broader AI governance positions found",
+            "url": "https://peggyflanagan.com/priorities/"
+          }
+        ]
+      },
+      {
+        "candidate": "Royce White",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "White (2024 Senate nominee, lost by 16pts) — campaign centers on border security and populist nationalism; no AI policy positions identified",
+            "url": "https://ballotpedia.org/Royce_White"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Nevada",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Joe Lombardo",
+        "party": "R",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Governor office announced a policy for the responsible and ethical use of AI within state agencies to protect Nevadans from unintended impacts and abusive data practices",
+            "url": "https://www.2news.com/news/local/nevada-governors-office-announces-new-ai-policy/article_a0572aaa-afb5-11ef-8fb2-4b900bea3895.html"
+          },
+          {
+            "description": "Lombardo administration climate innovation plan frames Nevada as using innovation to address public problems; broader innovation posture complements the state AI policy",
+            "url": "https://gov.nv.gov/Newsroom/PRs/2024/2024-08-08-governor-climate-innovation-plan/"
+          }
+        ]
+      },
+      {
+        "candidate": "Aaron Ford",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "As attorney general, Ford urged Congress to study AI harms to children and expand protections against AI-generated child sexual abuse material",
+            "url": "https://ag.nv.gov/News/PR/2023/Attorney_General_Ford_Joins_Coalition_Urging_Congress_to_Study_AI_and_its_Harmful_Effects_on_Children/"
+          },
+          {
+            "description": "Ford sued MediaLab.AI and Kik over harms to Nevada youth, showing a tech-accountability posture, though not a broad AI-governance platform",
+            "url": "https://ag.nv.gov/News/PR/2025/Attorney_General_Ford_Announces_Litigation_Against_the_Social_Media_App_Kik_for_Endangering_Nevada_Children/"
+          }
+        ]
+      },
+      {
+        "candidate": "Alexis Hill",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign platform reviewed; focuses on taxes, schools, healthcare, housing, and workers, with no AI-specific policy position found",
+            "url": "https://alexisfornevada.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Irina Hansen",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign launch and priorities page reviewed; focuses on corruption, regulation, courts, and affordability, with no AI-specific policy position found",
+            "url": "https://irinahansenforgovernor.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Jose Zelaya",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign site reviewed; focuses on veterans, mental health, education, and housing, with no AI-specific policy position found",
+            "url": "https://zelayafornevada.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Matthew Winterhawk",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign site reviewed; focuses on anti-corruption, election integrity, and civic reform, with no AI-specific policy position found",
+            "url": "https://w4nevada.com/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "New Hampshire",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Chris Pappas",
+        "party": "D",
+        "status": "Dem Primary Frontrunner",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Led NH delegation urging FCC/FEC to prevent AI robocalls",
+            "url": "https://pappas.house.gov/media/press-releases/pappas-leads-nh-delegation-in-urging-further-coordination-to-prevent-ai-robocalls-applauds-recent-efforts-to-protect-nh-voters"
+          },
+          {
+            "description": "Raised concern about improper AI use in Medicare Advantage prior auth denials",
+            "url": "https://pappas.house.gov/media/press-releases/pappas-raises-concern-about-improper-use-of-ai-by-medicare-advantage-providers"
+          },
+          {
+            "description": "General legislation tracker (Congress.gov)",
+            "url": "https://www.congress.gov/member/chris-pappas/P000614"
+          }
+        ]
+      },
+      {
+        "candidate": "John Sununu",
+        "party": "R",
+        "status": "GOP Primary Frontrunner",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://news.ballotpedia.org/2025/10/24/john-e-sununu-is-the-third-former-senator-running-in-2026/"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://www.sununusenator.com/"
+          },
+          {
+            "description": "Wikipedia (Senate record 2003-2009)",
+            "url": "https://en.wikipedia.org/wiki/John_E._Sununu"
+          }
+        ]
+      },
+      {
+        "candidate": "Karishma Manzur",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Karishma_Manzur"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://www.karishmaforsenate.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Scott Brown",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Scott_Brown_(Massachusetts)"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://scottbrown.com/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "New Mexico",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Ben Ray Lujan",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Lujan introduced TEST AI Act — bipartisan bill directing NIST and DOE national labs (Sandia, Los Alamos) to build federal AI testing infrastructure; quoted: 'responsible guardrails that protect our national security'",
+            "url": "https://www.lujan.senate.gov/newsroom/press-releases/lujan-colleagues-introduce-bipartisan-legislation-to-improve-ai-testing-and-evaluation-systems-safeguard-americans-against-risks/"
+          },
+          {
+            "description": "Lujan secured $762K for NM State University AI curriculum development in FY2026 appropriations; engaged NIST and DOE national labs on AI guardrails over multiple years",
+            "url": "https://www.lujan.senate.gov/"
+          }
+        ]
+      },
+      {
+        "candidate": "Benjamin Luna",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Luna (entrepreneur, independent journalist) — declared Republican primary candidate; no AI policy positions identified",
+            "url": "https://ballotpedia.org/Benjamin_Luna"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "New York",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Kathy Hochul",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Hochul signed the RAISE Act (Dec 2025) — nation-leading law requiring frontier AI developers ($100M+ compute) to publish safety protocols, report incidents within 72 hours; $1M-$3M penalties",
+            "url": "https://www.governor.ny.gov/news/governor-hochul-signs-nation-leading-legislation-require-ai-frameworks-ai-frontier-models"
+          },
+          {
+            "description": "Hochul launched Empire AI Consortium — $500M+ public/private investment in AI supercomputing at University at Buffalo; members include Columbia, Cornell, NYU, RPI, CUNY, SUNY",
+            "url": "https://www.governor.ny.gov/news/governor-hochul-launches-empire-ai-consortium-make-new-york-global-leader-artificial"
+          },
+          {
+            "description": "Hochul signed SAG-AFTRA-backed bills (Dec 2025) — requires disclosure of AI-generated human likenesses in ads; bans use of deceased performers' digital likenesses without estate consent",
+            "url": "https://variety.com/2025/film/news/kathy-hochul-sag-aftra-ai-bills-1236606659/"
+          },
+          {
+            "description": "Hochul signed AI companion chatbot safety law — requires crisis protocols for suicidal ideation, human disclosure every 3 hours; sent enforcement letters to AI companion companies",
+            "url": "https://www.governor.ny.gov/news/governor-hochul-pens-letter-ai-companion-companies-notifying-them-safeguard-requirements-are-now-in-effect"
+          },
+          {
+            "description": "Hochul outlawed AI-generated CSAM; proposed banning AI deepfakes in political ads within 90 days of elections; required disclosures on digitized political communications (Jan 2026 State of the State)",
+            "url": "https://www.governor.ny.gov/news/governor-hochul-continues-new-yorks-leadership-artificial-intelligence-nation-leading-actions"
+          },
+          {
+            "description": "Hochul proposed Office of Digital Innovation, Governance, Integrity and Trust (DIGIT) in Jan 2026 State of the State — statewide AI oversight body; also proposed data broker registration requirements",
+            "url": "https://ogletree.com/insights-resources/blog-posts/new-york-governor-unveils-new-ai-agenda/"
+          }
+        ]
+      },
+      {
+        "candidate": "Bruce Blakeman",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Blakeman (Trump-endorsed Nassau County Exec) deployed AI surveillance cameras and facial recognition along NYC border for law enforcement — pro-AI use, no regulatory stance; campaign focuses on crime and cost of living",
+            "url": "https://gothamist.com/news/nassau-county-exec-plans-wall-of-surveillance-cameras-at-nyc-long-island-border"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "North Carolina",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Roy Cooper",
+        "party": "D",
+        "status": "Dem Nominee (former Governor)",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Executive Order No. 24 – Advancing Trustworthy AI That Benefits All North Carolinians",
+            "url": "https://governor.nc.gov/executive-order-no-24-advancing-trustworthy-artificial-intelligence-benefits-all-north-carolinians"
+          },
+          {
+            "description": "Established NC AI Leadership Council to advise governor and state agencies on AI strategy",
+            "url": "https://it.nc.gov/resources/artificial-intelligence"
+          },
+          {
+            "description": "Published NC State Government Responsible Use of AI Framework (Aug 2024) – privacy / transparency / risk reduction",
+            "url": "https://it.nc.gov/documents/nc-state-government-responsible-use-artificial-intelligence-framework/download?attachment="
+          },
+          {
+            "description": "Principles for Responsible Use of AI – NCDIT",
+            "url": "https://it.nc.gov/resources/artificial-intelligence/principles-responsible-use-ai"
+          },
+          {
+            "description": "NASBE analysis of NC AI guidelines under Cooper",
+            "url": "https://www.nasbe.org/opportunities-and-challenges-insights-from-north-carolinas-ai-guidelines/"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://roycooper.com/"
+          }
+        ]
+      },
+      {
+        "candidate": "Michael Whatley",
+        "party": "R",
+        "status": "GOP Nominee (former RNC Chair)",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Wikipedia profile – no AI regulation record",
+            "url": "https://en.wikipedia.org/wiki/Michael_Whatley"
+          },
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Michael_Whatley"
+          },
+          {
+            "description": "Mentioned AI data centers and energy mix in campaign – no regulatory stance",
+            "url": "https://theappalachianonline.com/what-to-know-about-michael-whatley-the-wnc-native-running-for-us-senate-in-2026/"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://www.michaelwhatley.com"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Ohio",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Amy Acton",
+        "party": "D",
+        "status": "Dem Nominee",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Campaign issues page – focused on healthcare / education / affordability",
+            "url": "https://actonforgovernor.com/issues/"
+          },
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Amy_Acton"
+          },
+          {
+            "description": "Ideastream interview – no AI mentioned",
+            "url": "https://www.ideastream.org/show/sound-of-ideas/2025-11-12/interview-with-dr-amy-acton-democratic-candidate-for-ohio-governor"
+          }
+        ]
+      },
+      {
+        "candidate": "Vivek Ramaswamy",
+        "party": "R",
+        "status": "GOP Primary Frontrunner",
+        "verdict": "naughty",
+        "sources": [
+          {
+            "description": "'We should not ban anything that China is also not willing to ban' – explicit arms race logic",
+            "url": "https://www.newsweek.com/vivek-ramaswamy-real-danger-ai-1834679"
+          },
+          {
+            "description": "'Real danger of AI' framed as culture war (people 'bending the knee to a new master') not safety",
+            "url": "https://analyticsindiamag.com/vivek-ramaswamy-believes-that-human-response-to-ai-poses-greatest-risk/"
+          },
+          {
+            "description": "DOGE co-lead with Musk – regulatory slashing mandate across federal agencies including AI",
+            "url": "https://www.meritalk.com/articles/trumps-new-ai-crypto-czar-reinforces-likely-ai-policy-changes/"
+          },
+          {
+            "description": "Fox News op-ed: running for OH governor on anti-administrative state / anti-regulation platform",
+            "url": "https://www.foxnews.com/opinion/vivek-ramaswamy-why-its-time-take-administrative-state"
+          },
+          {
+            "description": "iSideWith: supports AI for defense – anti-regulation stance",
+            "url": "https://www.isidewith.com/candidates/vivek-ramaswamy/policies/national-security/artificial-intelligence-ai-for-defense"
+          },
+          {
+            "description": "Caveat: said companies should bear liability for AI harms and AI should not broadly interface with kids",
+            "url": "https://www.newsweek.com/vivek-ramaswamy-real-danger-ai-1834679"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Oregon",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Jeff Merkley",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Co-sponsored Algorithmic Accountability Act — requires AI impact assessments for housing/employment/education decisions; public FTC repository of AI systems",
+            "url": "https://www.merkley.senate.gov/wyden-introduces-merkley-co-sponsors-bill-to-regulate-use-of-ai-to-make-critical-decisions-in-housing-jobs-schools/"
+          },
+          {
+            "description": "Co-sponsored Eliminating BIAS Act — mandates civil rights offices in every federal agency that uses or oversees AI",
+            "url": "https://www.wyden.senate.gov/news/press-releases/wyden-merkley-introduce-legislation-to-mandate-civil-rights-offices-in-federal-agencies-that-handle-artificial-intelligence"
+          },
+          {
+            "description": "Co-sponsored Block Nuclear Launch by Autonomous AI Act — prohibits AI from launching nuclear weapons without 'meaningful human control'; codifies human-in-the-loop requirement",
+            "url": "https://www.congress.gov/bill/118th-congress/senate-bill/1394/text"
+          },
+          {
+            "description": "Co-sponsored AI Civil Rights Act — bans discriminatory AI algorithms in critical decisions; requires pre- and post-deployment testing; increases algorithmic transparency",
+            "url": "https://jayapal.house.gov/2025/12/02/jayapal-markey-clarke-lee-reintroduce-ai-civil-rights-act-to-eliminate-ai-discrimination-and-enact-guardrails-on-use-of-algorithms-in-decisions-impacting-peoples-rights-civil-li/"
+          },
+          {
+            "description": "Introduced ICE Out of Our Faces Act with Markey/Jayapal/Wyden — bans ICE and CBP from acquiring or using facial recognition technology",
+            "url": "https://jayapal.house.gov/2026/02/05/markey-jayapal-merkley-wyden-introduce-bill-to-ban-ice-and-cbp-use-of-facial-recognition-technology-amid-trumps-rapidly-growing-surveillance-state/"
+          },
+          {
+            "description": "Introduced FAIR Elections Act — targets AI-generated election disinformation with particular focus on communities of color",
+            "url": "https://www.congress.gov/bill/118th-congress/senate-bill/2892/text"
+          },
+          {
+            "description": "Co-led Senate letter to DOD demanding answers on AI use in military targeting of Iran; specifically questioned whether AI tools selected targets and whether human verification occurred before strikes",
+            "url": "https://www.merkley.senate.gov/wyden-merkley-demand-answers-from-defense-department-on-the-school-bombing-and-civilian-casualties-in-iran/"
+          }
+        ]
+      },
+      {
+        "candidate": "Russell McAlmond",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "McAlmond: investment officer, Marine veteran, Ethical Individualism philosopher — no AI policy positions found",
+            "url": "https://ballotpedia.org/Russell_McAlmond"
+          }
+        ]
+      },
+      {
+        "candidate": "Timothy Skelton",
+        "party": "R",
+        "status": "Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Skelton: security officer/BBQ restaurant owner — no AI policy positions found",
+            "url": "https://ballotpedia.org/Timothy_Skelton"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Pennsylvania",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Josh Shapiro",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Signed executive order on safe and responsible AI adoption in state govt (Sept 2023) – nation-leading per PA",
+            "url": "https://www.pa.gov/agencies/oa/newsroom/governor-josh-shapiro-signs-executive-order-on-commonwealth-use-of-generative-artificial-intelligence-taking-proactive-step-to-harness-new-technology-while-empowering-state-workforce"
+          },
+          {
+            "description": "Created Generative AI Governing Board to guide AI policy across state agencies",
+            "url": "https://www.pa.gov/governor/newsroom/2025-press-releases/-shapiro-administration-leads-the-way-in-ethical-use-of-ai"
+          },
+          {
+            "description": "Expanded AI collaboration with CMU – PA ranked top 3 states for AI readiness",
+            "url": "https://www.pa.gov/agencies/oa/newsroom/shapiro-administration-expands-artificial-intelligence-collabora"
+          },
+          {
+            "description": "Proposed guardrails for AI data center boom – pressed for aggressive policing of AI",
+            "url": "https://www.eenews.net/articles/josh-shapiro-proposes-guardrails-for-ai-data-center-boom-in-pennsylvania/"
+          },
+          {
+            "description": "Launched multiagency AI Literacy Toolkit for kids / parents / teachers",
+            "url": "https://www.pa.gov/governor/newsroom/2026-press-releases/governor-shapiro-takes-action-to-protect-pennsylvanians-using-ai"
+          },
+          {
+            "description": "AI Task Force to crack down on AI companion bots impersonating licensed medical providers",
+            "url": "https://www.pa.gov/governor/newsroom/2025-press-releases/-shapiro-administration-leads-the-way-in-ethical-use-of-ai"
+          },
+          {
+            "description": "GovTech: Shapiro says PA will lead on AI (AI Horizons Summit)",
+            "url": "https://www.govtech.com/artificial-intelligence/gov-josh-shapiro-says-pennsylvania-will-lead-on-ai"
+          },
+          {
+            "description": "AI pilot program results – Shapiro says AI has 'real promise' as employee enhancement not replacement",
+            "url": "https://www.cityandstatepa.com/policy/2025/03/shapiro-says-ai-has-real-promise-he-unveils-pilot-program-results/403965/"
+          }
+        ]
+      },
+      {
+        "candidate": "Stacy Garrity",
+        "party": "R",
+        "status": "GOP Nominee",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Promoted rural PA counties as data center locations for AI growth",
+            "url": "https://www.witf.org/2026/01/12/a-lot-of-areas-in-rural-pa-could-house-data-centers-for-ai-growth-garrity-says/"
+          },
+          {
+            "description": "Banned DeepSeek AI from all Treasury devices – cited CCP national security concerns",
+            "url": "https://www.cityandstatepa.com/policy/2025/02/treasurer-stacy-garrity-bans-deepseek-ai-platform-pennsylvania-treasury-devices/403161/"
+          },
+          {
+            "description": "PA Treasury press release on DeepSeek ban",
+            "url": "https://www.patreasury.gov/newsroom/archive/2025/02-20-DeepSeek.html"
+          },
+          {
+            "description": "Wants to use PA natural gas reserves to power AI data centers",
+            "url": "https://www.wesa.fm/politics-government/2026-01-13/rural-pa-data-centers-ai-growth-garrity"
+          },
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Stacy_Garrity"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Texas",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Greg Abbott",
+        "party": "R",
+        "status": "Incumbent",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Signed Texas Responsible AI Governance Act (TRAIGA) – originally modeled on EU AI Act but heavily pared back after Trump EO",
+            "url": "https://iapp.org/news/a/governor-signs-texas-responsible-artificial-intelligence-governance-act"
+          },
+          {
+            "description": "GovTech: signed AI bills but noted federal preemption concern – pledged to comply with any federal 10-year moratorium on state AI enforcement",
+            "url": "https://www.govtech.com/policy/with-federal-ban-near-texas-governor-signs-ai-bills"
+          },
+          {
+            "description": "Appointed members to Texas AI Advisory Council",
+            "url": "https://gov.texas.gov/news/post/governor-abbott-appoints-four-to-artificial-intelligence-advisory-council"
+          },
+          {
+            "description": "Signed bills criminalizing AI-generated deepfakes and AI-generated sexual material",
+            "url": "https://www.davispolk.com/insights/client-update/texas-governor-signs-responsible-ai-governance-act"
+          },
+          {
+            "description": "Analysis: Texas pioneering Trump's AI agenda – deregulatory framing",
+            "url": "https://www.workforcebulletin.com/lone-star-state-how-texas-is-pioneering-president-trumps-ai-agenda/"
+          },
+          {
+            "description": "Texas Tribune: Texas exploring role of AI in government (background)",
+            "url": "https://www.texastribune.org/2024/01/02/texas-government-artificial-intelligence-2/"
+          }
+        ]
+      },
+      {
+        "candidate": "Gina Hinojosa",
+        "party": "D",
+        "status": "Dem Nominee",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Wikipedia profile",
+            "url": "https://en.wikipedia.org/wiki/Gina_Hinojosa"
+          },
+          {
+            "description": "Campaign launch – focused on education / healthcare / reproductive rights",
+            "url": "https://www.texastribune.org/2025/10/15/gina-hinojosa-texas-governor-campaign-launch-2026-greg-abbott/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Texas",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "James Talarico",
+        "party": "D",
+        "status": "Dem Nominee",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Dedicated AI & Tech campaign page – wants to tax AI companies and set clear guidelines",
+            "url": "https://jamestalarico.com/issue/social-media-artificial-intelligence-tech/"
+          },
+          {
+            "description": "'Deeply alarmed we are about to fall off this AI cliff and our government is nowhere to be seen'",
+            "url": "https://jamestalarico.com/"
+          },
+          {
+            "description": "Appeared on JRE to discuss AI job displacement as a 'spiritual problem' – advocates UBI + entrepreneurial grants",
+            "url": "https://www.rogankingdom.com/episodes/jre-2352-james-talarico.html"
+          },
+          {
+            "description": "Texas Tribune profile – background on Senate bid",
+            "url": "https://www.texastribune.org/2026/01/16/james-talarico-texas-senate-democrat-teacher-election-2026/"
+          },
+          {
+            "description": "Filed HB 2795 in Texas legislature to criminalize AI election deepfakes; targets those who create videos 'with intent to deceive and influence the result of an election,' punishable by fines and up to 180 days in jail",
+            "url": "https://www.kltv.com/2025/03/30/east-texas-data-expert-discusses-texas-bill-criminalize-making-deep-fake-election-videos/"
+          }
+        ]
+      },
+      {
+        "candidate": "John Cornyn",
+        "party": "R",
+        "status": "GOP Runoff (vs. Paxton)",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Trump signed Cornyn's GUARD Act – establishes DoD AI Institute at military college",
+            "url": "https://www.cornyn.senate.gov/news/pres-trump-signs-cornyn-bill-to-advance-defense-innovation-artificial-intelligence-into-law/"
+          },
+          {
+            "description": "Bipartisan bill with Peters to establish Chief AI Officers at every federal agency",
+            "url": "https://www.hsgac.senate.gov/media/dems/committee-passes-peters-cornyn-bipartisan-bill-to-ensure-federal-government-is-properly-using-and-managing-artificial-intelligence/"
+          },
+          {
+            "description": "PROACTIV AI Data Act – combat AI-generated child sexual abuse material in training datasets",
+            "url": "https://www.cornyn.senate.gov/news/cornyn-kim-introduce-bill-to-combat-ai-generated-child-sexual-abuse-material/"
+          },
+          {
+            "description": "Opposed Trump executive order preempting state AI laws – sided with TX legislators",
+            "url": "https://www.texastribune.org/2025/12/19/texas-ai-law-trump-executive-order/"
+          },
+          {
+            "description": "GovTrack profile",
+            "url": "https://www.govtrack.us/congress/members/john_cornyn/300027"
+          }
+        ]
+      },
+      {
+        "candidate": "Ken Paxton",
+        "party": "R",
+        "status": "GOP Runoff (vs. Cornyn)",
+        "verdict": "nuanced",
+        "sources": [
+          {
+            "description": "Investigated Meta AI Studio and Character.AI for deceptive mental health marketing to children",
+            "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-investigates-meta-and-characterai-misleading-children-deceptive-ai-generated-mental-health-services"
+          },
+          {
+            "description": "First-of-its-kind settlement with healthcare AI company (Pieces Technologies) over false safety claims",
+            "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-reaches-settlement-first-its-kind-healthcare-generative-ai-investigation"
+          },
+          {
+            "description": "Launched data privacy and security initiative targeting Big Tech and AI companies",
+            "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-launches-data-privacy-and-security-initiative-protect-texans-sensitive-data-from-illegal-exploitation-by-tech-ai-and-other-companies"
+          },
+          {
+            "description": "Investigated DeepSeek for Texas Data Privacy Act violations – banned from AG devices",
+            "url": "https://practiceguides.chambers.com/practice-guides/artificial-intelligence-2025/usa-texas/trends-and-developments"
+          },
+          {
+            "description": "Ballotpedia profile",
+            "url": "https://ballotpedia.org/Ken_Paxton"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Virginia",
+    "office": "Senate",
+    "candidates": [
+      {
+        "candidate": "Mark Warner",
+        "party": "D",
+        "status": "Incumbent",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Urged federal agencies to disclose and secure AI use (2025)",
+            "url": "https://www.warner.senate.gov/public/index.cfm/2025/1/warner-urges-federal-agencies-to-disclose-and-secure-their-ai-use"
+          },
+          {
+            "description": "Called for AI Geneva Convention to govern AI in warfare",
+            "url": "https://technical.ly/civic-news/ai-policy-geneva-convention-senator-mark-warner/"
+          },
+          {
+            "description": "Introduced bipartisan Secure AI Act of 2024 with Tillis – voluntary incident reporting database",
+            "url": "https://www.warner.senate.gov/public/index.cfm/2024/5/warner-tillis-introduce-legislation-to-advance-security-of-artificial-intelligence-ecosystem"
+          },
+          {
+            "description": "Federal News Network interview on creating AI guardrails (Feb 2024)",
+            "url": "https://federalnewsnetwork.com/artificial-intelligence/2024/02/ai-data-exchange-2024-sen-mark-warner-on-creating-ai-guardrails/"
+          },
+          {
+            "description": "Statement praising OpenAI for adding safety/detection mechanisms (Dec 2024)",
+            "url": "https://www.warner.senate.gov/public/index.cfm/2024/12/statement-of-sen-mark-r-warner"
+          },
+          {
+            "description": "Reelection announcement touted tech background and AI job displacement – 'companies that displace jobs for AI should help pay for solutions'",
+            "url": "https://virginiaindependentnews.com/elections/virginia-democratic-sen-mark-warner-announces-he-will-seek-reelection-in-2026/"
+          },
+          {
+            "description": "Caveat: 'Don't hold your breath' for comprehensive AI regulation passing Congress",
+            "url": "https://www.meritalk.com/articles/sen-warner-dont-hold-your-breath-for-ai-regulation/"
+          }
+        ]
+      },
+      {
+        "candidate": "Jason Reynolds",
+        "party": "D",
+        "status": "Dem Primary Challenger",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "VPM coverage of candidates",
+            "url": "https://www.vpm.org/news/2025-09-25/us-senator-2026-mark-warner-jason-reynolds-bryce-reeves-kim-farington"
+          }
+        ]
+      },
+      {
+        "candidate": "Kim Farington",
+        "party": "R",
+        "status": "GOP Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Ballotpedia profile (cybersecurity contractor background)",
+            "url": "https://ballotpedia.org/Kim_Farington"
+          },
+          {
+            "description": "Campaign website",
+            "url": "https://stager.kimforvirginia.com/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "state": "Wisconsin",
+    "office": "Governor",
+    "candidates": [
+      {
+        "candidate": "Sara Rodriguez",
+        "party": "D",
+        "status": "Dem Primary Frontrunner",
+        "verdict": "nice",
+        "sources": [
+          {
+            "description": "Released \"Keep Wisconsin Kids Safe Online\" plan – Big Tech accountability for child harm",
+            "url": "https://www.wispolitics.com/2026/rodriguez-campaign-releases-plan-to-keep-wisconsin-kids-safe-online-and-hold-big-tech-accountable/"
+          },
+          {
+            "description": "Proposed executive office to coordinate AI oversight / cybersecurity / emerging tech policy across state agencies",
+            "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-issues-in-wisconsins-2026-governors-race/"
+          },
+          {
+            "description": "Plan: require platforms to disclose algorithms and submit to independent audits for content promoted to children",
+            "url": "https://www.saraforwi.com/"
+          },
+          {
+            "description": "PBS Wisconsin candidate profile",
+            "url": "https://pbswisconsin.org/news-item/sara-rodriguez-on-the-2026-primary-for-governor-of-wisconsin/"
+          },
+          {
+            "description": "Campaign issues page — 'Make AI Work for Wisconsin Workers': as governor will ensure AI creates opportunity for workers, not just profits for tech companies",
+            "url": "https://www.saraforwi.com/issues"
+          }
+        ]
+      },
+      {
+        "candidate": "Mandela Barnes",
+        "party": "D",
+        "status": "Dem Primary Candidate",
+        "verdict": "no_record",
+        "sources": [
+          {
+            "description": "Data centers must have community benefits agreements – local hiring / no utility rate hikes / community input required",
+            "url": "https://pbswisconsin.org/news-item/mandela-barnes-on-issues-in-wisconsins-2026-governors-race/"
+          },
+          {
+            "description": "No AI regulation or safety record found – focused on economic/community impact",
+            "url": "https://ballotpedia.org/Mandela_Barnes"
+          }
+        ]
+      },
+      {
+        "candidate": "Tom Tiffany",
+        "party": "R",
+        "status": "GOP Nominee (Trump-endorsed)",
+        "verdict": "naughty",
+        "sources": [
+          {
+            "description": "Welcomes AI data centers – focused on energy costs for existing ratepayers only",
+            "url": "https://www.wizmnewsroom.com/2025/10/31/wisconsin-gop-governor-candidate-tom-tiffany-on-data-centers-state-funding-housing-and-voting-maps/"
+          },
+          {
+            "description": "Wants coal / natural gas / nuclear to power AI data centers",
+            "url": "https://tiffany.house.gov/media/press-releases/tiffany-demands-psc-prioritize-baseload-power-sources-ensure-affordable-energy"
+          },
+          {
+            "description": "Used AI-generated campaign ad without required disclosure – violated Wisconsin law",
+            "url": "https://isthmus.com/news/news/disclaimer-missing-on-likely-ai-generated-tom-tiffany-campaign-ad/"
+          },
+          {
+            "description": "Cap Times editorial: Wisconsin's next governor should be a savvy AI skeptic (critical of Tiffany's approach)",
+            "url": "https://captimes.com/opinion/editorials/editorial-wisconsin-s-next-governor-should-be-a-savvy-ai-skeptic/article_2d8b4a7d-727d-406f-93de-4958edfa4798.html"
+          },
+          {
+            "description": "Wisconsin data center regulation coverage – Tiffany's position",
+            "url": "https://www.wbay.com/2026/01/13/wisconsin-lawmakers-look-regulate-building-ai-data-centers/"
+          }
+        ]
+      }
+    ]
+  }
+]</script>
+<script>
+    const VERDICT_META = {
+      nice:      { label: "✓ Supports Safety", bg: "#E2EFDA", color: "#1F6B2E", border: "#a8d5a2" },
+      nuanced:   { label: "~ Mixed Record",    bg: "#FFF2CC", color: "#7B5A00", border: "#f0d080" },
+      no_record: { label: "– No Record",       bg: "#F2F2F2", color: "#444",    border: "#ccc"    },
+      naughty:   { label: "✗ Opposes Safety",  bg: "#FCE4E4", color: "#7B1414", border: "#f0a0a0" },
+    };
+    const VERDICT_ORDER = ["nice","nuanced","no_record","naughty"];
+
+    const states = [
+      { name: "Alabama", abbr: "AL" }, { name: "Alaska", abbr: "AK" },
+      { name: "Arizona", abbr: "AZ" }, { name: "Arkansas", abbr: "AR" },
+      { name: "California", abbr: "CA" }, { name: "Colorado", abbr: "CO" },
+      { name: "Connecticut", abbr: "CT" }, { name: "Delaware", abbr: "DE" },
+      { name: "Florida", abbr: "FL" }, { name: "Georgia", abbr: "GA" },
+      { name: "Hawaii", abbr: "HI" }, { name: "Idaho", abbr: "ID" },
+      { name: "Illinois", abbr: "IL" }, { name: "Indiana", abbr: "IN" },
+      { name: "Iowa", abbr: "IA" }, { name: "Kansas", abbr: "KS" },
+      { name: "Kentucky", abbr: "KY" }, { name: "Louisiana", abbr: "LA" },
+      { name: "Maine", abbr: "ME" }, { name: "Maryland", abbr: "MD" },
+      { name: "Massachusetts", abbr: "MA" }, { name: "Michigan", abbr: "MI" },
+      { name: "Minnesota", abbr: "MN" }, { name: "Mississippi", abbr: "MS" },
+      { name: "Missouri", abbr: "MO" }, { name: "Montana", abbr: "MT" },
+      { name: "Nebraska", abbr: "NE" }, { name: "Nevada", abbr: "NV" },
+      { name: "New Hampshire", abbr: "NH" }, { name: "New Jersey", abbr: "NJ" },
+      { name: "New Mexico", abbr: "NM" }, { name: "New York", abbr: "NY" },
+      { name: "North Carolina", abbr: "NC" }, { name: "North Dakota", abbr: "ND" },
+      { name: "Ohio", abbr: "OH" }, { name: "Oklahoma", abbr: "OK" },
+      { name: "Oregon", abbr: "OR" }, { name: "Pennsylvania", abbr: "PA" },
+      { name: "Rhode Island", abbr: "RI" }, { name: "South Carolina", abbr: "SC" },
+      { name: "South Dakota", abbr: "SD" }, { name: "Tennessee", abbr: "TN" },
+      { name: "Texas", abbr: "TX" }, { name: "Utah", abbr: "UT" },
+      { name: "Vermont", abbr: "VT" }, { name: "Virginia", abbr: "VA" },
+      { name: "Washington", abbr: "WA" }, { name: "West Virginia", abbr: "WV" },
+      { name: "Wisconsin", abbr: "WI" }, { name: "Wyoming", abbr: "WY" }
+    ].sort((a, b) => a.name.localeCompare(b.name));
+
+    const statusEl   = document.getElementById("status");
+    const search     = document.getElementById("stateSearch");
+    const modeToggleBtn = document.getElementById("modeToggleBtn");
+    const stateFilter = document.getElementById("stateFilter");
+    const stateList  = document.getElementById("stateList");
+    const detectBtn  = document.getElementById("detectStateBtn");
+    const suggestions = document.getElementById("suggestions");
+    const raceResults = document.getElementById("raceResults");
+
+    function normalize(s) { return s.trim().toLowerCase(); }
+
+    function getMatches(input) {
+      const k = normalize(input);
+      if (!k) return states;
+      return states.filter(s => normalize(s.name).includes(k) || normalize(s.abbr).startsWith(k));
+    }
+
+    function renderStateList(input) {
+      const matches = getMatches(input);
+      stateList.innerHTML = matches.length
+        ? matches.map(s => `<button class="suggestion" type="button" data-state="${s.name}">${s.name} (${s.abbr})</button>`).join("")
+        : '<p class="status">No matching states.</p>';
+    }
+
+    function openStateDropdown() {
+      suggestions.classList.add("show");
+      stateFilter.value = "";
+      renderStateList("");
+      stateFilter.focus();
+    }
+
+    function findState(input) {
+      const k = normalize(input);
+      return states.find(s => normalize(s.name) === k || normalize(s.abbr) === k) || null;
+    }
+
+    function verdictBadge(verdict) {
+      const m = VERDICT_META[verdict] || VERDICT_META.no_record;
+      return `<span style="display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.78rem;font-weight:700;background:${m.bg};color:${m.color};border:1px solid ${m.border}">${m.label}</span>`;
+    }
+
+    function renderEvidence(evidence) {
+      if (!evidence || !evidence.length) return '<span style="color:var(--muted);font-size:0.85rem">—</span>';
+      return evidence.map((e, i) => {
+        const url = typeof e === "string" ? e : (e?.url || "");
+        const rawLabel = typeof e === "string" ? e : (e?.description || e?.url || "");
+        const label = String(rawLabel);
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer"
+            title="${label.replace(/"/g,'&quot;')}"
+            style="display:inline-block;margin:2px 0;padding:2px 8px;border-radius:6px;border:1px solid var(--line);font-size:0.8rem;text-decoration:none;color:var(--accent);background:#f8fbfc">[${i+1}] ${label.length > 55 ? label.slice(0,52)+'…' : label}</a>`;
+      }).join("<br>");
+    }
+
+    const VOTER_DATA = JSON.parse(document.getElementById("voter-data").textContent);
+
+    function getCandidatesForState(stateName) {
+      const data = VOTER_DATA;
+      if (Array.isArray(data)) {
+        const out = [];
+        data.filter(r => r.state === stateName).forEach(r => {
+          r.candidates.forEach(c => out.push({ ...c, office: r.office, state: r.state }));
+        });
+        return out;
+      }
+
+      const out = [];
+      const ai = data?.aiResearch || {};
+      const pushOffice = (office, officeData) => {
+        const stateParties = officeData?.[stateName];
+        if (!stateParties || typeof stateParties !== "object") return;
+        for (const [party, names] of Object.entries(stateParties)) {
+          if (!Array.isArray(names)) continue;
+          for (const candidate of names) {
+            const record = ai[candidate];
+            const links = Array.isArray(record?.links) ? record.links : [];
+            out.push({
+              state: stateName,
+              office,
+              candidate,
+              party,
+              status: "",
+              verdict: "no_record",
+              evidence: links.map((url) => ({ url, description: url }))
+            });
+          }
+        }
+      };
+
+      pushOffice("Governor", data?.governors);
+      pushOffice("Senate", data?.senate);
+      return out;
+    }
+
+    function getRenderableStateNames() {
+      const data = VOTER_DATA;
+      if (Array.isArray(data)) {
+        return [...new Set(data.map(c => c.state))];
+      }
+      const names = new Set([
+        ...Object.keys(data?.governors || {}),
+        ...Object.keys(data?.senate || {})
+      ]);
+      return [...names];
+    }
+
+    function buildStateRacesHTML(stateName) {
+      const candidates = getCandidatesForState(stateName);
+      if (!candidates.length) {
+        return '<p class="status">No race data available for this state yet.</p>';
+      }
+
+      const byOffice = {};
+      candidates.forEach(c => {
+        (byOffice[c.office] = byOffice[c.office] || []).push(c);
+      });
+
+      const officeOrder = ["Senate", "Governor"];
+      return officeOrder
+        .filter(o => byOffice[o])
+        .map(office => {
+          const sorted = [...byOffice[office]].sort((a, b) =>
+            VERDICT_ORDER.indexOf(a.verdict) - VERDICT_ORDER.indexOf(b.verdict)
+          );
+          const rows = sorted.map(c => `
+            <tr>
+              <td><strong>${c.candidate}</strong></td>
+              <td style="text-align:center">${c.party}</td>
+              <td style="font-size:0.85rem;color:var(--muted)">${c.status}</td>
+              <td style="text-align:center">${verdictBadge(c.verdict)}</td>
+              <td>${renderEvidence(c.sources)}</td>
+            </tr>`).join("");
+          return `
+            <article class="office-block">
+              <h3 class="office-title">${office === "Senate" ? "U.S. Senate" : office}</h3>
+              <table class="race-table">
+                <thead>
+                  <tr>
+                    <th>Candidate</th><th>Party</th><th>Status</th><th>AI Verdict</th><th>Evidence</th>
+                  </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+            </article>`;
+        }).join("");
+    }
+
+    function renderStateRaces(stateName) {
+      raceResults.innerHTML = buildStateRacesHTML(stateName);
+    }
+
+    function selectState(name) {
+      const found = findState(name);
+      if (!found) { statusEl.textContent = "State not found."; raceResults.innerHTML = ""; return; }
+      search.value = found.name;
+      statusEl.textContent = `Selected: ${found.name} (${found.abbr}).`;
+      suggestions.classList.remove("show");
+      renderStateRaces(found.name);
+    }
+
+    function jsonp(url, timeoutMs = 12000) {
+      return new Promise((resolve, reject) => {
+        const cbName = `__vg_cb_${Date.now()}_${Math.floor(Math.random() * 1e6)}`;
+        const script = document.createElement("script");
+        let settled = false;
+        const timer = setTimeout(() => { cleanup(); reject(new Error("Request timeout")); }, timeoutMs);
+        function cleanup() {
+          clearTimeout(timer);
+          if (script.parentNode) script.parentNode.removeChild(script);
+          try { delete window[cbName]; } catch { window[cbName] = undefined; }
+          try { delete window.callback; } catch { window.callback = undefined; }
+        }
+        const onPayload = (payload) => { if (settled) return; settled = true; cleanup(); resolve(payload); };
+        window[cbName] = onPayload; window.callback = onPayload;
+        script.onerror = () => { cleanup(); reject(new Error("Network error")); };
+        const sep = url.includes("?") ? "&" : "?";
+        script.src = `${url}${sep}format=jsonp&callback=${cbName}`;
+        document.body.appendChild(script);
+      });
+    }
+
+    async function detectStateFromLocation() {
+      if (!navigator.geolocation) { statusEl.textContent = "Geolocation not supported."; return; }
+      statusEl.textContent = "Detecting your location…";
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const { latitude, longitude } = position.coords;
+            const data = await jsonp(`https://geo.fcc.gov/api/census/area?lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}`);
+            const code = String(data?.results?.[0]?.state_code || "").toUpperCase();
+            if (!code) throw new Error("State lookup failed.");
+            const s = states.find(s => s.abbr === code);
+            if (!s) throw new Error(`Unsupported state: ${code}`);
+            selectState(s.name);
+          } catch (err) { statusEl.textContent = `Location detected, but state lookup failed: ${err.message}`; }
+        },
+        (err) => { statusEl.textContent = `Location permission not granted (${err.message}).`; }
+      );
+    }
+
+    search.addEventListener("focus", openStateDropdown);
+    search.addEventListener("click", openStateDropdown);
+    stateFilter.addEventListener("input", () => renderStateList(stateFilter.value));
+    stateFilter.addEventListener("keydown", e => {
+      if (e.key === "Escape") suggestions.classList.remove("show");
+      if (e.key === "Enter") {
+        const first = stateList.querySelector(".suggestion");
+        if (first) { e.preventDefault(); selectState(first.dataset.state || ""); }
+      }
+    });
+    stateList.addEventListener("click", e => {
+      const btn = e.target.closest(".suggestion");
+      if (btn) selectState(btn.dataset.state || "");
+    });
+    detectBtn.addEventListener("click", detectStateFromLocation);
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".search-row")) suggestions.classList.remove("show");
+    });
+
+    const isAllMode = new URLSearchParams(location.search).has("all");
+    if (modeToggleBtn) {
+      modeToggleBtn.textContent = isAllMode ? "Search State" : "See all";
+      modeToggleBtn.setAttribute("href", isAllMode ? location.pathname : "?all");
+    }
+
+    // ?all mode — render every tracked state at once
+    if (isAllMode) {
+      // raceResults lives inside .controls, so hide only the individual controls above it
+      ["label[for='stateSearch']", ".search-row", "#detectStateBtn", "#status"].forEach(sel => {
+        const el = document.querySelector(sel);
+        if (el) el.style.display = "none";
+      });
+      const stateNames = getRenderableStateNames();
+      raceResults.innerHTML =
+        stateNames.map(name => `
+          <section class="state-section">
+            <h2 class="state-header">${name}</h2>
+            <div class="race-results">${buildStateRacesHTML(name)}</div>
+          </section>`).join("");
+      raceResults.style.display = "block";
+    }
+  </script>
+</body>
+</html>

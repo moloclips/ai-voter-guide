@@ -1,0 +1,109 @@
+Candidate,State,Office,Party,Status,Verdict
+Andy Biggs,Arizona,Governor,R,GOP Primary Frontrunner,no_record
+David Schweikert,Arizona,Governor,R,GOP Primary Candidate,nuanced
+Katie Hobbs,Arizona,Governor,D,Incumbent,nice
+Antonio Villaraigosa,California,Governor,D,Gubernatorial Candidate,no_record
+Chad Bianco,California,Governor,R,Gubernatorial Candidate,naughty
+Eric Swalwell,California,Governor,D,Gubernatorial Candidate,nuanced
+Ian Calderon,California,Governor,D,Gubernatorial Candidate,no_record
+Katie Porter,California,Governor,D,Gubernatorial Candidate,nice
+Matt Mahan,California,Governor,D,Gubernatorial Candidate,naughty
+Steve Hilton,California,Governor,R,Gubernatorial Candidate,naughty
+Tom Steyer,California,Governor,D,Gubernatorial Candidate,nice
+Tony Thurmond,California,Governor,D,Gubernatorial Candidate,nuanced
+Xavier Becerra,California,Governor,D,Gubernatorial Candidate,no_record
+Janak Joshi,Colorado,Senate,R,Primary Candidate,no_record
+John Hickenlooper,Colorado,Senate,D,Incumbent,nice
+Julie Gonzales,Colorado,Senate,D,Primary Candidate,no_record
+Mark Baisley,Colorado,Senate,R,Primary Candidate,naughty
+Byron Donalds,Florida,Governor,R,Primary Candidate,naughty
+David Jolly,Florida,Governor,D,Primary Candidate,no_record
+James Fishback,Florida,Governor,R,Primary Candidate,no_record
+Jay Collins,Florida,Governor,R,Primary Candidate,no_record
+Jerry Demings,Florida,Governor,D,Primary Candidate,no_record
+Paul Renner,Florida,Governor,R,Primary Candidate,nuanced
+Brad Raffensperger,Georgia,Governor,R,Candidate,nuanced
+Burt Jones,Georgia,Governor,R,Candidate,nuanced
+Chris Carr,Georgia,Governor,R,Candidate,no_record
+Geoff Duncan,Georgia,Governor,D,Candidate,no_record
+Gregg Kirkpatrick,Georgia,Governor,R,Candidate,nuanced
+Jason Esteves,Georgia,Governor,D,Candidate,nice
+Keisha Lance Bottoms,Georgia,Governor,D,Candidate,no_record
+Michael Thurmond,Georgia,Governor,D,Candidate,nuanced
+Buddy Carter,Georgia,Senate,R,GOP Primary Candidate,no_record
+Derek Dooley,Georgia,Senate,R,GOP Primary Candidate,no_record
+Jon Ossoff,Georgia,Senate,D,Incumbent,nice
+Mike Collins,Georgia,Senate,R,GOP Primary Candidate,nuanced
+Don Tracy,Illinois,Senate,R,Primary Candidate,no_record
+Juliana Stratton,Illinois,Senate,D,Primary Candidate,nice
+Raja Krishnamoorthi,Illinois,Senate,D,Primary Candidate,nuanced
+Robin Kelly,Illinois,Senate,D,Primary Candidate,no_record
+Ashley Hinson,Iowa,Senate,R,Primary Candidate,no_record
+J.D. Scholten,Iowa,Senate,D,Primary Candidate,no_record
+Nathan Sage,Iowa,Senate,D,Primary Candidate,no_record
+Graham Platner,Maine,Senate,D,Primary Candidate,no_record
+Janet Mills,Maine,Senate,D,Primary Candidate,nice
+Susan Collins,Maine,Senate,R,Incumbent,nice
+John Myrick,Maryland,Governor,R,Primary Candidate,no_record
+Wes Moore,Maryland,Governor,D,Incumbent,nice
+Ed Markey,Massachusetts,Senate,D,Incumbent,nice
+John Deaton,Massachusetts,Senate,R,Primary Candidate,no_record
+Seth Moulton,Massachusetts,Senate,D,Primary Challenger,nuanced
+Jocelyn Benson,Michigan,Governor,D,Dem Primary Frontrunner,nice
+John James,Michigan,Governor,R,GOP Primary Frontrunner,no_record
+Mike Duggan,Michigan,Governor,I,Independent Candidate,no_record
+Abdul El-Sayed,Michigan,Senate,D,Dem Primary Candidate,no_record
+Haley Stevens,Michigan,Senate,D,Dem Primary Candidate,no_record
+Mallory McMorrow,Michigan,Senate,D,Dem Primary Frontrunner,nice
+Mike Rogers,Michigan,Senate,R,GOP Nominee,no_record
+Amy Klobuchar,Minnesota,Governor,D,Primary Candidate,nice
+Kendall Qualls,Minnesota,Governor,R,Primary Candidate,no_record
+Lisa Demuth,Minnesota,Governor,R,Primary Candidate,no_record
+Angie Craig,Minnesota,Senate,D,Primary Candidate,no_record
+David Hann,Minnesota,Senate,R,Primary Candidate,no_record
+Melissa Lopez Franzen,Minnesota,Senate,D,Primary Candidate,no_record
+Peggy Flanagan,Minnesota,Senate,D,Primary Candidate,no_record
+Royce White,Minnesota,Senate,R,Primary Candidate,no_record
+Chris Pappas,New Hampshire,Senate,D,Dem Primary Frontrunner,nuanced
+John Sununu,New Hampshire,Senate,R,GOP Primary Frontrunner,no_record
+Karishma Manzur,New Hampshire,Senate,D,Dem Primary Candidate,no_record
+Scott Brown,New Hampshire,Senate,R,GOP Primary Candidate,no_record
+Ben Ray Lujan,New Mexico,Senate,D,Incumbent,nice
+Benjamin Luna,New Mexico,Senate,R,Primary Candidate,no_record
+Bruce Blakeman,New York,Governor,R,Primary Candidate,no_record
+Kathy Hochul,New York,Governor,D,Incumbent,nice
+Michael Whatley,North Carolina,Senate,R,GOP Nominee (former RNC Chair),no_record
+Roy Cooper,North Carolina,Senate,D,Dem Nominee (former Governor),nice
+Amy Acton,Ohio,Governor,D,Dem Nominee,no_record
+Vivek Ramaswamy,Ohio,Governor,R,GOP Primary Frontrunner,naughty
+Jeff Merkley,Oregon,Senate,D,Incumbent,nice
+Russell McAlmond,Oregon,Senate,R,Primary Candidate,no_record
+Timothy Skelton,Oregon,Senate,R,Primary Candidate,no_record
+Josh Shapiro,Pennsylvania,Governor,D,Incumbent,nice
+Stacy Garrity,Pennsylvania,Governor,R,GOP Nominee,nuanced
+Gina Hinojosa,Texas,Governor,D,Dem Nominee,no_record
+Greg Abbott,Texas,Governor,R,Incumbent,nuanced
+James Talarico,Texas,Senate,D,Dem Nominee,nice
+John Cornyn,Texas,Senate,R,GOP Runoff (vs. Paxton),nuanced
+Ken Paxton,Texas,Senate,R,GOP Runoff (vs. Cornyn),nuanced
+Jason Reynolds,Virginia,Senate,D,Dem Primary Challenger,no_record
+Kim Farington,Virginia,Senate,R,GOP Primary Candidate,no_record
+Mark Warner,Virginia,Senate,D,Incumbent,nice
+Mandela Barnes,Wisconsin,Governor,D,Dem Primary Candidate,no_record
+Sara Rodriguez,Wisconsin,Governor,D,Dem Primary Frontrunner,nice
+Tom Tiffany,Wisconsin,Governor,R,GOP Nominee (Trump-endorsed),naughty
+Michael Bennet,Colorado,Governor,D,Dem Primary Candidate,nice
+Phil Weiser,Colorado,Governor,D,Dem Primary Candidate,nice
+Barbara Kirkmeyer,Colorado,Governor,R,GOP Primary Candidate,no_record
+Jason Clark,Colorado,Governor,R,GOP Primary Candidate,no_record
+Jason Mikesell,Colorado,Governor,R,GOP Primary Candidate,no_record
+Joe Oltmann,Colorado,Governor,R,GOP Primary Candidate,no_record
+Scott Bottoms,Colorado,Governor,R,GOP Primary Candidate,no_record
+Victor Marx,Colorado,Governor,R,GOP Primary Candidate,nuanced
+Greg Lopez,Colorado,Governor,I,Independent Candidate,no_record
+Aaron Ford,Nevada,Governor,D,Dem Primary Candidate,nuanced
+Alexis Hill,Nevada,Governor,D,Dem Primary Candidate,no_record
+Irina Hansen,Nevada,Governor,R,GOP Primary Candidate,no_record
+Joe Lombardo,Nevada,Governor,R,Incumbent,nice
+Jose Zelaya,Nevada,Governor,R,GOP Primary Candidate,no_record
+Matthew Winterhawk,Nevada,Governor,R,GOP Primary Candidate,no_record

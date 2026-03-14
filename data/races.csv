@@ -1,0 +1,73 @@
+State,Office,Completed
+Arizona,Governor,True
+California,Governor,True
+Colorado,Senate,True
+Florida,Governor,True
+Georgia,Governor,True
+Georgia,Senate,True
+Illinois,Senate,True
+Iowa,Senate,True
+Maine,Senate,True
+Maryland,Governor,True
+Massachusetts,Senate,True
+Michigan,Governor,True
+Michigan,Senate,True
+Minnesota,Governor,True
+Minnesota,Senate,True
+New Hampshire,Senate,True
+New Mexico,Senate,True
+New York,Governor,True
+North Carolina,Senate,True
+Ohio,Governor,True
+Oregon,Senate,True
+Pennsylvania,Governor,True
+Texas,Governor,True
+Texas,Senate,True
+Virginia,Senate,True
+Wisconsin,Governor,True
+Colorado,Governor,True
+Nevada,Governor,True
+Illinois,Governor,False
+Oregon,Governor,False
+Connecticut,Governor,False
+New Hampshire,Governor,False
+Kansas,Governor,False
+New Mexico,Governor,False
+Iowa,Governor,False
+Maine,Governor,False
+Kentucky,Senate,False
+Hawaii,Senate,False
+New Jersey,Senate,False
+Florida,Senate,False
+Ohio,Senate,False
+Oklahoma,Senate,False
+Massachusetts,Governor,False
+Delaware,Senate,False
+Rhode Island,Senate,False
+West Virginia,Senate,False
+Alaska,Senate,False
+Kansas,Senate,False
+Nebraska,Senate,False
+South Dakota,Senate,False
+Wyoming,Senate,False
+Alabama,Senate,False
+Arkansas,Senate,False
+Idaho,Senate,False
+Louisiana,Senate,False
+Mississippi,Senate,False
+Montana,Senate,False
+South Carolina,Senate,False
+Tennessee,Senate,False
+Alaska,Governor,False
+Arkansas,Governor,False
+Hawaii,Governor,False
+Idaho,Governor,False
+Nebraska,Governor,False
+Oklahoma,Governor,False
+Rhode Island,Governor,False
+South Carolina,Governor,False
+South Dakota,Governor,False
+Tennessee,Governor,False
+Vermont,Governor,False
+Wyoming,Governor,False
+Alabama,Governor,False

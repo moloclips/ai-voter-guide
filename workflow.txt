@@ -1,0 +1,114 @@
+# AI Voter Guide — Workflow Reference
+# Read this file before doing any research or editing.
+# Required files: data.xlsx, guide.html, build.py, this file
+
+================================================================================
+OVERVIEW
+================================================================================
+
+Single-issue voter guide for the 2026 US midterms. Every major candidate for
+Governor and Senate is rated on one dimension: do they support responsible AI
+regulation? The guide is a static HTML file anyone can open in a browser.
+
+Open guide.html in a browser to view the guide.
+Append ?all to the URL to see all states at once for review.
+
+================================================================================
+VERDICT TAXONOMY
+================================================================================
+
+Every candidate gets exactly one verdict. Full definitions with examples are in
+the "Verdicts" sheet of data.xlsx. Sort order within each race:
+
+  nice → nuanced → no_record → naughty
+
+When uncertain about a verdict, enter a preliminary verdict in the xlsx, then
+present your reasoning to the human and ask for confirmation before running
+build.py. If researching a full race at once, finish all candidates first,
+then ask about any uncertain ones together before rebuilding.
+
+================================================================================
+THE XLSX — SOURCE OF TRUTH
+================================================================================
+
+data.xlsx has four sheets. Only Candidates and Evidence are edited
+during research. Races and Verdicts are reference/tracking.
+
+  "Candidates" — one row per candidate
+    Columns: Candidate, State, Office, Party, Status, Verdict
+    - Candidate: full name, must exactly match Evidence sheet (case-sensitive)
+    - State: full state name ("Georgia" not "GA")
+    - Office: "Governor" or "Senate"
+    - Party: "D" or "R"
+    - Status: "Incumbent" or "Candidate"
+    - Verdict: nice / nuanced / no_record / naughty
+
+  "Evidence" — one row per source
+    Columns: Candidate, Source_Description, URL
+    - Candidate: must exactly match Candidates sheet (case-sensitive)
+    - Source_Description: 1-2 sentence summary of what this source shows about AI
+    - URL: direct link to the source — required, rows without a URL are skipped
+
+  "Races" — one row per 2026 race (tracking only, do not use for research logic)
+    Columns: State, Office, Completed
+    - Mark Completed = True once a race has been fully researched and added
+
+  "Verdicts" — reference definitions for each verdict value (do not edit)
+
+================================================================================
+HOW TO RESEARCH A NEW RACE
+================================================================================
+
+Check the "Races" sheet for the next incomplete race (Completed = False), then
+follow these steps:
+
+STEP 1: Find declared candidates
+  - Search: "[State] [Governor/Senate] 2026 candidates"
+  - Check the race's Ballotpedia page for a full candidate list
+  - Focus on candidates likely to appear on the general election ballot;
+    include notable primary candidates if the primary is competitive
+
+STEP 2: Research each candidate's AI positions
+  - Search: "[Candidate Name] AI artificial intelligence policy 2025 2026"
+  - Search: "[Candidate Name] AI regulation bills statements"
+  - For current legislators, check their official .gov page for press releases
+  - Look for: AI safety bills, deepfake legislation, algorithmic accountability,
+    AI in elections, autonomous weapons, state AI regulation, AI executive orders
+  - If nothing is found after a thorough search, the verdict is no_record
+
+STEP 3: Add to the xlsx
+  - Add one row per candidate to "Candidates" with their verdict
+  - Add one row per source to "Evidence" (multiple rows per candidate is fine)
+  - Every Evidence row must have a URL — do not add rows without one
+
+STEP 4: Rebuild
+  - Run from the project directory: python3 build.py
+  - Output should confirm updated candidate/state/race counts and "guide.html updated"
+  - Mark the race as Completed = True in the "Races" sheet
+
+STEP 5: Move to the next incomplete race in the "Races" sheet and repeat.
+  Do not research multiple races in parallel — finish one completely before starting
+  the next, so progress is never lost mid-task.
+
+================================================================================
+REBUILD
+================================================================================
+
+build.py reads Candidates and Evidence from data.xlsx, builds the voter data,
+and injects it into guide.html via a <script id="voter-data"> tag.
+It does not modify the xlsx.
+
+  python3 build.py
+
+Requires: pandas, openpyxl, beautifulsoup4
+Install if needed: pip3 install pandas openpyxl beautifulsoup4
+
+================================================================================
+CURRENT STATE
+================================================================================
+
+See the "Races" sheet in data.xlsx for the full list of 2026 races
+and which ones are complete. The sheet is ordered by priority — work top to
+bottom through the incomplete races.
+
+Good luck!

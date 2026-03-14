@@ -1,0 +1,5 @@
+Verdict,Display Text,Color,Description,Examples
+nice,✓ Supports Safety,green,Clear record supporting AI safety and regulation,"Sponsored AI safety bills, deepfake bans, algorithmic accountability laws, state AI regulation, AI civil rights legislation"
+nuanced,~ Mixed Record,yellow,"Some pro-safety positions alongside anti-regulation stances, or supports AI adoption with limited safeguards",Backed some safety bills but opposed others; supports military AI + wants guardrails; AI workforce development with no regulatory stance
+no_record,– No Record,gray,No documented AI policy positions found,"No bills, votes, statements, or platform positions on AI safety or regulation"
+naughty,✗ Opposes Safety,red,Actively opposes AI regulation or safety measures,"Wants to repeal AI safety laws, funded by AI industry PACs to block regulation, embraces unregulated AI, vetoed or killed safety bills"
