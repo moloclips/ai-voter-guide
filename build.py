@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 import json
 
 import pandas as pd
@@ -6,6 +7,7 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
+TEMPLATE_HTML = ROOT / "template.html"
 GUIDE_HTML = ROOT / "guide.html"
 XLSX_PATH = ROOT / "data.xlsx"
 
@@ -86,14 +88,18 @@ def write_xlsx(tables):
 
 
 def write_guide_html(voter_data):
-    with GUIDE_HTML.open("r", encoding="utf-8") as f:
+    with TEMPLATE_HTML.open("r", encoding="utf-8") as f:
         soup = BeautifulSoup(f, "html.parser")
 
     script = soup.find("script", id="voter-data")
     if script is None:
-        raise RuntimeError("Missing <script id='voter-data'> in guide.html")
+        raise RuntimeError("Missing <script id='voter-data'> in template.html")
 
     script.string = json.dumps(voter_data, ensure_ascii=False, indent=2)
+
+    last_updated = soup.find(id="lastUpdated")
+    if last_updated is not None:
+        last_updated.string = datetime.now().strftime("%B %-d, %Y")
 
     with GUIDE_HTML.open("w", encoding="utf-8") as f:
         f.write(str(soup))
@@ -115,7 +121,10 @@ def main():
         f"{total_evidence} sources | {total_states} states | {total_races} races"
     )
     print("Source of truth: data/*.csv")
-    print(f"Wrote {XLSX_PATH.name} and updated {GUIDE_HTML.name}")
+    print(
+        f"Used {TEMPLATE_HTML.name}, wrote {XLSX_PATH.name}, "
+        f"and updated {GUIDE_HTML.name}"
+    )
 
 
 if __name__ == "__main__":

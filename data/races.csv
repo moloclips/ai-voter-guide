@@ -1,73 +1,72 @@
-State,Office,Completed
-Arizona,Governor,True
-California,Governor,True
-Colorado,Senate,True
-Florida,Governor,True
-Georgia,Governor,True
-Georgia,Senate,True
-Illinois,Senate,True
-Iowa,Senate,True
-Maine,Senate,True
-Maryland,Governor,True
-Massachusetts,Senate,True
-Michigan,Governor,True
-Michigan,Senate,True
-Minnesota,Governor,True
-Minnesota,Senate,True
-New Hampshire,Senate,True
-New Mexico,Senate,True
-New York,Governor,True
-North Carolina,Senate,True
-Ohio,Governor,True
-Oregon,Senate,True
-Pennsylvania,Governor,True
-Texas,Governor,True
-Texas,Senate,True
-Virginia,Senate,True
-Wisconsin,Governor,True
-Colorado,Governor,True
-Nevada,Governor,True
-Illinois,Governor,False
-Oregon,Governor,False
-Connecticut,Governor,False
-New Hampshire,Governor,False
-Kansas,Governor,False
-New Mexico,Governor,False
-Iowa,Governor,False
-Maine,Governor,False
-Kentucky,Senate,False
-Hawaii,Senate,False
-New Jersey,Senate,False
-Florida,Senate,False
-Ohio,Senate,False
-Oklahoma,Senate,False
-Massachusetts,Governor,False
-Delaware,Senate,False
-Rhode Island,Senate,False
-West Virginia,Senate,False
-Alaska,Senate,False
-Kansas,Senate,False
-Nebraska,Senate,False
-South Dakota,Senate,False
-Wyoming,Senate,False
-Alabama,Senate,False
-Arkansas,Senate,False
-Idaho,Senate,False
-Louisiana,Senate,False
-Mississippi,Senate,False
-Montana,Senate,False
-South Carolina,Senate,False
-Tennessee,Senate,False
-Alaska,Governor,False
-Arkansas,Governor,False
-Hawaii,Governor,False
-Idaho,Governor,False
-Nebraska,Governor,False
-Oklahoma,Governor,False
-Rhode Island,Governor,False
-South Carolina,Governor,False
-South Dakota,Governor,False
-Tennessee,Governor,False
-Vermont,Governor,False
-Wyoming,Governor,False
-Alabama,Governor,False
+Priority,State,Office,Completed
+1,Arizona,Governor,True
+2,California,Governor,True
+3,Colorado,Senate,True
+4,Florida,Governor,True
+5,Georgia,Governor,True
+6,Georgia,Senate,True
+7,Illinois,Senate,True
+8,Iowa,Senate,True
+9,Maine,Senate,True
+10,Maryland,Governor,True
+11,Massachusetts,Senate,True
+12,Michigan,Governor,True
+13,Michigan,Senate,True
+14,Minnesota,Governor,True
+15,Minnesota,Senate,True
+16,New Hampshire,Senate,True
+17,New Mexico,Senate,True
+18,New York,Governor,True
+19,North Carolina,Senate,True
+20,Ohio,Governor,True
+21,Oregon,Senate,True
+22,Pennsylvania,Governor,True
+23,Texas,Governor,True
+24,Texas,Senate,True
+25,Virginia,Senate,True
+26,Wisconsin,Governor,True
+27,Colorado,Governor,True
+28,Nevada,Governor,True
+29,Illinois,Governor,True
+30,Oregon,Governor,True
+31,Connecticut,Governor,True
+32,New Hampshire,Governor,True
+33,Kansas,Governor,True
+34,New Mexico,Governor,True
+35,Iowa,Governor,True
+36,Maine,Governor,True
+37,Kentucky,Senate,True
+39,New Jersey,Senate,True
+40,Florida,Senate,True
+41,Ohio,Senate,False
+42,Oklahoma,Senate,False
+43,Massachusetts,Governor,False
+44,Delaware,Senate,False
+45,Rhode Island,Senate,False
+46,West Virginia,Senate,False
+47,Alaska,Senate,False
+48,Kansas,Senate,False
+49,Nebraska,Senate,False
+50,South Dakota,Senate,False
+51,Wyoming,Senate,False
+52,Alabama,Senate,False
+53,Arkansas,Senate,False
+54,Idaho,Senate,False
+55,Louisiana,Senate,False
+56,Mississippi,Senate,False
+57,Montana,Senate,False
+58,South Carolina,Senate,False
+59,Tennessee,Senate,False
+60,Alaska,Governor,False
+61,Arkansas,Governor,False
+62,Hawaii,Governor,False
+63,Idaho,Governor,False
+64,Nebraska,Governor,False
+65,Oklahoma,Governor,False
+66,Rhode Island,Governor,False
+67,South Carolina,Governor,False
+68,South Dakota,Governor,False
+69,Tennessee,Governor,False
+70,Vermont,Governor,False
+71,Wyoming,Governor,False
+72,Alabama,Governor,False
