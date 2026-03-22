@@ -20,6 +20,8 @@
       --accent-faint: #f2f6f8;
       --heading: #16212a;
       --sticky-controls-offset: 0px;
+      --all-mode-state-offset: 37px;
+      --all-mode-house-offset: 82px;
     }
 
     * {
@@ -115,7 +117,7 @@
       z-index: 8;
       gap: 0;
       padding: 10px 0;
-      background: linear-gradient(180deg, rgba(244,241,235,0.96), rgba(244,241,235,0.9));
+      background: var(--card);
       backdrop-filter: blur(6px);
     }
 
@@ -458,12 +460,20 @@
       top: calc(var(--sticky-controls-offset) - 5px);
       z-index: 9;
       padding: 10px 14px 8px;
-      margin-left: -13px;
-      margin-right: -13px;
+      margin-left: -15px;
+      margin-right: -15px;
       border: 1px solid var(--line);
       border-bottom: 0;
       border-radius: 8px 8px 0 0;
       background: #fff;
+    }
+
+    .all-mode .office-title {
+      top: var(--all-mode-state-offset);
+    }
+
+    .all-mode .district-title {
+      top: var(--all-mode-house-offset);
     }
 
     .candidate-list {
@@ -533,6 +543,11 @@
 
     .state-section {
       margin-top: 32px;
+    }
+
+    .house-district-list {
+      display: grid;
+      gap: 14px;
     }
 
     .state-header {
@@ -674,6 +689,11 @@
     @media (max-width: 700px) {
       .office-block {
         padding: 0 12px 12px;
+      }
+
+      .office-title {
+        margin-left: -13px;
+        margin-right: -13px;
       }
 
       .race-table {
@@ -3038,6 +3058,15 @@
       document.documentElement.style.setProperty("--sticky-controls-offset", `${offset}px`);
     }
 
+    function updateAllModeOffsets() {
+      const stateHeader = document.querySelector(".state-header");
+      const houseTitle = document.querySelector(".house-group-title");
+      const stateOffset = stateHeader ? stateHeader.offsetHeight : 37;
+      const houseOffset = stateOffset + (houseTitle ? houseTitle.offsetHeight : 45);
+      document.documentElement.style.setProperty("--all-mode-state-offset", `${stateOffset}px`);
+      document.documentElement.style.setProperty("--all-mode-house-offset", `${houseOffset}px`);
+    }
+
     function isProSafetyCandidate(candidate) {
       return candidate?.verdict === "nice";
     }
@@ -3307,7 +3336,7 @@
       return [...names];
     }
 
-    function renderOfficeBlock(office, candidates, titleOverride = "") {
+    function renderOfficeBlock(office, candidates, titleOverride = "", blockClass = "", titleClass = "office-title") {
       const filtered = getFilteredCandidates(candidates);
       const sorted = [...filtered].sort((a, b) =>
         VERDICT_ORDER.indexOf(a.verdict) - VERDICT_ORDER.indexOf(b.verdict)
@@ -3331,9 +3360,10 @@
           </div>
         </article>`).join("");
       const title = titleOverride || (office === "Senate" ? "U.S. Senate" : office);
+      const articleClass = ["office-block", blockClass].filter(Boolean).join(" ");
       return `
-        <article class="office-block">
-          <h3 class="office-title">${title}</h3>
+        <article class="${articleClass}">
+          <h3 class="${titleClass}">${title}</h3>
           ${sorted.length ? `<table class="race-table">
             <thead>
               <tr>
@@ -3396,6 +3426,31 @@
         race.candidates,
         `U.S. House: ${formatDistrictLabel(stateName, race.office)}`
       );
+    }
+
+    function buildAllStateRacesHTML(stateName) {
+      const statewideHtml = buildStatewideRacesHTML(stateName);
+      const houseRaces = getRacesForState(stateName)
+        .filter(r => String(r.office).startsWith("House "))
+        .sort((a, b) => String(a.office).localeCompare(String(b.office)));
+
+      const houseHtml = houseRaces.length ? `
+        <article class="office-block house-group">
+          <h3 class="office-title house-group-title">House of Representatives</h3>
+          <div class="house-district-list">
+            ${houseRaces.map(race =>
+              renderOfficeBlock(
+                race.office,
+                race.candidates,
+                formatDistrictLabel(stateName, race.office),
+                "district-block",
+                "office-title district-title"
+              )
+            ).join("")}
+          </div>
+        </article>` : "";
+
+      return [statewideHtml, houseHtml].filter(Boolean).join("");
     }
 
     function renderStateRaces(stateName) {
@@ -3711,6 +3766,9 @@
     controlsSummaryBtn.addEventListener("click", () => {
       setControlsCollapsed(!controlsCollapsed);
       saveUiState();
+      if (!controlsCollapsed) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     });
     filterToggle.addEventListener("click", e => {
       const button = e.target.closest(".filter-option");
@@ -3732,7 +3790,12 @@
     if (printBtn) {
       printBtn.addEventListener("click", () => window.print());
     }
-    window.addEventListener("resize", updateStickyOfficeOffset);
+    window.addEventListener("resize", () => {
+      updateStickyOfficeOffset();
+      if (document.body.classList.contains("all-mode")) {
+        updateAllModeOffsets();
+      }
+    });
     detectBtn.addEventListener("click", detectStateFromLocation);
     lookupAddressBtn.addEventListener("click", detectDistrictFromAddress);
     [addressLine1, addressCity, addressState, addressZip].forEach(input => {
@@ -3766,12 +3829,13 @@
     applyDevBuildReset();
     updateFilterButtons();
     if (modeToggleBtn) {
-      modeToggleBtn.textContent = isAllMode ? "Search State" : "See all";
+      modeToggleBtn.textContent = isAllMode ? "Search Address" : "See all";
       modeToggleBtn.setAttribute("href", isAllMode ? location.pathname : "?all");
     }
 
     // ?all mode — render every tracked state at once
     if (isAllMode) {
+      document.body.classList.add("all-mode");
       // raceResults lives inside .controls, so hide only the individual controls above it
       [".controls-summary", "#addressInputs", "#stickyControls"].forEach(sel => {
         document.querySelectorAll(sel).forEach(el => {
@@ -3783,10 +3847,11 @@
         stateNames.map(name => `
           <section class="state-section">
             <h2 class="state-header">${name}</h2>
-            <div class="race-results">${buildStatewideRacesHTML(name)}</div>
+            <div class="race-results">${buildAllStateRacesHTML(name)}</div>
           </section>`).join("");
       raceResults.style.display = "block";
       setFilterVisibility(false);
+      updateAllModeOffsets();
     } else {
       restoreUiState();
     }
