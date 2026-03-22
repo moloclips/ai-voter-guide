@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-110 -68 220 220" width="220" height="220" aria-label="Two-pronged plug logo">
+  <defs>
+    <style>
+      .plug-fill { fill: #111; }
+      @media (prefers-color-scheme: dark) {
+        .plug-fill { fill: #fff; }
+      }
+    </style>
+  </defs>
+  <rect x="-110" y="-68" width="220" height="220" fill="none" />
+  <g>
+  <path d="M 95 0 A 15 15 0 0 1 110 15 V 60 A 35 35 0 0 1 75 95 A 15 15 0 0 0 60 110 V 137 A 15 15 0 0 1 45 152 H -45 A 15 15 0 0 1 -60 137 V 110 A 15 15 0 0 0 -75 95 A 35 35 0 0 1 -110 60 V 15 A 15 15 0 0 1 -95 0 Z" class="plug-fill" />
+  <path d="
+    M -65 0
+    V -50.5
+    A 17.5 17.5 0 0 1 -30 -50.5
+    V 0
+    Z
+  " class="plug-fill" />
+  <path d="
+    M 30 0
+    V -50.5
+    A 17.5 17.5 0 0 1 65 -50.5
+    V 0
+    Z
+  " class="plug-fill" />
+  </g>
+</svg>

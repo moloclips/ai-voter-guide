@@ -121,6 +121,19 @@ python3 build.py
 - reads `template.html`
 - writes the generated output to `guide.html`
 
+Watch mode:
+
+```bash
+python3 scripts/watch_build.py
+```
+
+This watches:
+- `template.html`
+- `build.py`
+- `data/*.csv`
+
+and reruns `build.py` after each save.
+
 Python dependencies:
 
 ```bash

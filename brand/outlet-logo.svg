@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-185 -185 370 370" width="374" height="374" aria-label="Power outlet logo">
+  <rect x="-185" y="-185" width="370" height="370" fill="none" />
+  <path d="M -100.5 -140.5 H 100.5 A 169 169 0 0 1 100.5 140.5 H -100.5 A 169 169 0 0 1 -100.5 -140.5 Z" fill="#fff" stroke="#111" stroke-width="18" />
+  
+        <rect x="-69" y="-76"
+          width="18" height="91" rx="6"
+          fill="#111" />
+        <rect x="51" y="-67.5"
+          width="18" height="74" rx="6"
+          fill="#111" />
+        
+        <path d="
+          M -27.5 85.5
+          A 27.5 25 0 0 1 27.5 85.5
+          L 27.5 107.5
+          Q 27.5 113.5 21.5 113.5
+          L -21.5 113.5
+          Q -27.5 113.5 -27.5 107.5
+          Z"
+          fill="#111" />
+      
+      
+</svg>

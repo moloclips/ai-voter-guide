@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outlet Logo Tuner</title>
+  <style>
+    :root {
+      --bg: #efefef;
+      --panel: #fafafa;
+      --line: #d0d0d0;
+      --ink: #111;
+      --muted: #555;
+      --accent: #111;
+      --accent-soft: #e5e5e5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.75), transparent 35%),
+        linear-gradient(135deg, #f8f8f8, var(--bg));
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 16px 36px rgba(20, 26, 30, 0.06);
+    }
+
+    .controls {
+      padding: 20px;
+    }
+
+    .controls p {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .control-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .control {
+      display: grid;
+      gap: 6px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .value {
+      color: var(--muted);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.82rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button.primary {
+      background: #111;
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .preview {
+      padding: 20px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .artboard {
+      background:
+        linear-gradient(0deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+        #fff;
+      background-size: 32px 32px, 32px 32px, auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+    }
+
+    .swatches {
+      display: grid;
+      gap: 14px;
+    }
+
+    .swatch {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .swatch h3 {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .swatch-item {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+    }
+
+    .swatch-item svg {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 220px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      font: 12px/1.45 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      resize: vertical;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    @media (max-width: 980px) {
+      .page,
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="panel controls">
+      <h1>Outlet Logo Tuner</h1>
+      <p>
+        Square SVG playground for a U.S. outlet-inspired mark. Defaults are based on
+        public U.S. receptacle face proportions rather than a full proprietary NEMA slot
+        geometry sheet, so the sliders are intended for tuning the final icon.
+      </p>
+      <p class="note">
+        Reference proportions used here: Leviton duplex receptacle front view, about
+        <code>43.4 mm × 83.3 mm</code> overall, with internal width markers of
+        <code>35.8 mm</code> and <code>33.3 mm</code>.
+      </p>
+
+      <div class="control-grid" id="controls"></div>
+
+      <div class="actions">
+        <button class="primary" id="downloadBtn" type="button">Download SVG</button>
+        <button id="copyBtn" type="button">Copy SVG</button>
+        <button id="resetBtn" type="button">Reset Defaults</button>
+      </div>
+    </section>
+
+    <section class="panel preview">
+      <div class="preview-grid">
+        <div class="artboard">
+          <div id="svgMount"></div>
+        </div>
+
+        <aside class="swatches">
+          <section class="swatch">
+            <h3>Favicon Checks</h3>
+            <div class="swatch-grid" id="faviconChecks"></div>
+          </section>
+
+          <section class="swatch">
+            <h3>Notes</h3>
+            <p class="note">
+              For favicon use, prioritize the <code>32px</code> and <code>16px</code> previews.
+              If the ground shape or slot asymmetry disappears there, simplify before finalizing.
+            </p>
+          </section>
+        </aside>
+      </div>
+
+      <section>
+        <h2>Generated SVG</h2>
+        <textarea id="svgCode" spellcheck="false"></textarea>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "outlet-logo-tuner-v3";
+
+    const DEFAULTS = {
+      bodyWidth: 183,
+      bodyHeight: 263,
+      // sideRadius: 160,
+      sideRadius: 169,
+      stroke: 18,
+      slotOffsetX: 60,
+      slotMidlineToTop: 101,
+      groundBottomToBottom: 18,
+      leftSlotLength: 91,
+      rightSlotLength: 74,
+      slotWidth: 18,
+      slotRadius: 6,
+      groundWidth: 55,
+      groundHeight: 53,
+      groundTopRadiusY: 28
+    };
+
+    const CONTROLS = [
+      ["bodyWidth", "Body width", 180, 600, 1],
+      ["bodyHeight", "Body height", 200, 500, 1],
+      ["sideRadius", "Side radius", 8, 220, 1],
+      ["stroke", "Stroke", 6, 40, 1],
+      ["slotOffsetX", "Left/right slot offset", 22, 90, 1],
+      ["slotMidlineToTop", "Slot midline to top", 10, 220, 1],
+      ["groundBottomToBottom", "Ground bottom to bottom", 0, 120, 1],
+      ["leftSlotLength", "Left slot length", 36, 120, 1],
+      ["rightSlotLength", "Right slot length", 36, 120, 1],
+      ["slotWidth", "Slot width", 8, 28, 1],
+      ["slotRadius", "Slot corner radius", 2, 20, 1],
+      ["groundWidth", "Ground width", 34, 110, 1],
+      ["groundHeight", "Ground height", 22, 84, 1],
+      ["groundTopRadiusY", "Ground top radius y", 4, 36, 1]
+    ];
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        return { ...DEFAULTS, ...saved };
+      } catch {
+        return { ...DEFAULTS };
+      }
+    }
+
+    const state = loadState();
+    const controlsRoot = document.getElementById("controls");
+    const svgMount = document.getElementById("svgMount");
+    const svgCode = document.getElementById("svgCode");
+    const faviconChecks = document.getElementById("faviconChecks");
+
+    function persistState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function clampState() {
+      state.groundWidth = Math.min(state.groundWidth, state.bodyWidth - state.stroke * 3);
+      state.groundHeight = Math.min(state.groundHeight, 120);
+      state.groundTopRadiusY = Math.min(state.groundTopRadiusY, Math.floor(state.groundHeight / 2) - 1);
+      state.slotMidlineToTop = Math.min(state.slotMidlineToTop, state.bodyHeight - Math.max(state.leftSlotLength, state.rightSlotLength) / 2);
+      state.groundBottomToBottom = Math.min(state.groundBottomToBottom, state.bodyHeight - state.groundHeight);
+    }
+
+    function makeControl([key, label, min, max, step]) {
+      const wrap = document.createElement("div");
+      wrap.className = "control";
+      wrap.innerHTML = `
+        <label for="${key}">
+          <span>${label}</span>
+          <span class="value" id="${key}-value"></span>
+        </label>
+        <input id="${key}" type="range" min="${min}" max="${max}" step="${step}" value="${state[key]}" />
+      `;
+
+      const input = wrap.querySelector("input");
+      const valueEl = wrap.querySelector(".value");
+
+      const renderValue = () => {
+        valueEl.textContent = String(state[key]);
+      };
+
+      input.addEventListener("input", () => {
+        state[key] = Number(input.value);
+        clampState();
+        persistState();
+        render();
+        renderValue();
+      });
+
+      renderValue();
+      return wrap;
+    }
+
+    function outletSlots(cx, params) {
+      const leftX = cx - params.slotOffsetX;
+      const rightX = cx + params.slotOffsetX;
+      const innerTop = -params.bodyHeight / 2;
+      const cy = innerTop + params.slotMidlineToTop;
+
+      return `
+        <rect x="${leftX - params.slotWidth / 2}" y="${cy - params.leftSlotLength / 2}"
+          width="${params.slotWidth}" height="${params.leftSlotLength}" rx="${params.slotRadius}"
+          fill="#111" />
+        <rect x="${rightX - params.slotWidth / 2}" y="${cy - params.rightSlotLength / 2}"
+          width="${params.slotWidth}" height="${params.rightSlotLength}" rx="${params.slotRadius}"
+          fill="#111" />
+        ${groundShape(cx, params)}
+      `;
+    }
+
+    function groundShape(cx, params) {
+      const innerBottom = params.bodyHeight / 2;
+      const x = cx - params.groundWidth / 2;
+      const y = innerBottom - params.groundBottomToBottom - params.groundHeight;
+      const w = params.groundWidth;
+      const h = params.groundHeight;
+      const topRy = params.groundTopRadiusY;
+      const bottomR = params.slotRadius;
+      const topY = y + topRy;
+      return `
+        <path d="
+          M ${x} ${topY}
+          A ${w / 2} ${topRy} 0 0 1 ${x + w} ${topY}
+          L ${x + w} ${y + h - bottomR}
+          Q ${x + w} ${y + h} ${x + w - bottomR} ${y + h}
+          L ${x + bottomR} ${y + h}
+          Q ${x} ${y + h} ${x} ${y + h - bottomR}
+          Z"
+          fill="#111" />
+      `;
+    }
+
+    function buildSvg() {
+      const outerWidth = state.bodyWidth + state.stroke;
+      const outerHeight = state.bodyHeight + state.stroke;
+      const chord = outerHeight;
+      const sideArcRadius = Math.max(state.sideRadius, chord / 2);
+      const protrusion = sideArcRadius - Math.sqrt(sideArcRadius ** 2 - (chord / 2) ** 2);
+      const actualOuterWidth = outerWidth + protrusion * 2 + state.stroke;
+      const viewBoxSize = Math.ceil(Math.max(actualOuterWidth, outerHeight));
+      const mountSize = Math.ceil(state.sideRadius * 2 + state.stroke * 2);
+      const cx = 0;
+      const bodyX = -outerWidth / 2;
+      const bodyY = -outerHeight / 2;
+      const bodyPath = `
+        M ${bodyX} ${bodyY}
+        H ${bodyX + outerWidth}
+        A ${sideArcRadius} ${sideArcRadius} 0 0 1 ${bodyX + outerWidth} ${bodyY + outerHeight}
+        H ${bodyX}
+        A ${sideArcRadius} ${sideArcRadius} 0 0 1 ${bodyX} ${bodyY}
+        Z
+      `.replace(/\s+/g, " ").trim();
+
+      return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-viewBoxSize / 2} ${-viewBoxSize / 2} ${viewBoxSize} ${viewBoxSize}" width="${mountSize}" height="${mountSize}" aria-label="Power outlet logo">
+  <rect x="${-viewBoxSize / 2}" y="${-viewBoxSize / 2}" width="${viewBoxSize}" height="${viewBoxSize}" fill="none" />
+  <path d="${bodyPath}" fill="#fff" stroke="#111" stroke-width="${state.stroke}" />
+  ${outletSlots(cx, state)}
+</svg>`.trim();
+    }
+
+    function renderChecks(svg) {
+      faviconChecks.innerHTML = "";
+      [16, 32, 64, 128].forEach((size) => {
+        const item = document.createElement("div");
+        item.className = "swatch-item";
+        item.innerHTML = `
+          <svg viewBox="0 0 160 160" width="72" height="72" aria-hidden="true">
+            <foreignObject x="0" y="0" width="160" height="160">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="display:grid;place-items:center;width:160px;height:160px;">
+                <img alt="" src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}" width="${size}" height="${size}" />
+              </div>
+            </foreignObject>
+          </svg>
+          <div class="value">${size}px</div>
+        `;
+        faviconChecks.appendChild(item);
+      });
+    }
+
+    function render() {
+      clampState();
+      persistState();
+      const svg = buildSvg();
+      svgMount.innerHTML = svg;
+      svgCode.value = svg;
+      renderChecks(svg);
+    }
+
+    CONTROLS.forEach((config) => controlsRoot.appendChild(makeControl(config)));
+    render();
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      Object.assign(state, DEFAULTS);
+      CONTROLS.forEach(([key]) => {
+        document.getElementById(key).value = state[key];
+        document.getElementById(`${key}-value`).textContent = String(state[key]);
+      });
+      persistState();
+      render();
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(svgCode.value);
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const blob = new Blob([svgCode.value], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "outlet-logo.svg";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

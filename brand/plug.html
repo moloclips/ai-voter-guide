@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plug Logo Tuner</title>
+  <link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="" />
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: #101010;
+      --line: #2d2d2d;
+      --ink: #f5f5f5;
+      --muted: #a6a6a6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 35%),
+        linear-gradient(135deg, #111, var(--bg));
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 16px 36px rgba(20, 26, 30, 0.06);
+    }
+
+    .controls,
+    .preview {
+      padding: 20px;
+    }
+
+    .control-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .control {
+      display: grid;
+      gap: 6px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .value {
+      color: var(--muted);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.82rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: #111;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: #161616;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button.primary {
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    .artboard {
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(0deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+        #111;
+      background-size: 32px 32px, 32px 32px, auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .swatch {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #111;
+    }
+
+    .swatch h3 {
+      margin-top: 0;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .swatch-item {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+    }
+
+    .swatch-item svg {
+      background: #111;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 220px;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      font: 12px/1.45 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      resize: vertical;
+      background: #111;
+      color: var(--ink);
+    }
+
+    pre {
+      width: 100%;
+      margin: 18px 0 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      font: 12px/1.45 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      background: #fff;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="panel controls">
+      <h1>Plug Logo Tuner</h1>
+      <p>
+        Square SVG playground for a two-pronged plug pointing upward. The body path follows
+        your stepped arc/line construction with a narrowed tail.
+      </p>
+      <div class="control-grid" id="controls"></div>
+      <div class="actions">
+        <button class="primary" id="downloadBtn" type="button">Download SVG</button>
+        <button id="copyBtn" type="button">Copy SVG</button>
+        <button id="resetBtn" type="button">Reset Defaults</button>
+      </div>
+    </section>
+
+    <section class="panel preview">
+      <div class="preview-grid">
+        <div class="artboard">
+          <div id="svgMount"></div>
+        </div>
+        <aside class="swatch">
+          <h3>Favicon Preview</h3>
+          <div class="swatch-grid" id="faviconChecks"></div>
+        </aside>
+      </div>
+      <pre id="defaultsCode"></pre>
+      <textarea id="svgCode" spellcheck="false"></textarea>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "plug-logo-tuner-v2";
+const DEFAULTS = {
+  "prongWidth": 22,
+  "prongLength": 54,
+  "prongGap": 74,
+  "curve": 15,
+  "bodyWidth": 220,
+  "bodyHeight": 120,
+  "tailHeight": 30,
+  "tailWidth": 112
+};
+// const DEFAULTS = {
+//   "prongWidth": 22,
+//   "prongLength": 54,
+//   "prongGap": 74,
+//   "curve": 15,
+//   "bodyWidth": 220,
+//   "bodyHeight": 115,
+//   "tailHeight": 33,
+//   "tailWidth": 102
+// };
+
+    const CONTROLS = [
+      ["prongWidth", "Prong width", 8, 60, 1],
+      ["prongLength", "Prong length", 20, 220, 1],
+      ["prongGap", "Prong gap", 4, 160, 1],
+      ["curve", "Curve", 2, 60, 1],
+      ["bodyWidth", "Body width", 80, 320, 1],
+      ["bodyHeight", "Body height", 40, 240, 1],
+      ["tailHeight", "Tail height", 12, 220, 1],
+      ["tailWidth", "Tail width", 20, 240, 1]
+    ];
+
+    function loadState() {
+      try {
+        return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") };
+      } catch {
+        return { ...DEFAULTS };
+      }
+    }
+
+    const state = loadState();
+    const controlsRoot = document.getElementById("controls");
+    const svgMount = document.getElementById("svgMount");
+    const svgCode = document.getElementById("svgCode");
+    const defaultsCode = document.getElementById("defaultsCode");
+    const faviconChecks = document.getElementById("faviconChecks");
+    const dynamicFavicon = document.getElementById("dynamicFavicon");
+
+    function persistState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function clampState() {
+      state.curve = Math.min(state.curve, state.bodyWidth / 2 - 1, state.bodyHeight / 2 - 1, state.tailWidth / 2 - 1);
+      state.tailWidth = Math.min(state.tailWidth, state.bodyWidth - 2);
+      state.prongGap = Math.max(state.prongGap, 4);
+    }
+
+    function makeControl([key, label, min, max, step]) {
+      const wrap = document.createElement("div");
+      wrap.className = "control";
+      wrap.innerHTML = `
+        <label for="${key}">
+          <span>${label}</span>
+          <span class="value" id="${key}-value"></span>
+        </label>
+        <input id="${key}" type="range" min="${min}" max="${max}" step="${step}" value="${state[key]}" />
+      `;
+
+      const input = wrap.querySelector("input");
+      const valueEl = wrap.querySelector(".value");
+
+      const renderValue = () => {
+        valueEl.textContent = String(state[key]);
+      };
+
+      input.addEventListener("input", () => {
+        state[key] = Number(input.value);
+        clampState();
+        persistState();
+        render();
+        renderValue();
+      });
+
+      renderValue();
+      return wrap;
+    }
+
+    function buildBodyPath(params) {
+      const halfBody = params.bodyWidth / 2;
+      const halfTail = params.tailWidth / 2;
+      const yTop = 0;
+      const yBodyBottom = params.bodyHeight;
+      const yTailBottom = params.bodyHeight + params.tailHeight;
+      const shoulderRadius = (params.bodyWidth - params.tailWidth) / 2 - params.curve;
+
+      return [
+        `M ${halfBody - params.curve} ${yTop}`,
+        `A ${params.curve} ${params.curve} 0 0 1 ${halfBody} ${params.curve}`,
+        `V ${yBodyBottom - shoulderRadius - params.curve}`,
+        `A ${shoulderRadius} ${shoulderRadius} 0 0 1 ${halfBody - shoulderRadius} ${yBodyBottom - params.curve}`,
+        `A ${params.curve} ${params.curve} 0 0 0 ${halfTail} ${yBodyBottom}`,
+        `V ${yTailBottom - params.curve}`,
+        `A ${params.curve} ${params.curve} 0 0 1 ${halfTail - params.curve} ${yTailBottom}`,
+        `H ${-halfTail + params.curve}`,
+        `A ${params.curve} ${params.curve} 0 0 1 ${-halfTail} ${yTailBottom - params.curve}`,
+        `V ${yBodyBottom}`,
+        `A ${params.curve} ${params.curve} 0 0 0 ${-halfBody + shoulderRadius} ${yBodyBottom - params.curve}`,
+        `A ${shoulderRadius} ${shoulderRadius} 0 0 1 ${-halfBody} ${yBodyBottom - shoulderRadius - params.curve}`,
+        `V ${params.curve}`,
+        `A ${params.curve} ${params.curve} 0 0 1 ${-halfBody + params.curve} ${yTop}`,
+        "Z"
+      ].join(" ");
+    }
+
+    function buildSvg() {
+      clampState();
+
+      const tipRadius = state.prongWidth / 2;
+      const leftProngX = -(state.prongGap / 2 + state.prongWidth);
+      const rightProngX = state.prongGap / 2;
+      const prongBottomY = 0;//-state.curve/2;
+      const prongTopY = -(state.curve + state.prongLength);
+      const bodyPath = buildBodyPath(state);
+
+      const topExtent = prongTopY;
+      const bottomExtent = state.bodyHeight + state.tailHeight;
+      const halfWidth = Math.max(state.bodyWidth / 2, state.prongGap / 2 + state.prongWidth);
+      const totalHeight = bottomExtent - topExtent;
+      const totalWidth = halfWidth * 2;
+      const boxSize = Math.ceil(Math.max(totalWidth, totalHeight));
+      const centerY = (topExtent + bottomExtent) / 2;
+      const viewMinX = -boxSize / 2;
+      const viewMinY = centerY - boxSize / 2;
+
+      return `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewMinX} ${viewMinY} ${boxSize} ${boxSize}" width="${boxSize}" height="${boxSize}" aria-label="Two-pronged plug logo">
+  <defs>
+    <style>
+      .plug-fill { fill: #111; }
+      @media (prefers-color-scheme: dark) {
+        .plug-fill { fill: #fff; }
+      }
+    </style>
+  </defs>
+  <rect x="${viewMinX}" y="${viewMinY}" width="${boxSize}" height="${boxSize}" fill="none" />
+  <g>
+  <path d="${bodyPath}" class="plug-fill" />
+  <path d="
+    M ${leftProngX} ${prongBottomY}
+    V ${prongTopY + tipRadius}
+    A ${tipRadius} ${tipRadius} 0 0 1 ${leftProngX + state.prongWidth} ${prongTopY + tipRadius}
+    V ${prongBottomY}
+    Z
+  " class="plug-fill" />
+  <path d="
+    M ${rightProngX} ${prongBottomY}
+    V ${prongTopY + tipRadius}
+    A ${tipRadius} ${tipRadius} 0 0 1 ${rightProngX + state.prongWidth} ${prongTopY + tipRadius}
+    V ${prongBottomY}
+    Z
+  " class="plug-fill" />
+  </g>
+</svg>`.trim();
+    }
+
+    function renderChecks(svg) {
+      faviconChecks.innerHTML = "";
+      [16, 24, 32, 48].forEach((size) => {
+        const item = document.createElement("div");
+        item.className = "swatch-item";
+        item.innerHTML = `
+          <svg viewBox="0 0 120 120" width="72" height="72" aria-hidden="true">
+            <foreignObject x="0" y="0" width="120" height="120">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="display:grid;place-items:center;width:120px;height:120px;">
+                <img alt="" src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}" width="${size}" height="${size}" />
+              </div>
+            </foreignObject>
+          </svg>
+          <div class="value">${size}px</div>
+        `;
+        faviconChecks.appendChild(item);
+      });
+    }
+
+    function render() {
+      persistState();
+      const svg = buildSvg();
+      svgMount.innerHTML = svg;
+      svgCode.value = svg;
+      defaultsCode.textContent = `const DEFAULTS = ${JSON.stringify(state, null, 2)};`;
+      dynamicFavicon.href = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      renderChecks(svg);
+    }
+
+    CONTROLS.forEach((config) => controlsRoot.appendChild(makeControl(config)));
+    render();
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      Object.assign(state, DEFAULTS);
+      CONTROLS.forEach(([key]) => {
+        document.getElementById(key).value = state[key];
+        document.getElementById(`${key}-value`).textContent = String(state[key]);
+      });
+      render();
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(svgCode.value);
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const blob = new Blob([svgCode.value], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "plug-logo.svg";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import datetime
 import json
+from urllib.parse import quote
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -10,6 +11,7 @@ DATA_DIR = ROOT / "data"
 TEMPLATE_HTML = ROOT / "template.html"
 GUIDE_HTML = ROOT / "guide.html"
 XLSX_PATH = ROOT / "data.xlsx"
+FAVICON_SVG = ROOT / "brand" / "plug-logo.svg"
 
 CSV_SPECS = [
     ("Candidates", DATA_DIR / "candidates.csv"),
@@ -19,6 +21,12 @@ CSV_SPECS = [
 ]
 
 VERDICT_ORDER = ["nice", "nuanced", "no_record", "naughty"]
+EXCLUDED_STATUS_TERMS = (
+    "removed from ballot",
+    "failed to qualify",
+    "exploratory",
+    "potential candidate",
+)
 
 
 def load_tables():
@@ -53,8 +61,12 @@ def build_voter_data(candidates, evidence):
         party = str(row.get("Party", "")).strip()
         status = str(row.get("Status", "")).strip()
         verdict = str(row.get("Verdict", "")).strip()
+        preference = str(row.get("Preference", "")).strip()
 
         if not present(candidate, state, office, party, status):
+            continue
+        status_lower = status.lower()
+        if any(term in status_lower for term in EXCLUDED_STATUS_TERMS):
             continue
         if verdict not in VERDICT_ORDER:
             verdict = "no_record"
@@ -64,6 +76,7 @@ def build_voter_data(candidates, evidence):
             "party": party,
             "status": status,
             "verdict": verdict,
+            "preference": int(preference) if preference.isdigit() else None,
             "sources": evidence_map.get(candidate, []),
         }
 
@@ -71,7 +84,11 @@ def build_voter_data(candidates, evidence):
     for (state, office), cands in sorted(races.items()):
         sorted_candidates = sorted(
             cands.values(),
-            key=lambda c: VERDICT_ORDER.index(c["verdict"]),
+            key=lambda c: (
+                VERDICT_ORDER.index(c["verdict"]),
+                c["preference"] if c["preference"] is not None else 999,
+                c["candidate"],
+            ),
         )
         voter_data.append({
             "state": state,
@@ -99,7 +116,18 @@ def write_guide_html(voter_data):
 
     last_updated = soup.find(id="lastUpdated")
     if last_updated is not None:
-        last_updated.string = datetime.now().strftime("%B %-d, %Y")
+        now = datetime.now()
+        last_updated["datetime"] = now.strftime("%Y-%m-%d")
+        last_updated.string = now.strftime("%B %-d, %Y")
+
+    build_stamp = soup.find("meta", attrs={"name": "build-stamp"})
+    if build_stamp is not None:
+        build_stamp["content"] = datetime.now().isoformat(timespec="seconds")
+
+    favicon = soup.find("link", rel="icon")
+    if favicon is not None:
+        favicon_svg = FAVICON_SVG.read_text(encoding="utf-8").strip()
+        favicon["href"] = f"data:image/svg+xml;charset=utf-8,{quote(favicon_svg)}"
 
     with GUIDE_HTML.open("w", encoding="utf-8") as f:
         f.write(str(soup))
