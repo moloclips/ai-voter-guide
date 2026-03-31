@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "table": {
+            "type": "string",
+            "enum": ["candidates", "evidence"]
+          },
+          "key": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["add", "mod", "del"]
+          },
+          "reasoning": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": ["field", "value"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["table", "key", "action", "reasoning", "fields"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["changes"],
+  "additionalProperties": false
+}

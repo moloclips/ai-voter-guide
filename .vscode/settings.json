@@ -1,0 +1,13 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "(scripts/review_changes_ui\\.py|scripts/race_runner\\.py|scripts/race_runner\\.schema\\.json|scripts/apply_changes\\.py)$",
+        "isAsync": true,
+        "cmd": "/bin/zsh scripts/restart_review_changes_ui.sh"
+      }
+    ]
+  }
+}

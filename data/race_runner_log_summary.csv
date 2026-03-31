@@ -1,0 +1,487 @@
+Candidate,Succeeded/Total,Latest_Run,Model,Total_Web_Lookups,Total_Command_Executions,Total_Todo_Lists,Total_Rate_Limits,Total_Turns,Input_Tokens,Output_Tokens,Claude_Total_Cost_USD
+Aaron Flint (House MT-01),1/1,2026-03-29 15:39:58,claude-sonnet-4-6,4,0,0,1,7,311,1474,0.167473
+Aaron Guckian (RI - Governor),1/1,2026-03-27 18:13:57,claude-sonnet-4-6,4,0,0,1,7,882,4343,0.257894
+Abel Chavez (House CA-48),1/1,2026-03-27 18:37:16,claude-sonnet-4-6,3,0,0,2,6,755,1150,0.155465
+Adam Follmer (House WI-01),1/1,2026-03-29 20:33:14,claude-sonnet-4-6,2,0,0,1,5,8,1096,0.110706
+Adam Gray (House CA-13),1/1,2026-03-28 11:53:51,codex,5,2,1,0,0,56435,1482,0.000000
+Adam Steen (IA - Governor),1/1,2026-03-26 16:42:20,claude-sonnet-4-6,2,0,0,1,5,8,1184,0.120529
+Alan Grayson (FL - Senate),1/1,2026-03-26 17:25:43,claude-sonnet-4-6,4,0,0,2,7,824,1607,0.205167
+Albert Olszewski (House MT-01),1/1,2026-03-29 15:41:31,claude-sonnet-4-6,4,0,0,1,7,663,1699,0.196865
+Alberto Escobedo (House CA-13),1/1,2026-03-28 11:54:54,codex,8,0,1,0,0,81808,2046,0.000000
+Alex Kelloff (House CO-03),1/1,2026-03-29 10:15:22,claude-sonnet-4-6,4,0,0,1,7,706,1755,0.179126
+Alex Stovall (House AZ-04),2/2,2026-03-30 08:07:40,claude-sonnet-4-6,5,0,0,4,10,668,2008,0.265722
+Alex Vindman (FL - Senate),1/1,2026-03-26 17:22:03,claude-sonnet-4-6,2,0,0,1,5,936,907,0.110676
+Alex Zdan (NJ - Senate),1/1,2026-03-26 17:17:43,claude-sonnet-4-6,3,0,0,1,6,9,1388,0.163508
+Alexander Murchison (ME - Governor),1/1,2026-03-26 17:14:51,claude-sonnet-4-6,6,0,0,1,9,765,2818,0.298472
+Alexander Portelli (House NY-19),2/2,2026-03-28 12:27:22,codex,13,2,1,1,5,59643,4290,0.289055
+Alexis Hill (NV - Governor),1/1,2026-03-25 14:39:57,codex,6,1,1,0,0,51596,1700,0.000000
+Alfred Lemmo (House MI-08),1/1,2026-03-28 12:06:14,codex,7,1,1,0,0,60226,1490,0.000000
+Amanda Janoo (VT - Governor),1/1,2026-03-27 18:19:38,claude-sonnet-4-6,3,0,0,1,6,9,1031,0.133986
+Amanda Pusczek (House AL-04),1/1,2026-03-29 20:44:29,claude-sonnet-4-6,2,0,0,1,5,832,1322,0.170159
+Amanda Rose (House AZ-08),2/2,2026-03-30 13:10:37,claude-sonnet-4-6,21,0,0,20,8,12,2307,0.772380
+Amir Hassan (House MI-08),1/1,2026-03-28 12:05:21,codex,8,2,1,0,0,81051,2234,0.000000
+Amish Shah (House AZ-01),1/1,2026-03-27 18:29:48,claude-sonnet-4-6,10,0,0,1,3,5,1447,0.419071
+Ammar Campa-Najjar (House CA-48),1/1,2026-03-27 18:36:32,claude-sonnet-4-6,6,0,0,5,10,13,1674,0.298436
+Amy Acton (OH - Governor),1/1,2026-03-25 14:28:32,codex,5,2,1,0,0,58747,1552,0.000000
+Amy Phan West (House CA-45),1/1,2026-03-28 12:01:29,codex,5,2,1,0,0,56049,1426,0.000000
+Andrew Beck (House WI-05),2/2,2026-03-25 11:10:00,codex,16,8,2,0,0,210098,4951,0.000000
+Andrew Lucchetti (House VA-01),1/1,2026-03-28 16:34:09,claude-sonnet-4-6,4,0,0,1,7,175,1459,0.173047
+Andrew Sneed (House AL-05),1/1,2026-03-29 20:48:20,claude-sonnet-4-6,8,0,0,2,12,773,3595,0.353710
+Andrew Vantine (House TX-28),1/1,2026-03-28 12:32:36,codex,7,2,1,0,0,60282,2131,0.000000
+Andromeda Crum (House AZ-04),1/1,2026-03-30 08:09:35,claude-sonnet-4-6,7,0,0,2,11,1517,2522,0.316530
+Andy Barr (KY - Senate),1/1,2026-03-30 18:24:28,claude-sonnet-4-6,3,0,0,2,6,9,3114,0.198654
+Andy Biggs (AZ - Governor),1/1,2026-03-25 11:38:16,codex,16,3,1,0,0,133022,3570,0.000000
+Angelina Sigala (House CA-13),1/1,2026-03-28 11:56:31,codex,9,2,1,0,0,58196,1555,0.000000
+Angie Nixon (FL - Senate),1/1,2026-03-26 17:24:56,claude-sonnet-4-6,21,0,0,9,5,8,1369,0.621576
+Angus King III (ME - Governor),1/1,2026-03-26 16:47:00,claude-sonnet-4-6,4,0,0,1,7,1525,1391,0.192947
+Anna Paulina Luna (House FL-13),1/1,2026-03-29 10:25:25,claude-sonnet-4-6,4,0,0,1,7,913,2805,0.201840
+Anne Parelkar (KS - Senate),1/1,2026-03-27 09:53:35,claude-sonnet-4-6,3,0,0,1,6,9,2183,0.160951
+Annie Andrews (SC - Senate),1/1,2026-03-27 18:03:53,claude-sonnet-4-6,4,0,0,1,8,746,1924,0.205822
+Anthony DiLorenzo (House NH-01),1/1,2026-03-28 21:31:29,claude-sonnet-4-6,2,0,0,1,5,869,1014,0.112779
+Anthony Snowden (House NV-04),1/1,2026-03-28 21:47:19,claude-sonnet-4-6,4,0,0,4,7,341,1506,0.186275
+Antonio Villaraigosa (CA - Governor),1/1,2026-03-25 11:39:26,codex,6,1,1,0,0,52218,2202,0.000000
+Antony Barran (House WA-03),1/1,2026-03-28 10:08:11,claude-sonnet-4-6,2,0,0,2,5,835,1667,0.126499
+Ashley Ehasz (House PA-01),1/1,2026-03-29 15:52:52,claude-sonnet-4-6,5,0,0,1,8,1555,2559,0.246616
+Aury Nagy (House NV-03),1/1,2026-03-28 12:18:39,codex,8,1,1,0,0,58858,2118,0.000000
+Austin Sidwell (House AL-01),1/1,2026-03-29 20:38:15,claude-sonnet-4-6,2,0,0,2,5,917,1134,0.119159
+Barb Regnitz (House IN-01),1/1,2026-03-28 16:46:07,claude-sonnet-4-6,2,0,0,1,5,870,1677,0.132468
+Barbara Kirkmeyer (CO - Governor),1/1,2026-03-25 14:34:06,codex,8,2,1,0,0,79080,2573,0.000000
+Ben Midgley (ME - Governor),1/1,2026-03-26 17:10:20,claude-sonnet-4-6,2,0,0,1,5,895,1467,0.122358
+Ben Steinhoff (House WI-05),1/2,2026-03-25 11:11:07,codex,6,1,1,0,0,54544,2162,0.000000
+Benjamin Luna (NM - Senate),1/1,2026-03-25 14:26:51,codex,9,2,1,0,0,64676,1978,0.000000
+Bernadette Greene-Placentia (House AZ-08),1/1,2026-03-30 13:12:03,claude-sonnet-4-6,5,0,0,1,8,991,3349,0.234358
+Beth Adubato (House NJ-07),1/1,2026-03-28 09:32:07,claude-sonnet-4-6,3,0,0,1,7,933,1852,0.186942
+Beth Davidson (House NY-17),1/1,2026-03-28 09:35:20,claude-sonnet-4-6,2,0,0,1,5,840,941,0.107305
+Beth Reye (House AZ-04),1/1,2026-03-29 20:56:07,claude-sonnet-4-6,4,0,0,4,7,1488,1843,0.197400
+Betsy McCaughey (CT - Governor),1/1,2026-03-25 15:55:33,codex,8,1,1,0,0,52886,2227,0.000000
+Bill Conlin (House NH-01),1/1,2026-03-28 21:26:03,claude-sonnet-4-6,6,0,0,2,9,10,2006,0.244115
+Bishop Staten (House VA-02),1/1,2026-03-28 10:05:08,claude-sonnet-4-6,2,0,0,1,5,8,1123,0.106518
+Blake Bracht (House AZ-05),1/1,2026-03-30 08:15:47,claude-sonnet-4-6,6,0,0,1,10,13,2071,0.258375
+Bob Brooks (House PA-07),1/1,2026-03-28 09:45:01,claude-sonnet-4-6,4,0,0,1,7,10,1668,0.226768
+Bob Krause (IA - Senate),1/1,2026-03-25 12:05:07,codex,5,2,1,0,0,75419,2189,0.000000
+Bobby Charles (ME - Governor),1/1,2026-03-26 16:49:04,claude-sonnet-4-6,4,0,0,1,7,1723,3100,0.221421
+Bobby Pulido (House TX-15),1/1,2026-03-29 15:57:41,claude-sonnet-4-6,2,0,0,1,5,8,1208,0.139607
+Bobby Wilson (House AR-03),1/1,2026-03-30 13:35:33,claude-sonnet-4-6,4,0,0,5,7,1837,2633,0.219878
+Brad Sherman (IA - Governor),1/1,2026-03-26 16:41:34,claude-sonnet-4-6,5,0,0,1,8,851,3127,0.245824
+Brandon Riker (House CA-48),1/1,2026-03-27 18:39:51,claude-sonnet-4-6,3,0,0,2,6,783,1315,0.148935
+Brent Bien (WY - Governor),1/1,2026-03-27 18:20:51,claude-sonnet-4-6,2,0,0,2,5,707,1096,0.116128
+Brent Hennrich (House WA-03),1/1,2026-03-28 10:08:59,claude-sonnet-4-6,4,0,0,3,7,852,1381,0.190022
+Brian Cole (House NH-01),1/1,2026-03-28 21:30:56,claude-sonnet-4-6,4,0,0,2,7,601,1516,0.189222
+Brian Forde (House CA-45),1/1,2026-03-28 11:59:18,codex,10,2,1,0,0,73510,2902,0.000000
+Brian Hualde (House AZ-05),1/1,2026-03-30 08:16:41,claude-sonnet-4-6,4,0,0,4,7,1535,1413,0.192094
+Brian Shortsleeve (MA - Governor),1/1,2026-03-30 18:31:47,claude-sonnet-4-6,9,0,0,10,13,968,4472,0.427184
+Bridget Brink (House MI-07),1/1,2026-03-28 09:31:13,claude-sonnet-4-6,11,0,0,1,3,5,1075,0.488583
+Brinker Harding (House NE-02),1/1,2026-03-28 12:06:47,codex,3,1,1,0,0,46289,1116,0.000000
+Brittany Jones (OR - Governor),1/1,2026-03-25 15:43:40,codex,8,2,1,0,0,78766,2448,0.000000
+Buddy Carter (GA - Senate),1/1,2026-03-25 11:54:09,codex,7,3,1,0,0,79184,3437,0.000000
+Burk Stringfellow (House VA-02),1/1,2026-03-28 10:03:45,claude-sonnet-4-6,4,0,0,1,7,9,1113,0.178939
+Byron Donalds (FL - Governor),1/1,2026-03-30 18:14:16,claude-sonnet-4-6,3,0,0,1,6,9,5230,0.243824
+Camelia Ward (House AZ-09),1/1,2026-03-30 13:27:59,claude-sonnet-4-6,4,0,0,1,7,9,2224,0.193591
+Candice Duvieilh (House AL-05),1/1,2026-03-29 20:46:31,claude-sonnet-4-6,3,0,0,1,6,9,1082,0.143692
+Carleigh Beriont (House NH-01),1/1,2026-03-28 16:51:18,claude-sonnet-4-6,4,0,0,6,7,877,3683,0.222824
+Carlos De La Cruz (House TX-35),1/1,2026-03-29 15:59:34,claude-sonnet-4-6,5,0,0,1,8,10,2560,0.262057
+Carol Obando-Derstine (House PA-07),1/1,2026-03-28 09:47:41,claude-sonnet-4-6,4,0,0,1,7,908,1348,0.193330
+Carrie Buck (House NV-01),1/1,2026-03-28 21:44:47,claude-sonnet-4-6,4,0,0,4,7,693,2079,0.188764
+Case Dixon (House AL-06),1/1,2026-03-29 20:50:15,claude-sonnet-4-6,2,0,0,1,5,731,867,0.114360
+Chad Bianco (CA - Governor),1/1,2026-03-30 18:04:16,claude-sonnet-4-6,5,0,0,2,8,970,4502,0.351579
+Charles McCall (OK - Governor),1/1,2026-03-27 18:10:21,claude-sonnet-4-6,4,0,0,1,7,9,1596,0.202036
+Charlie Hatcher (House TN-05),1/1,2026-03-29 15:53:24,claude-sonnet-4-6,2,0,0,1,5,880,1010,0.111490
+Charlotte O'Hara (KS - Governor),1/1,2026-03-26 16:29:15,claude-sonnet-4-6,2,0,0,1,5,606,1022,0.112207
+Chaz Molder (House TN-05),1/1,2026-03-29 15:54:44,claude-sonnet-4-6,2,0,0,1,5,8,1203,0.111623
+Chi Charlie Nguyen (House CA-45),1/1,2026-03-28 11:59:58,codex,4,2,1,0,0,51320,1657,0.000000
+Chris Brandlin (House NV-03),1/1,2026-03-28 12:15:49,codex,5,3,1,0,0,77591,1857,0.000000
+Chris Carr (GA - Governor),1/1,2026-03-25 11:48:17,codex,13,3,1,0,0,123953,3409,0.000000
+Chris Dudley (OR - Governor),1/1,2026-03-25 15:47:23,codex,3,1,1,0,0,50680,1293,0.000000
+Chris Henry (IA - Senate),1/1,2026-03-25 12:04:08,codex,8,2,1,0,0,75067,2092,0.000000
+Chris James (House AZ-05),1/1,2026-03-30 08:14:36,claude-sonnet-4-6,4,0,0,1,7,1748,2107,0.208845
+Chris Jones (House AR-02),1/1,2026-03-30 13:32:03,claude-sonnet-4-6,4,0,0,1,7,9,1335,0.185489
+Chris Tardif (House NH-02),1/1,2026-03-28 21:36:53,claude-sonnet-4-6,15,0,0,3,5,8,995,0.745052
+Christi Jacobsen (House MT-01),1/1,2026-03-29 15:40:38,claude-sonnet-4-6,3,0,0,1,6,794,1120,0.161254
+Christian Urrutia (House NH-01),1/1,2026-03-28 21:29:31,claude-sonnet-4-6,6,0,0,1,10,200,1944,0.222721
+Christina Bohannan (House IA-01),1/1,2026-03-28 09:26:24,claude-sonnet-4-6,3,0,0,1,6,1031,1431,0.161890
+Christina Hines (House MI-10),1/1,2026-03-28 16:25:50,claude-sonnet-4-6,3,0,0,2,7,799,2226,0.186580
+Christine Drazan (OR - Governor),1/1,2026-03-25 15:46:43,codex,15,2,1,0,0,88490,4271,0.000000
+Christopher Beardsley (DE - Senate),1/1,2026-03-27 09:46:35,claude-sonnet-4-6,4,0,0,1,8,481,1362,0.209649
+Christy Davis (KS - Senate),1/1,2026-03-27 09:52:39,claude-sonnet-4-6,2,0,0,2,5,8,998,0.117393
+Chuck Edwards (House NC-11),1/1,2026-03-29 15:49:45,claude-sonnet-4-6,4,0,0,1,7,9,2376,0.203857
+Chuong Vo (House CA-45),1/1,2026-03-28 12:00:51,codex,6,2,1,0,0,81814,2047,0.000000
+Cinde Warmington (NH - Governor),1/1,2026-03-25 15:57:13,codex,6,3,1,0,0,55449,2274,0.000000
+Cindy Holscher (KS - Governor),1/1,2026-03-26 16:32:19,claude-sonnet-4-6,7,0,0,1,11,366,3278,0.304922
+Cindy Hyde-Smith (MS - Senate),1/1,2026-03-25 09:28:37,claude-sonnet-4-6,10,0,0,1,3,5,1183,0.370427
+Click Bishop (AK - Governor),1/1,2026-03-27 18:06:16,claude-sonnet-4-6,4,0,0,1,7,1619,1361,0.193917
+Clint Twedt-Ball (House IA-02),1/1,2026-03-29 10:30:58,claude-sonnet-4-6,2,0,0,1,5,764,987,0.114523
+Clyde Jones (House AL-01),1/1,2026-03-29 20:38:47,claude-sonnet-4-6,2,0,0,1,5,884,1017,0.113727
+Cody Whipple (House NV-04),2/2,2026-03-29 10:07:05,claude-sonnet-4-6,6,0,0,5,11,795,1726,0.260337
+Connor Burbridge (RI - Senate),1/1,2026-03-27 09:48:30,claude-sonnet-4-6,4,0,0,1,7,888,2487,0.203661
+Connor Walleck (House WI-01),1/1,2026-03-29 16:01:48,claude-sonnet-4-6,2,0,0,3,5,830,1479,0.124773
+Corey Lewandowski (NH - Governor),2/2,2026-03-25 19:02:09,codex,18,2,2,0,0,140840,4199,0.000000
+Corinna Contreras (House CA-48),1/1,2026-03-27 18:38:25,claude-sonnet-4-6,7,0,0,4,11,15,1997,0.309938
+Cory Mills (House FL-07),1/1,2026-03-29 10:22:10,claude-sonnet-4-6,5,0,0,1,8,1031,1470,0.287809
+Craig Ennis (House VA-07),1/1,2026-03-28 12:36:59,codex,10,2,1,0,0,84907,2755,0.000000
+Crystal Rhoades (House NE-02),1/1,2026-03-28 12:09:37,codex,4,1,1,0,0,52458,1550,0.000000
+Damon Lynch IV (House OH-01),1/1,2026-03-28 09:38:20,claude-sonnet-4-6,2,0,0,1,5,8,899,0.106594
+Dan Helmer (House VA-07),1/1,2026-03-28 12:34:34,codex,10,3,1,0,0,89211,3224,0.000000
+Dan Osborn (NE - Senate),1/1,2026-03-27 09:56:56,claude-sonnet-4-6,4,0,0,1,7,821,1337,0.206270
+Daniel Butierez (House AZ-07),1/1,2026-03-30 08:22:38,claude-sonnet-4-6,4,0,0,1,7,1410,1628,0.191488
+Daniel Garibay Rodriguez (House CA-13),1/1,2026-03-28 11:55:51,codex,9,2,1,0,0,87275,2323,0.000000
+Daniel Keenan (House AZ-05),1/1,2026-03-30 08:13:31,claude-sonnet-4-6,6,0,0,1,10,13,1938,0.241062
+Danielle Bethell (OR - Governor),1/1,2026-03-25 15:48:26,codex,6,2,1,0,0,60113,2238,0.000000
+Danielle Sterbinsky (House AZ-09),1/1,2026-03-30 13:24:37,claude-sonnet-4-6,5,0,0,1,9,720,3272,0.234430
+Danielle Welch (House NY-03),1/1,2026-03-28 12:21:49,codex,3,2,1,0,0,48966,1319,0.000000
+Dave Bushaw (House IA-02),1/1,2026-03-29 10:32:33,claude-sonnet-4-6,3,0,0,6,6,691,1223,0.130419
+David Gedert (House OH-09),1/1,2026-03-28 09:43:53,claude-sonnet-4-6,3,0,0,1,6,757,2203,0.159775
+David Hann (MN - Senate),1/1,2026-03-25 14:14:47,codex,4,2,1,0,0,52402,1624,0.000000
+David Jolly (FL - Governor),1/1,2026-03-25 11:46:25,codex,9,1,1,0,0,60529,2170,0.000000
+David Jones (ME - Governor),1/1,2026-03-26 17:11:14,claude-sonnet-4-6,2,0,0,1,5,804,1982,0.131638
+David Medina (OR - Governor),1/1,2026-03-25 15:50:14,codex,4,2,1,0,0,50750,1439,0.000000
+David Pautsch (House IA-01),1/1,2026-03-28 09:25:26,claude-sonnet-4-6,4,0,0,1,8,12,1383,0.203421
+David Schweikert (AZ - Governor),1/1,2026-03-25 14:00:44,codex,7,1,1,0,0,68366,3359,0.000000
+Deaglan McEachern (NH - Governor),1/1,2026-03-25 15:59:45,codex,6,2,1,0,0,67405,2125,0.000000
+Dean Pennington (House NH-02),1/1,2026-03-28 21:34:57,claude-sonnet-4-6,2,0,0,1,5,713,1364,0.122691
+Denise Powell (House NE-02),1/1,2026-03-28 12:09:00,codex,3,2,1,0,0,48327,974,0.000000
+Derek Dooley (GA - Senate),1/1,2026-03-25 11:55:14,codex,7,3,1,0,0,63804,2097,0.000000
+Derek Levasseur (ME - Governor),1/1,2026-03-26 17:13:32,claude-sonnet-4-6,2,0,0,1,5,8,1317,0.120942
+Derek Merrin (House OH-09),1/1,2026-03-28 09:42:52,claude-sonnet-4-6,4,0,0,1,7,1720,1128,0.216594
+Derrick Van Orden (House WI-03),1/1,2026-03-28 10:09:50,claude-sonnet-4-6,4,0,0,2,7,869,1581,0.194209
+Diop Harris (House MI-04),1/1,2026-03-29 15:38:19,claude-sonnet-4-6,2,0,0,1,5,8,974,0.109797
+Don Tracy (IL - Senate),1/1,2026-03-25 11:57:12,codex,11,3,1,0,0,102496,4513,0.000000
+Donovan Fenton (NH - Governor),1/1,2026-03-25 16:01:09,codex,14,0,1,0,0,77203,3063,0.000000
+Dorothy McAuliffe (House VA-07),1/1,2026-03-28 12:35:47,codex,11,1,1,0,0,80823,2670,0.000000
+Doug Jones (AL - Governor),1/1,2026-03-27 18:23:43,claude-sonnet-4-6,3,0,0,1,6,9,958,0.173439
+Doug Turner (NM - Governor),1/1,2026-03-26 16:38:39,claude-sonnet-4-6,4,0,0,1,7,834,1448,0.180524
+Duke Rodriguez (NM - Governor),1/1,2026-03-26 16:37:05,claude-sonnet-4-6,5,0,0,1,8,1846,3174,0.276362
+Dwayne Romero (House CO-03),1/1,2026-03-29 10:16:28,claude-sonnet-4-6,4,0,0,1,7,225,2103,0.194598
+Earle Ford (House FL-13),1/1,2026-03-29 10:26:13,claude-sonnet-4-6,4,0,0,1,7,1627,1678,0.193700
+Ed Diehl (OR - Governor),1/1,2026-03-25 15:49:35,codex,9,2,1,0,0,86804,2382,0.000000
+Eddie Andrews (IA - Governor),1/1,2026-03-26 16:40:11,claude-sonnet-4-6,6,0,0,1,9,910,3854,0.292307
+Effie Phillips-Staley (House NY-17),1/1,2026-03-28 09:36:35,claude-sonnet-4-6,9,0,0,1,3,5,912,0.325748
+Elaine Luria (House VA-02),1/1,2026-03-28 10:00:52,claude-sonnet-4-6,4,0,0,1,7,9,2130,0.210695
+Elaine Pelino (RI - Governor),1/1,2026-03-27 18:14:47,claude-sonnet-4-6,3,0,0,1,6,9,1952,0.147617
+Elizabeth Lee (House AZ-05),1/1,2026-03-30 08:19:54,claude-sonnet-4-6,5,0,0,1,9,765,1820,0.223341
+Emily Berge (House WI-03),1/1,2026-03-28 10:11:32,claude-sonnet-4-6,2,0,0,2,5,8,961,0.109266
+Enrique Casiano (House WI-01),1/1,2026-03-29 20:31:14,claude-sonnet-4-6,2,0,0,1,5,580,1085,0.108959
+Eric Barlow (WY - Governor),1/1,2026-03-27 18:20:13,claude-sonnet-4-6,2,0,0,1,5,8,1234,0.126392
+Eric Chung (House MI-10),1/1,2026-03-28 16:24:08,claude-sonnet-4-6,3,0,0,1,6,699,1287,0.156807
+Eric Conroy (House OH-01),1/1,2026-03-28 09:39:29,claude-sonnet-4-6,2,0,0,1,5,780,1048,0.123712
+Eric Descheenie (House AZ-02),1/1,2026-03-29 10:12:52,claude-sonnet-4-6,4,0,0,1,7,1698,1288,0.186840
+Eric Flores (House TX-34),1/1,2026-03-28 09:58:16,claude-sonnet-4-6,3,0,0,1,6,9,2291,0.169981
+Eric Garcia (House CA-22),1/1,2026-03-27 18:35:29,claude-sonnet-4-6,10,0,0,1,3,5,1105,0.412394
+Eric Pratt (House MN-02),1/1,2026-03-28 16:50:05,claude-sonnet-4-6,8,0,0,6,12,708,2894,0.375651
+Erik Murray (KS - Senate),1/1,2026-03-27 09:55:13,claude-sonnet-4-6,9,0,0,1,5,8,1850,0.288164
+Erin Stewart (CT - Governor),1/1,2026-03-25 15:54:28,codex,5,1,1,0,0,59524,2099,0.000000
+Ethan Corson (KS - Governor),1/1,2026-03-26 16:33:08,claude-sonnet-4-6,4,0,0,1,7,9,1116,0.187778
+Evan Munsing (House CO-08),2/2,2026-03-28 09:24:36,claude-sonnet-4-6,8,0,0,5,14,20,2023,0.370495
+Evan Olson (House AZ-05),1/1,2026-03-30 08:20:38,claude-sonnet-4-6,2,0,0,1,5,8,1509,0.122465
+Felipe Santos (House NJ-07),1/1,2026-03-28 09:33:22,claude-sonnet-4-6,2,0,0,1,5,850,971,0.113093
+Ferguson Porter (House CA-48),1/1,2026-03-27 18:39:09,claude-sonnet-4-6,3,0,0,2,6,738,1247,0.154332
+Forest Alexander (OR - Governor),1/1,2026-03-25 14:50:29,codex,15,2,1,0,0,99659,2974,0.000000
+Frank Mrvan (House IN-01),1/1,2026-03-28 16:44:10,claude-sonnet-4-6,4,0,0,1,7,245,1231,0.169289
+Fredrick Love (AR - Governor),1/1,2026-03-27 18:08:16,claude-sonnet-4-6,2,0,0,1,5,897,1160,0.124474
+Gabriel Cornejo (House NV-01),1/1,2026-03-28 21:38:28,claude-sonnet-4-6,3,0,0,2,6,9,1510,0.153521
+Gage Stills (House WI-01),1/1,2026-03-29 20:32:36,claude-sonnet-4-6,6,0,0,1,10,15,1977,0.225270
+Garrett Mason (ME - Governor),1/1,2026-03-26 16:50:17,claude-sonnet-4-6,6,0,0,1,9,10,1829,0.266918
+Gary Johnson (House AZ-05),1/1,2026-03-30 08:18:49,claude-sonnet-4-6,14,0,0,3,18,145,4019,0.487495
+Gary Palmer (House AL-06),1/1,2026-03-29 20:49:42,claude-sonnet-4-6,5,0,0,1,9,1389,2566,0.246740
+Gavin Solomon (House NY-03),1/1,2026-03-28 12:25:03,codex,16,2,1,0,0,85546,4103,0.000000
+Gene Paul Scharer (House AZ-09),1/1,2026-03-30 13:26:58,claude-sonnet-4-6,5,0,0,1,8,1692,2607,0.256815
+Geoff Duncan (GA - Governor),1/1,2026-03-25 11:50:34,codex,13,4,1,0,0,162439,4197,0.000000
+George Moraitis (House FL-23),1/1,2026-03-28 12:04:23,codex,7,2,1,0,0,76160,1894,0.000000
+Gina Hinojosa (TX - Governor),1/1,2026-03-25 14:31:13,codex,10,4,1,0,0,88745,2418,0.000000
+Graham Platner (ME - Senate),1/1,2026-03-25 12:06:23,codex,6,3,1,0,0,111368,1927,0.000000
+Greg Cunningham (House NM-02),1/1,2026-03-28 12:11:43,codex,4,1,1,0,0,50910,1761,0.000000
+Greg Hach (House NY-03),1/1,2026-03-28 12:23:17,codex,4,3,1,0,0,73066,1890,0.000000
+Greg Lopez (CO - Governor),1/1,2026-03-25 14:39:05,codex,5,2,1,0,0,68146,1978,0.000000
+Gregg Hull (NM - Governor),1/1,2026-03-26 16:35:22,claude-sonnet-4-6,2,0,0,1,5,814,1062,0.113963
+Hampton Harris (House AL-02),1/1,2026-03-29 20:40:21,claude-sonnet-4-6,2,0,0,1,5,840,1121,0.117115
+Heath Howard (House NH-01),1/1,2026-03-28 21:26:31,claude-sonnet-4-6,2,0,0,1,5,8,854,0.103861
+Heather Barton (House CO-03),1/1,2026-03-29 10:17:20,claude-sonnet-4-6,3,0,0,1,6,9,2018,0.164613
+Helena Foulkes (RI - Governor),1/1,2026-03-27 18:12:18,claude-sonnet-4-6,5,0,0,1,8,198,1948,0.226155
+Hollie Noveletsky (House NH-01),1/1,2026-03-28 21:32:14,claude-sonnet-4-6,5,0,0,1,9,120,1285,0.166009
+Holly Adams (House OH-01),1/1,2026-03-28 09:38:56,claude-sonnet-4-6,2,0,0,1,5,8,969,0.120828
+Hope Dalrymple (OR - Governor),1/1,2026-03-25 15:51:24,codex,11,3,1,0,0,98043,2568,0.000000
+Hope Scheppelman (House CO-03),1/1,2026-03-29 10:14:27,claude-sonnet-4-6,2,0,0,1,5,8,1602,0.127228
+Ian Calderon (CA - Governor),1/1,2026-03-25 11:40:45,codex,7,2,1,0,0,80542,2573,0.000000
+Irina Hansen (NV - Governor),1/1,2026-03-25 14:40:41,codex,5,2,1,0,0,76239,1680,0.000000
+Isabelle Harman (House PA-10),1/1,2026-03-28 09:55:26,claude-sonnet-4-6,2,0,0,1,5,641,1022,0.112289
+James Atkinson (OR - Governor),1/1,2026-03-25 14:51:18,codex,4,2,1,0,0,49498,1602,0.000000
+James Byrd (WY - Senate),1/1,2026-03-27 09:59:36,claude-sonnet-4-6,2,0,0,1,5,1011,1444,0.132008
+James Etzkorn (House WA-01),1/1,2026-03-25 14:03:42,codex,9,2,1,0,0,82164,2026,0.000000
+James Lally (House NV-03),1/1,2026-03-28 12:12:58,codex,3,3,1,0,0,58783,1584,0.000000
+James Leuschen (House NE-02),1/1,2026-03-28 12:08:33,codex,5,2,1,0,0,53371,1506,0.000000
+James Libby (ME - Governor),2/2,2026-03-26 17:08:39,claude-sonnet-4-6,9,0,0,2,15,1554,7536,0.493945
+James Mendrick (IL - Governor),1/1,2026-03-25 14:47:57,codex,17,2,1,0,0,107720,3754,0.000000
+James Richardson (House AL-01),1/1,2026-03-29 20:37:39,claude-sonnet-4-6,2,0,0,1,5,663,1030,0.116105
+James Rus Russell III (House AR-04),1/1,2026-03-30 13:35:35,claude-sonnet-4-6,0,0,0,1,1,0,0,0.000000
+James Shea (House VA-01),1/1,2026-03-28 16:35:49,claude-sonnet-4-6,8,0,0,1,11,2123,3694,0.349320
+James Torino (House TN-05),1/1,2026-03-29 15:56:15,claude-sonnet-4-6,2,0,0,1,5,853,909,0.106161
+Jamie Ager (House NC-11),1/1,2026-03-29 15:50:23,claude-sonnet-4-6,2,0,0,1,5,718,1413,0.123216
+Janak Joshi (CO - Senate),1/1,2026-03-25 11:43:36,codex,10,3,1,0,0,93424,2674,0.000000
+Janelle Bynum (House OR-05),1/1,2026-03-29 10:08:06,claude-sonnet-4-6,5,0,0,1,8,875,1263,0.203281
+Janelle Stelson (House PA-10),1/1,2026-03-28 09:54:53,claude-sonnet-4-6,4,0,0,1,8,163,1665,0.171211
+Jared Hudson (AL - Senate),2/2,2026-03-27 17:59:49,claude-sonnet-4-6,9,0,0,2,11,244,6087,0.529237
+Jason Clark (CO - Governor),1/1,2026-03-25 14:34:58,codex,8,0,1,0,0,75501,1962,0.000000
+Jason Duey (House AZ-01),1/1,2026-03-27 18:24:49,claude-sonnet-4-6,2,0,0,1,5,8,1125,0.110948
+Jason Knapp (House VA-01),1/1,2026-03-28 16:33:20,claude-sonnet-4-6,5,0,0,3,8,244,2262,0.221934
+Jason Mikesell (CO - Governor),1/1,2026-03-25 14:35:42,codex,5,1,1,0,0,56765,1479,0.000000
+Jason Reynolds (VA - Senate),1/1,2026-03-25 14:32:05,codex,8,1,1,0,0,65839,1989,0.000000
+Javier Lopez (House CA-13),1/1,2026-03-28 11:57:36,codex,10,2,1,0,0,80534,2309,0.000000
+Jay Feely (House AZ-01),1/1,2026-03-27 18:26:15,claude-sonnet-4-6,12,0,0,1,3,5,1145,0.495236
+Jeff Colyer (KS - Governor),1/1,2026-03-26 15:25:37,claude-sonnet-4-6,27,0,0,1,3,5,2082,0.955775
+Jeff Gunter (House NV-03),1/1,2026-03-28 12:16:42,codex,10,2,1,0,0,85472,1872,0.000000
+Jeff Moore (House FL-13),1/1,2026-03-29 10:27:31,claude-sonnet-4-6,2,0,0,1,5,8,868,0.108585
+Jeffrey Kessler (WV - Senate),1/1,2026-03-27 09:50:08,claude-sonnet-4-6,2,0,0,1,5,8,976,0.118312
+Jeremy Devito (House AL-05),1/1,2026-03-29 20:45:51,claude-sonnet-4-6,4,0,0,2,8,283,1397,0.212106
+Jerone Davison (House AZ-04),1/1,2026-03-29 20:53:43,claude-sonnet-4-6,4,0,0,2,7,680,1677,0.198061
+Jerry Carl (House AL-01),1/1,2026-03-29 20:34:05,claude-sonnet-4-6,3,0,0,1,6,816,1579,0.146190
+Jessica Killin (House CO-05),1/1,2026-03-29 10:19:57,claude-sonnet-4-6,5,0,0,1,8,1206,2779,0.279713
+Jessie Martines (House AZ-08),1/1,2026-03-30 13:19:59,claude-sonnet-4-6,5,0,0,1,8,726,1345,0.233300
+Jillian Barfield (House AZ-08),1/2,2026-03-30 13:16:33,claude-sonnet-4-6,4,0,0,1,7,857,2300,0.192037
+Jim Blockey (House NV-01),1/1,2026-03-28 21:43:12,claude-sonnet-4-6,3,0,0,1,6,801,1932,0.165926
+Jim Carlin (IA - Senate),1/1,2026-03-25 11:59:22,codex,4,3,1,0,0,61967,1620,0.000000
+Jim Priest (OK - Senate),1/2,2026-03-26 17:27:04,claude-sonnet-4-6,2,0,0,2,5,816,984,0.118996
+Jim Schenke (House IN-01),1/1,2026-03-28 16:47:04,claude-sonnet-4-6,4,0,0,1,7,9,2209,0.209921
+Jimmy Dees (House AL-01),1/1,2026-03-29 20:34:41,claude-sonnet-4-6,2,0,0,1,5,775,1094,0.115311
+Jimmy Skovgard (WY - Senate),1/1,2026-03-27 09:58:56,claude-sonnet-4-6,6,0,0,1,10,951,1995,0.255677
+JoAnna Mendoza (House AZ-06),1/1,2026-03-27 18:33:11,claude-sonnet-4-6,2,0,0,1,5,819,988,0.116764
+Joe Baldacci (House ME-02),1/1,2026-03-29 10:34:02,claude-sonnet-4-6,2,0,0,3,5,956,1642,0.128938
+Joe Kaufman (House FL-23),1/1,2026-03-28 12:03:08,codex,4,2,1,0,0,52371,1432,0.000000
+Joe Mitchell (House IA-02),1/1,2026-03-29 10:30:24,claude-sonnet-4-6,3,0,0,1,6,9,1658,0.160074
+Joe Oltmann (CO - Governor),1/1,2026-03-25 14:37:07,codex,8,4,1,0,0,85517,2591,0.000000
+Joe Reagan (House CO-05),1/1,2026-03-29 10:21:07,claude-sonnet-4-6,3,0,0,2,6,995,2646,0.169798
+John Berman (IA - Senate),1/1,2026-03-25 12:02:18,codex,9,2,1,0,0,72998,2564,0.000000
+John Cappello (House NY-17),1/1,2026-03-28 09:33:58,claude-sonnet-4-6,2,0,0,1,5,907,1035,0.113550
+John Deaton (MA - Senate),1/1,2026-03-25 13:32:46,codex,11,4,1,0,0,92700,2043,0.000000
+John Fillmore (House AZ-04),1/1,2026-03-29 20:55:13,claude-sonnet-4-6,8,0,0,9,11,1598,3284,0.357933
+John Fleming (LA - Senate),1/1,2026-03-27 18:02:17,claude-sonnet-4-6,4,0,0,1,7,9,1541,0.172080
+John Glowa (ME - Governor),1/1,2026-03-26 17:16:48,claude-sonnet-4-6,2,0,0,1,5,8,942,0.113082
+John Hancock (House OH-01),1/1,2026-03-28 09:42:03,claude-sonnet-4-6,4,0,0,1,8,177,2684,0.280511
+John Mills (House AL-01),1/1,2026-03-29 20:37:02,claude-sonnet-4-6,2,0,0,1,5,811,1059,0.114991
+John Myrick (MD - Governor),1/1,2026-03-25 12:07:33,codex,5,4,1,0,0,94659,1932,0.000000
+John Rose (TN - Governor),1/1,2026-03-27 18:18:27,claude-sonnet-4-6,4,0,0,1,7,1376,1841,0.193198
+John Sununu (NH - Senate),1/1,2026-03-25 14:23:18,codex,13,2,1,0,0,115606,2951,0.000000
+John Trobough (House AZ-01),1/1,2026-03-27 18:28:26,claude-sonnet-4-6,12,0,0,1,3,5,3031,0.475909
+Johnny Garcia (House TX-35),1/1,2026-03-29 16:01:00,claude-sonnet-4-6,2,0,0,3,5,845,1057,0.117836
+Jon Husted (OH - Senate),1/1,2026-03-30 18:28:23,claude-sonnet-4-6,3,0,0,2,6,1070,7410,0.277978
+Jonathan Bush (ME - Governor),1/1,2026-03-26 17:09:41,claude-sonnet-4-6,4,0,0,1,8,12,1826,0.217082
+Jonathan Kiper (NH - Governor),1/1,2026-03-25 15:57:49,codex,4,2,1,0,0,53117,1562,0.000000
+Jonathan Kreiss-Tomkins (AK - Governor),1/1,2026-03-27 18:07:42,claude-sonnet-4-6,2,0,0,1,5,8,1692,0.132185
+Jonathan Lockwood (House OR-05),1/1,2026-03-29 10:10:55,claude-sonnet-4-6,4,0,0,1,7,1550,2144,0.205104
+Jonathan Nez (House AZ-02),1/1,2026-03-29 10:13:47,claude-sonnet-4-6,3,0,0,1,6,745,1764,0.161040
+Jonathan Treble (House AZ-01),1/1,2026-03-27 18:30:24,claude-sonnet-4-6,4,0,0,1,7,738,1056,0.186185
+Jordan Wood (House ME-02),1/1,2026-03-29 10:35:30,claude-sonnet-4-6,2,0,0,3,5,682,839,0.108219
+Jorge Rivas (House AZ-07),1/1,2026-03-30 08:23:59,claude-sonnet-4-6,5,0,0,2,8,1597,2617,0.250212
+Jose Orozco (House NM-02),1/1,2026-03-28 12:12:21,codex,3,2,1,0,0,49282,1562,0.000000
+Jose Zelaya (NV - Governor),1/1,2026-03-25 14:41:26,codex,5,2,1,0,0,56141,1681,0.000000
+Joseph Chaplik (House AZ-01),1/1,2026-03-27 18:24:11,claude-sonnet-4-6,2,0,0,1,5,819,925,0.107738
+Josh Riley (House NY-19),1/1,2026-03-25 09:17:31,claude-sonnet-4-6,8,0,0,1,12,1420,2885,0.354039
+Josh Turek (IA - Senate),1/1,2026-03-25 12:03:15,codex,6,2,1,0,0,72732,2059,0.000000
+Joshua Elliott (CT - Governor),1/1,2026-03-25 15:53:31,codex,15,2,1,0,0,97991,2651,0.000000
+Joshua McKee (House AL-01),1/1,2026-03-29 20:36:29,claude-sonnet-4-6,2,0,0,1,5,8,971,0.116438
+Joshua Smith (IA - Senate),1/1,2026-03-25 12:00:56,codex,13,3,1,0,0,93808,3291,0.000000
+Joy Hoover (House NV-01),1/1,2026-03-28 21:39:33,claude-sonnet-4-6,6,0,0,1,10,847,1795,0.287151
+Joyce Neal (House TN-05),1/1,2026-03-29 15:55:46,claude-sonnet-4-6,4,0,0,1,7,920,2661,0.208779
+Julia Letlow (LA - Senate),2/2,2026-03-28 09:23:54,claude-sonnet-4-6,23,0,0,2,14,16,4483,0.881236
+Julie Gonzales (CO - Senate),1/1,2026-03-25 11:45:22,codex,12,4,1,0,0,114608,3425,0.000000
+Julie Stauch (IA - Governor),1/1,2026-03-26 16:44:25,claude-sonnet-4-6,4,0,0,2,7,235,1690,0.189798
+Justin Douglas (House PA-10),1/1,2026-03-28 09:54:03,claude-sonnet-4-6,3,0,0,1,6,9,1328,0.154877
+Justin McNeal (SD - Senate),1/1,2026-03-27 09:57:51,claude-sonnet-4-6,3,0,0,1,7,290,1646,0.171321
+Justin Murphy (NJ - Senate),1/1,2026-03-26 17:18:21,claude-sonnet-4-6,2,0,0,1,5,8,1207,0.106637
+Justin Poff (House AZ-05),1/1,2026-03-30 08:21:44,claude-sonnet-4-6,2,0,0,2,5,8,1592,0.144365
+Kai Newkirk (House AZ-04),1/1,2026-03-29 20:51:57,claude-sonnet-4-6,5,0,0,1,8,729,2160,0.233157
+Karishma Manzur (NH - Senate),1/1,2026-03-25 14:24:35,codex,10,2,1,0,0,101679,2223,0.000000
+Kathy Dolter (House IA-02),1/1,2026-03-29 10:31:41,claude-sonnet-4-6,2,0,0,1,5,847,921,0.114806
+Katie Hobbs (AZ - Governor),1/5,2026-03-25 14:01:04,unknown,0,0,0,0,1,0,0,0.000000
+Keisha Lance Bottoms (GA - Governor),1/1,2026-03-25 11:52:23,codex,11,6,1,0,0,144095,3905,0.000000
+Keith Lara (House AZ-09),1/1,2026-03-30 13:25:36,claude-sonnet-4-6,4,0,0,1,7,838,1978,0.195660
+Keith Pilkington (House AL-06),1/1,2026-03-29 20:50:48,claude-sonnet-4-6,2,0,0,4,5,867,1096,0.118715
+Ken Miyagishima (NM - Governor),1/1,2026-03-26 16:34:49,claude-sonnet-4-6,3,0,0,1,6,9,2392,0.173186
+Kendall Qualls (MN - Governor),1/1,2026-03-25 14:14:08,codex,5,0,0,0,0,29046,1524,0.000000
+Kenneth Capron (ME - Governor),1/1,2026-03-26 17:12:51,claude-sonnet-4-6,4,0,0,1,7,1408,1296,0.193566
+Kevin Coughlin (House OH-13),1/1,2026-03-28 12:28:10,codex,4,2,1,0,0,52794,1723,0.000000
+Kevin Hern (OK - Senate),2/2,2026-03-30 18:29:31,claude-sonnet-4-6,11,0,0,2,18,1062,4680,0.495928
+Kevin Lincoln (House CA-13),1/1,2026-03-28 11:58:10,codex,3,2,1,0,0,48255,1161,0.000000
+Kim Farington (VA - Senate),1/1,2026-03-25 14:33:00,codex,8,2,1,0,0,68803,1897,0.000000
+Kishla Askins (House NE-02),1/1,2026-03-28 12:07:50,codex,10,2,1,0,0,62854,2538,0.000000
+Kurt Alme (MT - Senate),1/1,2026-03-27 18:02:50,claude-sonnet-4-6,2,0,0,1,5,8,1034,0.122948
+Kyle Duyck (OR - Governor),1/1,2026-03-25 15:52:17,codex,8,2,1,0,0,74757,2083,0.000000
+Kyle Kirkland (House CA-21),1/1,2026-03-28 16:42:50,claude-sonnet-4-6,2,0,0,1,5,991,897,0.113573
+LaVetta Sparks-Wade (House IN-01),1/1,2026-03-28 16:45:22,claude-sonnet-4-6,4,0,0,1,7,708,2888,0.210638
+Lamont McClure (House PA-07),1/1,2026-03-28 09:46:50,claude-sonnet-4-6,4,0,0,2,7,9,1249,0.180203
+Laurie Buckhout (House NC-01),1/1,2026-03-28 16:20:47,claude-sonnet-4-6,3,0,0,1,6,922,2807,0.220729
+Lee McInnis (House AL-03),1/1,2026-03-29 20:42:48,claude-sonnet-4-6,7,0,0,1,11,813,3118,0.353057
+Leela Gray (House FL-13),1/1,2026-03-29 10:27:01,claude-sonnet-4-6,4,0,0,1,7,1851,1521,0.197659
+Lily Tang Williams (House NH-02),1/1,2026-03-28 21:37:40,claude-sonnet-4-6,5,0,0,1,8,731,1351,0.212668
+Lorenzo Rios (House CA-21),1/1,2026-03-28 16:43:33,claude-sonnet-4-6,4,0,0,2,7,881,1150,0.180159
+Lucena Parker (House NV-03),1/1,2026-03-28 12:20:17,codex,11,2,1,0,0,88807,2356,0.000000
+Luis Paniagua (House NV-01),1/1,2026-03-28 21:41:09,claude-sonnet-4-6,11,0,0,2,15,17,3549,0.447947
+Lynne Walz (NE - Governor),1/1,2026-03-27 18:09:27,claude-sonnet-4-6,2,0,0,1,5,8,1118,0.127827
+Makiba Gaines (House VA-02),1/1,2026-03-28 10:04:32,claude-sonnet-4-6,2,0,0,1,5,8,1383,0.108690
+Maria Flores (House AZ-08),1/1,2026-03-30 13:17:37,claude-sonnet-4-6,4,0,0,1,7,1446,2151,0.197491
+Marie Arnold (House NV-01),1/1,2026-03-28 21:42:22,claude-sonnet-4-6,8,0,0,2,11,1537,2634,0.347356
+Marie Gluesenkamp Perez (House WA-03),1/1,2026-03-28 10:07:25,claude-sonnet-4-6,18,0,0,6,3,5,1461,0.639972
+Mark Baisley (CO - Senate),1/1,2026-03-30 18:12:39,claude-sonnet-4-6,2,0,0,2,5,8,3642,0.166435
+Mark Lamb (House AZ-05),1/1,2026-03-30 08:10:45,claude-sonnet-4-6,5,0,0,1,8,836,1678,0.238248
+Mark Robert Gordon (House AZ-01),1/1,2026-03-27 18:31:05,claude-sonnet-4-6,4,0,0,1,7,9,1130,0.169637
+Marlene Galán-Woods (House AZ-01),1/1,2026-03-27 18:31:49,claude-sonnet-4-6,4,0,0,1,8,12,1367,0.175847
+Marquita Bradshaw (TN - Senate),1/1,2026-03-27 18:04:32,claude-sonnet-4-6,2,0,0,1,5,662,1498,0.114441
+Marty O'Donnell (House NV-03),1/1,2026-03-28 12:19:06,codex,2,2,1,0,0,44569,1158,0.000000
+Marty Tuley (KS - Governor),1/1,2026-03-26 16:33:43,claude-sonnet-4-6,2,0,0,1,5,8,1160,0.112876
+Mary Peltola (AK - Senate),1/1,2026-03-27 09:52:07,claude-sonnet-4-6,4,0,0,1,7,9,1134,0.195151
+Matt Cavanaugh (House CO-05),1/1,2026-03-29 10:18:00,claude-sonnet-4-6,2,0,0,1,5,906,1433,0.127160
+Matt Dunlap (House ME-02),1/1,2026-03-29 10:34:54,claude-sonnet-4-6,3,0,0,4,6,9,1505,0.168111
+Matt Little (House MN-02),1/1,2026-03-28 16:47:46,claude-sonnet-4-6,4,0,0,1,7,61,1445,0.149262
+Matt Mahan (CA - Governor),1/1,2026-03-30 18:08:04,claude-sonnet-4-6,9,0,0,2,13,942,10784,0.544854
+Matt Rains (House MT-01),1/1,2026-03-29 15:46:04,claude-sonnet-4-6,4,0,0,1,7,1705,2640,0.228886
+Matt Strickler (House VA-02),1/1,2026-03-28 10:02:54,claude-sonnet-4-6,3,0,0,2,7,943,2115,0.215032
+Matt Van Epps (House TN-07),1/1,2026-03-29 20:27:04,claude-sonnet-4-6,3,0,0,1,6,819,1663,0.202105
+Matthew Winterhawk (NV - Governor),1/1,2026-03-25 14:42:06,codex,3,2,1,0,0,48048,1558,0.000000
+Maura Sullivan (House NH-01),1/1,2026-03-28 21:28:27,claude-sonnet-4-6,6,0,0,2,10,182,2417,0.243242
+Maureen Galindo (House TX-35),1/1,2026-03-29 16:00:21,claude-sonnet-4-6,3,0,0,3,6,865,1303,0.173345
+Melanie Williams (House NE-02),1/1,2026-03-28 12:10:22,codex,5,2,1,0,0,73145,1882,0.000000
+Melissa Bailey (House NH-01),1/1,2026-03-28 21:30:08,claude-sonnet-4-6,3,0,0,1,6,9,1075,0.144291
+Melvin Tull (House VA-01),1/1,2026-03-28 16:42:21,claude-sonnet-4-6,3,0,0,1,6,9,1424,0.156453
+Michael Boris (House NV-01),1/1,2026-03-28 21:43:56,claude-sonnet-4-6,4,0,0,1,7,888,1638,0.194050
+Michael Granados (House PA-07),1/1,2026-03-28 09:49:06,claude-sonnet-4-6,8,0,0,1,11,810,2549,0.330113
+Michael Katz (DE - Senate),1/1,2026-03-27 09:47:20,claude-sonnet-4-6,4,0,0,1,8,330,1387,0.165521
+Michael Minogue (MA - Governor),1/1,2026-03-27 09:45:44,claude-sonnet-4-6,3,0,0,1,6,766,1352,0.165671
+Michael Whatley (NC - Senate),1/1,2026-03-25 14:27:48,codex,8,2,1,0,0,61619,2235,0.000000
+Miguel Aranda (House WI-01),1/1,2026-03-29 16:02:22,claude-sonnet-4-6,2,0,0,3,5,688,1085,0.117168
+Mike Cortese (House TN-05),1/1,2026-03-29 15:54:06,claude-sonnet-4-6,4,0,0,1,7,9,1178,0.176229
+Mike Johnson (House FL-07),1/1,2026-03-29 10:24:06,claude-sonnet-4-6,5,0,0,1,8,1671,2513,0.239877
+Mike LiPetri (House NY-03),1/1,2026-03-28 12:22:32,codex,6,2,1,0,0,58248,1798,0.000000
+Mike Mazzei (OK - Governor),1/1,2026-03-27 18:11:12,claude-sonnet-4-6,3,0,0,1,6,677,1380,0.162759
+Mike Rogers (MI - Senate),1/2,2026-03-25 14:05:54,codex,10,2,1,0,0,105325,3411,0.000000
+Mike Sacks (House NY-17),1/1,2026-03-28 09:37:49,claude-sonnet-4-6,6,0,0,1,10,208,3122,0.314169
+Mitchell Berman (House WI-01),2/2,2026-03-29 20:29:26,claude-sonnet-4-6,9,0,0,9,11,1616,1825,0.333414
+Monica De La Cruz (House TX-15),1/1,2026-03-29 15:56:59,claude-sonnet-4-6,4,0,0,1,7,697,1322,0.191371
+Monty Fritts (TN - Governor),1/1,2026-03-27 18:18:59,claude-sonnet-4-6,2,0,0,1,5,8,1076,0.117117
+Nancy Dahlstrom (AK - Governor),1/1,2026-03-27 18:05:34,claude-sonnet-4-6,4,0,0,1,7,9,2374,0.199051
+Natalie Rivera (NJ - Senate),1/1,2026-03-26 17:20:18,claude-sonnet-4-6,4,0,0,1,7,857,2209,0.175626
+Nate Morris (KY - Senate),1/1,2026-03-30 18:25:58,claude-sonnet-4-6,3,0,0,1,6,827,3382,0.209742
+Nathan Dahm (OK - Senate),2/2,2026-03-26 17:26:29,claude-sonnet-4-6,11,0,0,4,18,2250,2615,0.406796
+Nathan Sage (IA - Senate),1/1,2026-03-25 11:58:31,codex,8,2,1,0,0,88341,2407,0.000000
+Nellie Pou (House NJ-09),1/1,2026-03-28 16:21:28,claude-sonnet-4-6,3,0,0,2,6,733,1139,0.143987
+Nick Begich (House AK-AL),1/1,2026-03-29 10:12:06,claude-sonnet-4-6,3,0,0,1,6,705,2686,0.186516
+Nick Sciretta (House NY-04),1/1,2026-03-28 12:26:25,codex,7,0,1,0,0,44470,2017,0.000000
+Nicolaus Sleister (House VA-02),1/1,2026-03-28 10:01:46,claude-sonnet-4-6,4,0,0,1,7,627,1671,0.172186
+Nila Devanath (House VA-02),1/1,2026-03-28 09:59:47,claude-sonnet-4-6,2,0,0,1,6,165,1262,0.123317
+Nirav Shah (ME - Governor),1/1,2026-03-26 16:46:08,claude-sonnet-4-6,4,0,0,1,7,198,2063,0.189334
+Oliver Larkin (House FL-23),1/1,2026-03-28 12:02:23,codex,6,1,1,0,0,60848,1486,0.000000
+Owen McCarthy (ME - Governor),1/1,2026-03-30 18:23:00,claude-sonnet-4-6,2,0,0,1,5,8,2802,0.148801
+Paige Beauchemin (House NH-02),1/1,2026-03-28 21:34:21,claude-sonnet-4-6,15,0,0,2,19,22,3364,0.459448
+Paige Cognetti (House PA-08),1/1,2026-03-28 16:30:02,claude-sonnet-4-6,4,0,0,1,7,898,1976,0.205279
+Paige Loud (House ME-02),2/2,2026-03-29 15:36:35,claude-sonnet-4-6,2,0,0,3,7,779,1148,0.233559
+Patricia Tillman (IL - Governor),1/1,2026-03-25 14:48:59,codex,8,1,1,0,0,66025,2330,0.000000
+Patrick Schmidt (KS - Senate),1/1,2026-03-27 09:56:04,claude-sonnet-4-6,3,0,0,1,6,636,1746,0.153222
+Patti Adair (House OR-05),1/1,2026-03-29 10:10:00,claude-sonnet-4-6,4,0,0,1,7,858,1245,0.189240
+Paul Dahl (IA - Governor),1/1,2026-03-26 16:45:04,claude-sonnet-4-6,2,0,0,1,5,8,1070,0.117441
+Paul Gosar (House AZ-09),1/1,2026-03-30 13:22:20,claude-sonnet-4-6,19,0,0,2,5,9,1258,0.728318
+Paul LePage (House ME-02),1/1,2026-03-29 10:33:12,claude-sonnet-4-6,2,0,0,3,5,795,1145,0.120526
+Peter Chatzky (House NY-17),1/1,2026-03-28 09:34:46,claude-sonnet-4-6,3,0,0,1,6,9,1081,0.151900
+Peter Oberacker (House NY-19),1/1,2026-03-25 09:19:33,claude-sonnet-4-6,5,0,0,2,9,975,5424,0.255546
+Philip Sarnecki (KS - Governor),1/1,2026-03-26 16:30:41,claude-sonnet-4-6,3,0,0,1,6,9,1198,0.157466
+Ralph Norman (SC - Governor),1/1,2026-03-27 18:16:13,claude-sonnet-4-6,3,0,0,1,6,9,1460,0.159658
+Randy Bryce (House WI-01),1/1,2026-03-29 20:30:40,claude-sonnet-4-6,5,0,0,1,9,177,1663,0.194352
+Randy Villegas (House CA-22),1/1,2026-03-27 18:34:02,claude-sonnet-4-6,4,0,0,1,7,9,1400,0.189041
+Raven Harrison (House FL-23),1/1,2026-03-28 12:03:28,codex,2,0,0,0,0,17146,879,0.000000
+Ray Curtis (House MT-01),1/1,2026-03-29 15:42:42,claude-sonnet-4-6,5,0,0,1,8,10,2088,0.248718
+Raymond Keeler (House AZ-08),1/1,2026-03-30 13:19:07,claude-sonnet-4-6,5,0,0,1,9,735,2381,0.264385
+Raymond McKay (RI - Senate),1/1,2026-03-27 09:49:31,claude-sonnet-4-6,4,0,0,1,7,822,1961,0.183584
+Rebecca Bennett (House NJ-07),1/1,2026-03-28 09:32:53,claude-sonnet-4-6,4,0,0,1,7,672,1064,0.172628
+Rebecca Cooke (House WI-03),1/1,2026-03-28 10:10:51,claude-sonnet-4-6,4,0,0,2,7,9,1137,0.179467
+Reggie Paros (House FL-13),1/1,2026-03-29 10:28:16,claude-sonnet-4-6,3,0,0,1,6,9,1542,0.153830
+Rhett Marques (House AL-01),1/1,2026-03-29 20:35:53,claude-sonnet-4-6,3,0,0,2,7,158,1449,0.175178
+Ricardo Villarreal (House TX-28),1/1,2026-03-28 12:31:44,codex,8,2,1,0,0,74849,2234,0.000000
+Richard Aaron (House MI-04),1/1,2026-03-29 15:37:49,claude-sonnet-4-6,9,0,0,1,13,507,2511,0.264938
+Richard Bennett (ME - Governor),1/1,2026-03-26 17:15:25,claude-sonnet-4-6,2,0,0,1,5,814,872,0.111803
+Richard Morckel (House OH-13),1/1,2026-03-28 12:29:27,codex,12,2,1,0,0,78951,2962,0.000000
+Richard Tabor (NJ - Senate),1/1,2026-03-26 17:19:10,claude-sonnet-4-6,4,0,0,1,7,1470,1192,0.191667
+Rick Crawford (House AR-01),1/1,2026-03-30 13:29:05,claude-sonnet-4-6,4,0,0,1,7,707,2572,0.192567
+Rick Heidner (IL - Governor),1/1,2026-03-25 14:45:28,codex,13,2,1,0,0,93666,3225,0.000000
+Rick McCartney (House AZ-01),1/1,2026-03-27 18:32:42,claude-sonnet-4-6,5,0,0,1,8,931,1507,0.212784
+Rick Saga (House NV-01),1/1,2026-03-28 21:45:25,claude-sonnet-4-6,2,0,0,4,5,727,1677,0.126555
+Rob Bresnahan (House PA-08),1/1,2026-03-28 16:29:07,claude-sonnet-4-6,3,0,0,4,6,659,3647,0.198895
+Rob Sand (IA - Governor),1/1,2026-03-26 16:43:28,claude-sonnet-4-6,3,0,0,1,6,9,1522,0.159964
+Robb Ryerse (House AR-03),1/1,2026-03-30 13:34:14,claude-sonnet-4-6,6,0,0,6,10,450,1908,0.300407
+Robert Lebovics (NJ - Senate),1/1,2026-03-26 17:21:13,claude-sonnet-4-6,2,0,0,1,5,821,1159,0.120002
+Robert Lulgjuraj (House MI-10),1/1,2026-03-28 16:27:42,claude-sonnet-4-6,3,0,0,1,6,9,1698,0.151239
+Robert Raimondo (RI - Governor),1/1,2026-03-27 18:15:26,claude-sonnet-4-6,2,0,0,1,5,1003,1667,0.128794
+Robert Wessels (ME - Governor),1/1,2026-03-26 17:12:03,claude-sonnet-4-6,3,0,0,1,6,779,1399,0.158674
+Rodney Rave (House WI-03),2/2,2026-03-28 11:53:10,codex,3,2,1,2,2,36619,1264,0.014906
+Ronda Kennedy (House NV-04),1/1,2026-03-28 21:46:35,claude-sonnet-4-6,6,0,0,5,9,1435,2390,0.278076
+Rosemary Oglesby-Henry (House OH-01),1/1,2026-03-28 09:40:53,claude-sonnet-4-6,3,0,0,1,6,986,1100,0.163878
+Rosie Pino (House NJ-09),1/1,2026-03-28 16:22:52,claude-sonnet-4-6,4,0,0,1,7,1452,1168,0.193877
+Royce White (MN - Senate),1/1,2026-03-25 14:21:44,codex,12,0,1,0,0,68707,3035,0.000000
+Russell Cleveland (House MT-01),1/1,2026-03-29 15:48:38,claude-sonnet-4-6,14,0,0,2,5,8,3775,0.635043
+Russell McAlmond (OR - Senate),1/1,2026-03-25 14:29:20,codex,7,2,1,0,0,55437,1881,0.000000
+Ryan Busse (House MT-01),1/1,2026-03-29 15:43:35,claude-sonnet-4-6,4,0,0,1,7,9,1576,0.204419
+Ryan Crosswell (House PA-07),1/1,2026-03-28 09:46:07,claude-sonnet-4-6,3,0,0,1,6,9,1930,0.178809
+Ryan Fazio (CT - Governor),1/1,2026-03-30 18:20:32,claude-sonnet-4-6,4,0,0,1,7,714,3346,0.235303
+Salaam Bhatti (House VA-01),1/1,2026-03-28 16:30:53,claude-sonnet-4-6,4,0,0,2,7,9,1414,0.189115
+Sam Bregman (NM - Governor),1/1,2026-03-30 18:21:56,claude-sonnet-4-6,4,0,0,2,7,1611,3665,0.244997
+Sam Buccola (House NJ-09),1/1,2026-03-28 16:22:10,claude-sonnet-4-6,4,0,0,1,7,9,1341,0.177498
+Sam Forstag (House MT-01),1/1,2026-03-29 15:44:55,claude-sonnet-4-6,4,0,0,1,7,859,1286,0.196618
+Sarah Chadzynski (House NH-01),2/2,2026-03-28 21:25:08,claude-sonnet-4-6,5,0,0,4,10,15,1294,0.263617
+Sarah Trone Garriott (House IA-03),1/1,2026-03-28 09:27:52,claude-sonnet-4-6,5,0,0,1,8,729,1680,0.222043
+Sarah Ulrich (House FL-07),1/1,2026-03-29 10:22:57,claude-sonnet-4-6,4,0,0,1,8,166,1603,0.166573
+Scott Bottoms (CO - Governor),1/1,2026-03-25 14:37:57,codex,6,2,1,0,0,53813,1933,0.000000
+Scott Brown (NH - Senate),1/1,2026-03-25 14:25:53,codex,11,2,1,0,0,87629,2785,0.000000
+Scott Colom (MS - Senate),1/1,2026-03-25 09:30:07,claude-sonnet-4-6,8,0,0,6,5,8,1506,0.385157
+Scott Fitzgerald (House WI-05),2/4,2026-03-25 11:08:19,codex,23,7,2,0,0,193540,5773,0.000000
+Scott Perry (House PA-10),1/1,2026-03-28 09:53:16,claude-sonnet-4-6,33,0,0,1,9,10,4885,1.224491
+Sean Hutchinson (House NV-03),1/1,2026-03-28 12:14:18,codex,4,2,1,0,0,52531,1568,0.000000
+Sean McCann (House MI-04),1/1,2026-03-29 15:39:08,claude-sonnet-4-6,5,0,0,1,8,10,1346,0.176167
+Sean Sublette (House VA-01),1/1,2026-03-28 16:36:25,claude-sonnet-4-6,2,0,0,2,5,836,1318,0.114372
+Shane Weaver (House AL-04),1/1,2026-03-29 20:45:02,claude-sonnet-4-6,2,0,0,1,5,824,1028,0.116339
+Shomari Figures (House AL-02),1/1,2026-03-29 20:39:40,claude-sonnet-4-6,4,0,0,1,7,9,1728,0.176663
+Stacy Rogers (KS - Governor),1/1,2026-03-26 16:29:56,claude-sonnet-4-6,2,0,0,1,5,739,1334,0.122219
+Stefany Shaheen (House NH-01),1/1,2026-03-28 21:27:17,claude-sonnet-4-6,4,0,0,1,7,866,1497,0.194051
+Steve Hilton (CA - Governor),1/1,2026-03-30 18:11:35,claude-sonnet-4-6,8,0,0,2,12,1462,10142,0.499999
+Steve Lanier (NM - Governor),1/1,2026-03-26 16:37:45,claude-sonnet-4-6,2,0,0,1,5,948,1631,0.123761
+Steve London (House NV-03),1/1,2026-03-28 12:17:47,codex,9,2,1,0,0,69300,2549,0.000000
+Steve Marshall (AL - Senate),2/2,2026-03-27 17:21:36,claude-sonnet-4-6,9,0,0,6,15,20,6461,0.530002
+Steve Parsons (House AR-01),1/1,2026-03-30 13:31:15,claude-sonnet-4-6,3,0,0,2,6,820,2156,0.169889
+Steve Womack (House AR-03),1/1,2026-03-30 13:33:11,claude-sonnet-4-6,6,0,0,3,9,1767,2102,0.280492
+Steven Erbeck (House OH-01),1/1,2026-03-28 09:40:07,claude-sonnet-4-6,2,0,0,1,5,8,1200,0.125961
+Steven Long (House PA-10),1/1,2026-03-28 09:57:15,claude-sonnet-4-6,9,0,0,1,13,284,4163,0.323648
+Tano Tijerina (House TX-28),1/1,2026-03-28 12:30:39,codex,8,4,1,0,0,76207,2477,0.000000
+Taylor Darling (House NY-04),1/1,2026-03-28 12:25:36,codex,6,0,0,0,0,35534,1370,0.000000
+Ted Dabrowski (IL - Governor),1/1,2026-03-25 14:43:45,codex,12,3,1,0,0,91137,3355,0.000000
+Tera Anderson (House NV-03),1/1,2026-03-28 12:14:59,codex,3,1,1,0,0,59349,1520,0.000000
+Teresa Volesky (House AZ-09),1/1,2026-03-30 13:23:10,claude-sonnet-4-6,4,0,0,1,8,13,975,0.191991
+Terri Green (House AR-01),1/1,2026-03-30 13:30:14,claude-sonnet-4-6,4,0,0,1,7,305,2170,0.186127
+Terri LaPoint (House AL-03),1/1,2026-03-29 20:40:55,claude-sonnet-4-6,2,0,0,2,5,8,969,0.108117
+Terri Pickens (ID - Governor),1/1,2026-03-27 18:08:51,claude-sonnet-4-6,2,0,0,1,5,8,1222,0.117219
+Terrill Robinson (House NV-03),1/1,2026-03-28 12:13:39,codex,8,0,0,0,0,27461,1556,0.000000
+Tiffany Burress (House NJ-09),1/1,2026-03-28 16:23:24,claude-sonnet-4-6,2,0,0,2,5,8,953,0.118042
+Tim Cywinski (House VA-01),1/1,2026-03-28 16:32:19,claude-sonnet-4-6,5,0,0,1,8,218,3371,0.257802
+Tim Greimel (House MI-10),1/1,2026-03-28 16:24:57,claude-sonnet-4-6,4,0,0,1,7,9,1529,0.193430
+Timothy Brandt Robinson (House FL-13),1/1,2026-03-29 10:29:03,claude-sonnet-4-6,4,0,0,1,7,1608,1611,0.191269
+Timothy Skelton (OR - Senate),1/1,2026-03-25 14:30:11,codex,5,2,1,0,0,67093,2132,0.000000
+Timothy Wilcox (CT - Governor),1/1,2026-03-25 15:56:17,codex,5,3,1,0,0,57245,1831,0.000000
+Toby Doeden (SD - Governor),1/1,2026-03-27 18:17:34,claude-sonnet-4-6,3,0,0,1,6,987,3625,0.208123
+Tom Bailey (House NC-01),1/4,2026-03-24 08:53:01,claude-sonnet-4-6,11,0,0,2,4,4,1748,0.546566
+Tom Begich (AK - Governor),1/1,2026-03-27 18:06:59,claude-sonnet-4-6,3,0,0,1,6,9,1251,0.160706
+Tom Cotton (AR - Senate),1/1,2026-03-30 18:33:13,claude-sonnet-4-6,3,0,0,5,6,8,3741,0.181155
+Tom Sherman (NH - Governor),1/1,2026-03-25 15:58:46,codex,8,2,1,0,0,60425,1965,0.000000
+Tom Suozzi (House NY-03),1/1,2026-03-28 12:21:18,codex,7,2,1,0,0,69094,2445,0.000000
+Tom Tiffany (WI - Governor),1/1,2026-03-30 18:19:14,claude-sonnet-4-6,9,0,0,5,12,1850,6994,0.507316
+Tom Willis (WV - Senate),1/1,2026-03-27 09:51:19,claude-sonnet-4-6,10,0,0,1,14,643,1801,0.333580
+Tommy Barnes (House AL-04),1/1,2026-03-29 20:43:45,claude-sonnet-4-6,3,0,0,2,6,873,1899,0.175569
+Tommy Tuberville (AL - Governor),1/1,2026-03-27 18:23:02,claude-sonnet-4-6,5,0,0,1,8,975,6179,0.312071
+Travis Groo (House NC-11),1/1,2026-03-29 15:51:30,claude-sonnet-4-6,3,0,0,1,6,832,2372,0.175570
+Travis Terrell (House IA-01),1/1,2026-03-28 09:26:55,claude-sonnet-4-6,2,0,0,1,5,743,958,0.113801
+Tristan Sheppard (OR - Governor),1/1,2026-03-25 15:44:53,codex,14,2,1,0,0,68991,2746,0.000000
+Troy Jackson (ME - Governor),1/1,2026-03-26 16:47:44,claude-sonnet-4-6,4,0,0,1,7,9,1150,0.173646
+Ty Masterson (KS - Governor),1/1,2026-03-26 16:27:02,claude-sonnet-4-6,20,0,0,1,3,5,1796,0.620615
+Tyler Kistner (House MN-02),1/1,2026-03-28 16:48:38,claude-sonnet-4-6,4,0,0,2,7,1414,1862,0.197782
+Van Argyrakis (House NE-02),1/1,2026-03-28 12:10:56,codex,4,2,1,0,0,43535,1436,0.000000
+Vicki Schmidt (KS - Governor),1/1,2026-03-26 16:28:43,claude-sonnet-4-6,9,0,0,1,3,5,1874,0.376811
+Vivek Ramaswamy (OH - Governor),1/1,2026-03-30 18:16:19,claude-sonnet-4-6,3,0,0,2,6,1242,5497,0.250152
+Will McDermott (House AZ-05),3/3,2026-03-30 13:15:29,claude-sonnet-4-6,27,0,0,4,38,1780,8550,1.129307
+William Matthews (House VA-02),1/1,2026-03-28 09:59:04,claude-sonnet-4-6,3,0,0,1,6,9,1428,0.148303
+Xavier Becerra (CA - Governor),1/1,2026-03-25 11:42:13,codex,12,2,1,0,0,91357,3150,0.000000
+Xavier Carrigan (House IA-03),1/1,2026-03-28 09:29:33,claude-sonnet-4-6,11,0,0,1,5,8,1868,0.461502
+Zeva Rosenbaum (House OR-05),1/1,2026-03-29 10:09:15,claude-sonnet-4-6,4,0,0,1,7,1558,3016,0.212576
+Zuhdi Jasser (House AZ-04),1/1,2026-03-29 20:52:48,claude-sonnet-4-6,4,0,0,1,7,818,1830,0.200687
+Zurit Horowitz (House CO-05),1/1,2026-03-29 10:18:41,claude-sonnet-4-6,2,0,0,1,5,8,1226,0.111767

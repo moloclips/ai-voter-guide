@@ -12,6 +12,7 @@ TEMPLATE_HTML = ROOT / "template.html"
 GUIDE_HTML = ROOT / "guide.html"
 XLSX_PATH = ROOT / "data.xlsx"
 FAVICON_SVG = ROOT / "brand" / "plug-logo.svg"
+RACE_PARTIAL_HTML = ROOT / "race.html"
 
 CSV_SPECS = [
     ("Candidates", DATA_DIR / "candidates.csv"),
@@ -128,6 +129,17 @@ def write_guide_html(voter_data):
     if favicon is not None:
         favicon_svg = FAVICON_SVG.read_text(encoding="utf-8").strip()
         favicon["href"] = f"data:image/svg+xml;charset=utf-8,{quote(favicon_svg)}"
+
+    race_partial = soup.find("template", id="race-partial")
+    if race_partial is None:
+        race_partial = soup.new_tag("template", id="race-partial")
+        if soup.body is None:
+            raise RuntimeError("Missing <body> in template.html")
+        soup.body.append(race_partial)
+    race_partial.clear()
+    partial_soup = BeautifulSoup(RACE_PARTIAL_HTML.read_text(encoding="utf-8"), "html.parser")
+    for node in list(partial_soup.contents):
+        race_partial.append(node)
 
     with GUIDE_HTML.open("w", encoding="utf-8") as f:
         f.write(str(soup))

@@ -254,6 +254,37 @@
       font-size: 0.95rem;
     }
 
+    .house-picker {
+      display: grid;
+      gap: 10px;
+    }
+
+    .house-picker-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .house-picker-label {
+      margin: 0;
+      color: var(--muted);
+      font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+
+    .house-picker select {
+      width: 100%;
+      min-width: 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #fff;
+      color: var(--ink);
+    }
+
     .address-note {
       margin: 0;
       color: var(--muted);
@@ -577,8 +608,8 @@
       overflow: visible;
     }
 
-    .mobile-evidence-list::after,
-    .evidence-list::after {
+    .evidence-wrap.has-more .mobile-evidence-list::after,
+    .evidence-wrap.has-more .evidence-list::after {
       content: "";
       position: absolute;
       left: 0;
@@ -692,6 +723,10 @@
       .office-title {
         margin-left: -13px;
         margin-right: -13px;
+      }
+
+      .house-picker-row {
+        grid-template-columns: 1fr;
       }
 
       .race-table {
@@ -3029,7 +3064,8 @@
     let currentStateMatches = [];
     let activeStateIndex = -1;
     let currentFilter = "all";
-    let currentRenderState = { mode: "", stateName: "", houseOffice: "" };
+    let currentRenderState = { mode: "", stateName: "", houseOffice: "", showHousePicker: false };
+    let districtSelections = {};
 
     function normalize(s) { return s.trim().toLowerCase(); }
 
@@ -3109,6 +3145,7 @@
             state: addressState.value,
             zip: addressZip.value,
           },
+          districtSelections,
         }));
       } catch {}
     }
@@ -3136,6 +3173,9 @@
         if (typeof savedAddress.city === "string") addressCity.value = savedAddress.city;
         if (typeof savedAddress.state === "string") addressState.value = savedAddress.state;
         if (typeof savedAddress.zip === "string") addressZip.value = savedAddress.zip;
+        if (saved?.districtSelections && typeof saved.districtSelections === "object") {
+          districtSelections = saved.districtSelections;
+        }
         if (saved?.filter === "pro_safety" || saved?.filter === "all") {
           currentFilter = saved.filter;
         }
@@ -3155,7 +3195,7 @@
           if (state) {
             addressState.value = state.name;
             setControlsCollapsed(false, "");
-            renderStateRaces(savedState.stateName);
+            renderStateRaces(savedState.stateName, { showHousePicker: true });
           }
         }
       } catch {}
@@ -3217,7 +3257,7 @@
       if (!found || hasAdditionalAddressDetail()) return false;
       addressState.value = found.name;
       setControlsCollapsed(false);
-      renderStateRaces(found.name);
+      renderStateRaces(found.name, { showHousePicker: true });
       saveUiState();
       return true;
     }
@@ -3255,7 +3295,7 @@
             title="${label.replace(/"/g,'&quot;')}"
             ><span class="evidence-index">[${i+1}]</span>${label}</a>${domain ? `<span class="evidence-domain">${domain}</span>` : ""}</div>`;
       }).join("");
-      return `<div class="evidence-wrap"><div class="evidence-list">${items}</div>${evidence.length > 1 ? '<button class="btn evidence-more" type="button">See more</button>' : ""}</div>`;
+      return `<div class="evidence-wrap${evidence.length > 1 ? ' has-more' : ''}"><div class="evidence-list">${items}</div>${evidence.length > 1 ? '<button class="btn evidence-more" type="button">See more</button>' : ""}</div>`;
     }
 
     function renderMobileEvidence(evidence) {
@@ -3268,6 +3308,20 @@
         const label = String(rawLabel);
         return `<li><a class="evidence-link" href="${url}" target="_blank" rel="noopener noreferrer" title="${label.replace(/"/g,'&quot;')}">${label}</a></li>`;
       }).join("");
+    }
+
+    function getRacePartialHtml() {
+      const el = document.getElementById("race-partial");
+      if (el) return el.innerHTML.trim();
+      return `<article class="{{ARTICLE_CLASS}}"><h3 class="{{TITLE_CLASS}}">{{TITLE}}</h3>{{BODY}}</article>`;
+    }
+
+    function renderRacePartial(values) {
+      let html = getRacePartialHtml();
+      for (const [key, value] of Object.entries(values)) {
+        html = html.replaceAll(`{{${key}}}`, value);
+      }
+      return html;
     }
 
     const VOTER_DATA = JSON.parse(document.getElementById("voter-data").textContent);
@@ -3322,6 +3376,26 @@
       return getRacesForState(stateName).find(r => r.office === office) || null;
     }
 
+    function getHouseRacesForState(stateName) {
+      return getRacesForState(stateName)
+        .filter(r => String(r.office).startsWith("House "))
+        .sort((a, b) => String(a.office).localeCompare(String(b.office)));
+    }
+
+    function getDistrictSelection(stateName) {
+      const state = states.find(s => s.name === stateName);
+      if (!state) return "";
+      return districtSelections[state.abbr] || "";
+    }
+
+    function setDistrictSelection(stateName, office) {
+      const state = states.find(s => s.name === stateName);
+      if (!state) return;
+      if (office) districtSelections[state.abbr] = office;
+      else delete districtSelections[state.abbr];
+      saveUiState();
+    }
+
     function getRenderableStateNames() {
       const data = VOTER_DATA;
       if (Array.isArray(data)) {
@@ -3352,17 +3426,14 @@
       const mobileItems = sorted.map(c => `
         <article class="mobile-race-item">
           <p class="mobile-race-head"><strong>${c.candidate}</strong> (${c.party}) <span class="verdict-inline">${verdictBadge(c.verdict)}</span></p>
-          <div class="evidence-wrap">
+          <div class="evidence-wrap${Array.isArray(c.sources) && c.sources.length > 1 ? ' has-more' : ''}">
             <ul class="mobile-evidence-list">${renderMobileEvidence(c.sources)}</ul>
             ${Array.isArray(c.sources) && c.sources.length > 1 ? '<button class="btn evidence-more" type="button">See more</button>' : ""}
           </div>
         </article>`).join("");
       const title = titleOverride || (office === "Senate" ? "U.S. Senate" : office);
       const articleClass = ["office-block", blockClass].filter(Boolean).join(" ");
-      return `
-        <article class="${articleClass}">
-          <h3 class="${titleClass}">${title}</h3>
-          ${sorted.length ? `<table class="race-table">
+      const body = sorted.length ? `<table class="race-table">
             <thead>
               <tr>
                 <th>Candidate</th><th>Party</th><th>AI Verdict</th><th>Evidence</th>
@@ -3370,25 +3441,42 @@
             </thead>
             <tbody>${rows}</tbody>
           </table>
-          <div class="mobile-race-list">${mobileItems}</div>` : emptyMessage}
-        </article>`;
+          <div class="mobile-race-list">${mobileItems}</div>` : emptyMessage;
+      return renderRacePartial({
+        ARTICLE_CLASS: articleClass,
+        TITLE_CLASS: titleClass,
+        TITLE: title,
+        BODY: body
+      });
+    }
+
+    function renderEmptyOfficeBlock(title, message) {
+      return renderRacePartial({
+        ARTICLE_CLASS: "office-block",
+        TITLE_CLASS: "office-title",
+        TITLE: title,
+        BODY: `<p class="house-picker-label">${message}</p>`
+      });
     }
 
     function buildStatewideRacesHTML(stateName) {
       const candidates = getCandidatesForState(stateName).filter(c => !String(c.office).startsWith("House "));
-      if (!candidates.length) {
-        return '<p class="status">No race data available for this state yet.</p>';
-      }
-
       const byOffice = {};
       candidates.forEach(c => {
         (byOffice[c.office] = byOffice[c.office] || []).push(c);
       });
 
-      const officeOrder = ["Governor", "Senate"];
-      return officeOrder
-        .filter(o => byOffice[o])
-        .map(office => renderOfficeBlock(office, byOffice[office]))
+      const officeMeta = [
+        { office: "Governor", title: "Governor", empty: "No Governor race in 2026." },
+        { office: "Senate", title: "U.S. Senate", empty: "No Senate race in 2026." }
+      ];
+
+      return officeMeta
+        .map(({ office, title, empty }) =>
+          byOffice[office]
+            ? renderOfficeBlock(office, byOffice[office], title)
+            : renderEmptyOfficeBlock(title, empty)
+        )
         .join("");
     }
 
@@ -3422,8 +3510,30 @@
       return renderOfficeBlock(
         race.office,
         race.candidates,
-        `U.S. House: ${formatDistrictLabel(stateName, race.office)}`
+        `U.S. House: ${formatDistrictCode(race.office)}`
       );
+    }
+
+    function buildHousePickerHTML(stateName, selectedOffice = "") {
+      const houseRaces = getHouseRacesForState(stateName);
+      if (!houseRaces.length) return "";
+      const selected = selectedOffice || getDistrictSelection(stateName);
+      return `
+        <article class="office-block">
+          <h3 class="office-title">U.S. House</h3>
+          <div class="house-picker">
+            <p class="house-picker-label">Choose House District</p>
+            <div class="house-picker-row">
+              <select data-house-select="${stateName}" aria-label="Choose House District">
+                <option value="">Choose House District</option>
+                ${houseRaces.map(race => `
+                  <option value="${race.office}"${race.office === selected ? " selected" : ""}>${formatDistrictCode(race.office)}</option>
+                `).join("")}
+              </select>
+              <button class="btn" data-scroll-address="true" type="button">Use location or address above</button>
+            </div>
+          </div>
+        </article>`;
     }
 
     function buildAllStateRacesHTML(stateName) {
@@ -3451,16 +3561,21 @@
       return [statewideHtml, houseHtml].filter(Boolean).join("");
     }
 
-    function renderStateRaces(stateName) {
-      currentRenderState = { mode: "state", stateName, houseOffice: "" };
+    function renderStateRaces(stateName, options = {}) {
+      const showHousePicker = Boolean(options.showHousePicker);
+      const selectedHouseOffice = showHousePicker ? getDistrictSelection(stateName) : "";
+      currentRenderState = { mode: "state", stateName, houseOffice: selectedHouseOffice, showHousePicker };
       setFilterVisibility(true);
-      raceResults.innerHTML = buildStatewideRacesHTML(stateName);
+      const statewideHtml = buildStatewideRacesHTML(stateName);
+      const housePickerHtml = showHousePicker ? buildHousePickerHTML(stateName, selectedHouseOffice) : "";
+      const districtHtml = showHousePicker && selectedHouseOffice ? buildDistrictRaceHTML(stateName, selectedHouseOffice) : "";
+      raceResults.innerHTML = [statewideHtml, housePickerHtml, districtHtml].filter(Boolean).join("");
       printBtn.classList.toggle("show", Boolean(raceResults.innerHTML.trim()));
       saveUiState();
     }
 
     function renderStateAndDistrict(stateName, houseOffice = "") {
-      currentRenderState = { mode: "district", stateName, houseOffice };
+      currentRenderState = { mode: "district", stateName, houseOffice, showHousePicker: false };
       setFilterVisibility(true);
       const districtHtml = houseOffice ? buildDistrictRaceHTML(stateName, houseOffice) : "";
       const statewideHtml = buildStatewideRacesHTML(stateName);
@@ -3475,7 +3590,7 @@
         return;
       }
       if (currentRenderState.mode === "state") {
-        renderStateRaces(currentRenderState.stateName);
+        renderStateRaces(currentRenderState.stateName, { showHousePicker: currentRenderState.showHousePicker });
       }
     }
 
@@ -3647,18 +3762,19 @@
         const summaryText = `${formatDistrictCode(houseOffice)} detected`;
         const houseRace = getRaceByOffice(state.name, houseOffice);
         if (houseRace) {
+          setDistrictSelection(state.name, houseOffice);
           setControlsCollapsed(true, summaryText);
           renderStateAndDistrict(state.name, houseOffice);
           return;
         }
 
         setControlsCollapsed(true, summaryText);
-        renderStateRaces(state.name);
+        renderStateRaces(state.name, { showHousePicker: true });
         return;
       }
 
       setControlsCollapsed(false);
-      renderStateRaces(state.name);
+      renderStateRaces(state.name, { showHousePicker: true });
     }
 
     async function detectStateFromLocation() {
@@ -3777,13 +3893,29 @@
     });
     raceResults.addEventListener("click", e => {
       const button = e.target.closest(".evidence-more");
-      if (!button) return;
-      const wrap = button.closest(".evidence-wrap");
-      const list = wrap?.querySelector(".evidence-list, .mobile-evidence-list");
-      if (!list) return;
-      const expanded = wrap.classList.toggle("expanded");
-      list.classList.toggle("expanded", expanded);
-      button.textContent = expanded ? "Show less" : "See more";
+      if (button) {
+        const wrap = button.closest(".evidence-wrap");
+        const list = wrap?.querySelector(".evidence-list, .mobile-evidence-list");
+        if (!list) return;
+        const expanded = wrap.classList.toggle("expanded");
+        list.classList.toggle("expanded", expanded);
+        button.textContent = expanded ? "Show less" : "See more";
+        return;
+      }
+
+      const addressButton = e.target.closest("[data-scroll-address]");
+      if (addressButton) {
+        setControlsCollapsed(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+    raceResults.addEventListener("change", e => {
+      const select = e.target.closest("[data-house-select]");
+      if (!select) return;
+      const stateName = select.getAttribute("data-house-select") || "";
+      const office = select.value || "";
+      setDistrictSelection(stateName, office);
+      renderStateRaces(stateName, { showHousePicker: true });
     });
     if (printBtn) {
       printBtn.addEventListener("click", () => window.print());
