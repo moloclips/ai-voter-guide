@@ -1,507 +1,507 @@
-Priority,State,Office,Rating,Claude,Codex,Gemini
-1,Arizona,Governor,,2,0,0
-2,California,Governor,,2,0,0
-3,Colorado,Senate,,2,0,0
-4,Florida,Governor,,2,0,0
-5,Georgia,Governor,,2,0,0
-6,Georgia,Senate,,2,0,0
-7,Illinois,Senate,,2,0,0
-8,Iowa,Senate,,2,0,0
-9,Maine,Senate,,2,0,0
-10,Maryland,Governor,,2,0,0
-11,Massachusetts,Senate,,2,0,0
-12,Michigan,Governor,,2,0,0
-13,Michigan,Senate,,2,0,0
-14,Minnesota,Governor,,2,0,0
-15,Minnesota,Senate,,2,0,0
-16,New Hampshire,Senate,,2,0,0
-17,New Mexico,Senate,,2,0,0
-18,New York,Governor,,2,0,0
-19,North Carolina,Senate,,2,0,0
-20,Ohio,Governor,,2,0,0
-21,Oregon,Senate,,2,0,0
-22,Pennsylvania,Governor,,2,0,0
-23,Texas,Governor,,2,0,0
-24,Texas,Senate,,2,0,0
-25,Virginia,Senate,,2,0,0
-26,Wisconsin,Governor,,2,0,0
-27,Colorado,Governor,,2,0,0
-28,Nevada,Governor,,2,0,0
-29,Illinois,Governor,,2,0,0
-30,Oregon,Governor,,2,0,0
-31,Connecticut,Governor,,2,0,0
-32,New Hampshire,Governor,,2,0,0
-33,Kansas,Governor,,2,0,0
-34,New Mexico,Governor,,2,0,0
-35,Iowa,Governor,,2,0,0
-36,Maine,Governor,,2,0,0
-37,Kentucky,Senate,,2,0,0
-39,New Jersey,Senate,,2,0,0
-40,Florida,Senate,,2,0,0
-41,Ohio,Senate,,2,0,0
-42,Oklahoma,Senate,,2,0,0
-43,Massachusetts,Governor,,2,0,0
-44,Delaware,Senate,,2,0,0
-45,Rhode Island,Senate,,2,0,0
-46,West Virginia,Senate,,2,0,0
-47,Alaska,Senate,,2,0,0
-48,Kansas,Senate,,2,0,0
-49,Nebraska,Senate,,2,0,0
-50,South Dakota,Senate,,2,0,0
-51,Wyoming,Senate,,2,0,0
-52,Alabama,Senate,,2,0,0
-53,Arkansas,Senate,,2,0,0
-54,Idaho,Senate,,2,0,0
-55,Louisiana,Senate,,2,0,0
-56,Mississippi,Senate,,2,0,0
-57,Montana,Senate,,2,0,0
-58,South Carolina,Senate,,2,0,0
-59,Tennessee,Senate,,2,0,0
-60,Alaska,Governor,,2,0,0
-61,Arkansas,Governor,,2,0,0
-62,Hawaii,Governor,,2,0,0
-63,Idaho,Governor,,2,0,0
-64,Nebraska,Governor,,2,0,0
-65,Oklahoma,Governor,,2,0,0
-66,Rhode Island,Governor,,2,0,0
-67,South Carolina,Governor,,2,0,0
-68,South Dakota,Governor,,2,0,0
-69,Tennessee,Governor,,2,0,0
-70,Vermont,Governor,,2,0,0
-71,Wyoming,Governor,,2,0,0
-72,Alabama,Governor,,2,0,0
-73,Arizona,House AZ-01,Toss-Up,2,0,0
-74,Arizona,House AZ-06,Toss-Up,2,0,0
-75,California,House CA-22,Toss-Up,2,0,0
-76,California,House CA-48,Toss-Up,2,0,0
-77,Colorado,House CO-08,Toss-Up,2,0,0
-78,Iowa,House IA-01,Toss-Up,2,0,0
-79,Iowa,House IA-03,Toss-Up,2,0,0
-80,Michigan,House MI-07,Toss-Up,2,0,0
-81,New Jersey,House NJ-07,Toss-Up,2,0,0
-82,New York,House NY-17,Toss-Up,2,0,0
-83,Ohio,House OH-01,Toss-Up,2,0,0
-84,Ohio,House OH-09,Toss-Up,2,0,0
-85,Pennsylvania,House PA-07,Toss-Up,2,0,0
-86,Pennsylvania,House PA-10,Toss-Up,2,0,0
-87,Texas,House TX-34,Toss-Up,2,0,0
-88,Virginia,House VA-02,Toss-Up,2,0,0
-89,Washington,House WA-03,Toss-Up,2,0,0
-90,Wisconsin,House WI-03,Toss-Up,2,0,0
-91,California,House CA-13,Lean D,2,0,0
-92,California,House CA-45,Lean D,2,0,0
-93,Florida,House FL-23,Lean D,2,0,0
-94,Michigan,House MI-08,Lean D,2,0,0
-95,Nebraska,House NE-02,Lean D,2,0,0
-96,New Mexico,House NM-02,Lean D,2,0,0
-97,Nevada,House NV-03,Lean D,2,0,0
-98,New York,House NY-03,Lean D,2,0,0
-99,New York,House NY-04,Lean D,2,0,0
-100,New York,House NY-19,Lean D,2,0,0
-101,Ohio,House OH-13,Lean D,2,0,0
-102,Texas,House TX-28,Lean D,2,0,0
-103,Virginia,House VA-07,Lean D,2,0,0
-104,North Carolina,House NC-01,Lean D,2,0,0
-105,New Jersey,House NJ-09,Lean R,2,0,0
-106,Michigan,House MI-10,Lean R,2,0,0
-107,Pennsylvania,House PA-08,Lean R,2,0,0
-108,Virginia,House VA-01,Lean R,2,0,0
-109,California,House CA-21,Likely D,2,0,0
-110,Indiana,House IN-01,Likely D,2,0,0
-111,Minnesota,House MN-02,Likely D,2,0,0
-112,New Hampshire,House NH-01,Likely D,2,0,0
-113,New Hampshire,House NH-02,Likely D,2,0,0
-114,Nevada,House NV-01,Likely D,2,0,0
-115,Nevada,House NV-04,Likely D,2,0,0
-116,Oregon,House OR-05,Likely D,2,0,0
-117,Alaska,House AK-AL,Likely R,2,0,0
-118,Arizona,House AZ-02,Likely R,2,0,0
-119,Colorado,House CO-03,Likely R,2,0,0
-120,Colorado,House CO-05,Likely R,2,0,0
-121,Florida,House FL-07,Likely R,2,0,0
-122,Florida,House FL-13,Likely R,2,0,0
-123,Iowa,House IA-02,Likely R,2,0,0
-124,Maine,House ME-02,Likely R,2,0,0
-125,Michigan,House MI-04,Likely R,2,0,0
-126,Montana,House MT-01,Likely R,2,0,0
-127,North Carolina,House NC-11,Likely R,2,0,0
-128,Pennsylvania,House PA-01,Likely R,2,0,0
-129,Tennessee,House TN-05,Likely R,2,0,0
-130,Texas,House TX-15,Likely R,2,0,0
-131,Texas,House TX-35,Likely R,2,0,0
-132,Wisconsin,House WI-01,Likely R,2,0,0
-133,Alabama,House AL-01,Low,2,0,0
-134,Alabama,House AL-02,Low,2,0,0
-135,Alabama,House AL-03,Low,2,0,0
-136,Alabama,House AL-04,Low,2,0,0
-137,Alabama,House AL-05,Low,2,0,0
-138,Alabama,House AL-06,Low,2,0,0
-139,Alabama,House AL-07,Low,2,0,0
-140,Arizona,House AZ-03,Low,2,0,0
-141,Arizona,House AZ-04,Low,2,0,0
-142,Arizona,House AZ-05,Low,2,0,0
-143,Arizona,House AZ-07,Low,2,0,0
-144,Arizona,House AZ-08,Low,2,0,0
-145,Arizona,House AZ-09,Low,2,0,0
-146,Arkansas,House AR-01,Low,2,0,0
-147,Arkansas,House AR-02,Low,2,0,0
-148,Arkansas,House AR-03,Low,2,0,0
-149,Arkansas,House AR-04,Low,2,0,0
-150,California,House CA-01,Low,2,0,0
-151,California,House CA-02,Low,2,0,0
-152,California,House CA-03,Low,2,0,0
-153,California,House CA-04,Low,2,0,0
-154,California,House CA-05,Low,2,0,0
-155,California,House CA-06,Low,2,0,0
-156,California,House CA-07,Low,2,0,0
-157,California,House CA-08,Low,2,0,0
-158,California,House CA-09,Low,2,0,0
-159,California,House CA-10,Low,2,0,0
-160,California,House CA-11,Low,2,0,0
-161,California,House CA-12,Low,2,0,0
-162,California,House CA-14,Low,2,0,0
-163,California,House CA-15,Low,2,0,0
-164,California,House CA-16,Low,2,0,0
-165,California,House CA-17,Low,2,0,0
-166,California,House CA-18,Low,2,0,0
-167,California,House CA-19,Low,2,0,0
-168,California,House CA-20,Low,2,0,0
-169,California,House CA-23,Low,2,0,0
-170,California,House CA-24,Low,2,0,0
-171,California,House CA-25,Low,2,0,0
-172,California,House CA-26,Low,2,0,0
-173,California,House CA-27,Low,2,0,0
-174,California,House CA-28,Low,2,0,0
-175,California,House CA-29,Low,2,0,0
-176,California,House CA-30,Low,2,0,0
-177,California,House CA-31,Low,2,0,0
-178,California,House CA-32,Low,2,0,0
-179,California,House CA-33,Low,2,0,0
-180,California,House CA-34,Low,2,0,0
-181,California,House CA-35,Low,2,0,0
-182,California,House CA-36,Low,2,0,0
-183,California,House CA-37,Low,2,0,0
-184,California,House CA-38,Low,2,0,0
-185,California,House CA-39,Low,2,0,0
-186,California,House CA-40,Low,2,0,0
-187,California,House CA-41,Low,2,0,0
-188,California,House CA-42,Low,2,0,0
-189,California,House CA-43,Low,2,0,0
-190,California,House CA-44,Low,2,0,0
-191,California,House CA-46,Low,2,0,0
-192,California,House CA-47,Low,2,0,0
-193,California,House CA-49,Low,2,0,0
-194,California,House CA-50,Low,2,0,0
-195,California,House CA-51,Low,2,0,0
-196,California,House CA-52,Low,2,0,0
-197,Colorado,House CO-01,Low,2,0,0
-198,Colorado,House CO-02,Low,2,0,0
-199,Colorado,House CO-04,Low,2,0,0
-200,Colorado,House CO-06,Low,2,0,0
-201,Colorado,House CO-07,Low,2,0,0
-202,Connecticut,House CT-01,Low,2,0,0
-203,Connecticut,House CT-02,Low,2,0,0
-204,Connecticut,House CT-03,Low,2,0,0
-205,Connecticut,House CT-04,Low,2,0,0
-206,Connecticut,House CT-05,Low,2,0,0
-207,Delaware,House DE-AL,Low,2,0,0
-208,Florida,House FL-01,Low,2,0,0
-209,Florida,House FL-02,Low,2,0,0
-210,Florida,House FL-03,Low,2,0,0
-211,Florida,House FL-04,Low,2,0,0
-212,Florida,House FL-05,Low,2,0,0
-213,Florida,House FL-06,Low,2,0,0
-214,Florida,House FL-08,Low,2,0,0
-215,Florida,House FL-09,Low,2,0,0
-216,Florida,House FL-10,Low,2,0,0
-217,Florida,House FL-11,Low,2,0,0
-218,Florida,House FL-12,Low,2,0,0
-219,Florida,House FL-14,Low,2,0,0
-220,Florida,House FL-15,Low,2,0,0
-221,Florida,House FL-16,Low,2,0,0
-222,Florida,House FL-17,Low,2,0,0
-223,Florida,House FL-18,Low,2,0,0
-224,Florida,House FL-19,Low,2,0,0
-225,Florida,House FL-20,Low,2,0,0
-226,Florida,House FL-21,Low,2,0,0
-227,Florida,House FL-22,Low,2,0,0
-228,Florida,House FL-24,Low,2,0,0
-229,Florida,House FL-25,Low,2,0,0
-230,Florida,House FL-26,Low,2,0,0
-231,Florida,House FL-27,Low,2,0,0
-232,Florida,House FL-28,Low,2,0,0
-233,Georgia,House GA-01,Low,2,0,0
-234,Georgia,House GA-02,Low,2,0,0
-235,Georgia,House GA-03,Low,2,0,0
-236,Georgia,House GA-04,Low,2,0,0
-237,Georgia,House GA-05,Low,2,0,0
-238,Georgia,House GA-06,Low,2,0,0
-239,Georgia,House GA-07,Low,2,0,0
-240,Georgia,House GA-08,Low,2,0,0
-241,Georgia,House GA-09,Low,2,0,0
-242,Georgia,House GA-10,Low,2,0,0
-243,Georgia,House GA-11,Low,2,0,0
-244,Georgia,House GA-12,Low,2,0,0
-245,Georgia,House GA-13,Low,2,0,0
-246,Georgia,House GA-14,Low,2,0,0
-247,Hawaii,House HI-01,Low,2,0,0
-248,Hawaii,House HI-02,Low,2,0,0
-249,Idaho,House ID-01,Low,2,0,0
-250,Idaho,House ID-02,Low,2,0,0
-251,Illinois,House IL-01,Low,2,0,0
-252,Illinois,House IL-02,Low,2,0,0
-253,Illinois,House IL-03,Low,2,0,0
-254,Illinois,House IL-04,Low,2,0,0
-255,Illinois,House IL-05,Low,2,0,0
-256,Illinois,House IL-06,Low,2,0,0
-257,Illinois,House IL-07,Low,2,0,0
-258,Illinois,House IL-08,Low,2,0,0
-259,Illinois,House IL-09,Low,2,0,0
-260,Illinois,House IL-10,Low,2,0,0
-261,Illinois,House IL-11,Low,2,0,0
-262,Illinois,House IL-12,Low,2,0,0
-263,Illinois,House IL-13,Low,2,0,0
-264,Illinois,House IL-14,Low,2,0,0
-265,Illinois,House IL-15,Low,2,0,0
-266,Illinois,House IL-16,Low,2,0,0
-267,Illinois,House IL-17,Low,2,0,0
-268,Indiana,House IN-02,Low,2,0,0
-269,Indiana,House IN-03,Low,2,0,0
-270,Indiana,House IN-04,Low,2,0,0
-271,Indiana,House IN-05,Low,2,0,0
-272,Indiana,House IN-06,Low,2,0,0
-273,Indiana,House IN-07,Low,2,0,0
-274,Indiana,House IN-08,Low,2,0,0
-275,Indiana,House IN-09,Low,2,0,0
-276,Iowa,House IA-04,Low,2,0,0
-277,Kansas,House KS-01,Low,2,0,0
-278,Kansas,House KS-02,Low,2,0,0
-279,Kansas,House KS-03,Low,2,0,0
-280,Kansas,House KS-04,Low,2,0,0
-281,Kentucky,House KY-01,Low,2,0,0
-282,Kentucky,House KY-02,Low,2,0,0
-283,Kentucky,House KY-03,Low,2,0,0
-284,Kentucky,House KY-04,Low,2,0,0
-285,Kentucky,House KY-05,Low,2,0,0
-286,Kentucky,House KY-06,Low,2,0,0
-287,Louisiana,House LA-01,Low,2,0,0
-288,Louisiana,House LA-02,Low,2,0,0
-289,Louisiana,House LA-03,Low,2,0,0
-290,Louisiana,House LA-04,Low,2,0,0
-291,Louisiana,House LA-05,Low,2,0,0
-292,Louisiana,House LA-06,Low,2,0,0
-293,Maine,House ME-01,Low,2,0,0
-294,Maryland,House MD-01,Low,2,0,0
-295,Maryland,House MD-02,Low,2,0,0
-296,Maryland,House MD-03,Low,2,0,0
-297,Maryland,House MD-04,Low,2,0,0
-298,Maryland,House MD-05,Low,2,0,0
-299,Maryland,House MD-06,Low,2,0,0
-300,Maryland,House MD-07,Low,2,0,0
-301,Maryland,House MD-08,Low,2,0,0
-302,Massachusetts,House MA-01,Low,2,0,0
-303,Massachusetts,House MA-02,Low,2,0,0
-304,Massachusetts,House MA-03,Low,2,0,0
-305,Massachusetts,House MA-04,Low,2,0,0
-306,Massachusetts,House MA-05,Low,2,0,0
-307,Massachusetts,House MA-06,Low,2,0,0
-308,Massachusetts,House MA-07,Low,2,0,0
-309,Massachusetts,House MA-08,Low,2,0,0
-310,Massachusetts,House MA-09,Low,2,0,0
-311,Michigan,House MI-01,Low,2,0,0
-312,Michigan,House MI-02,Low,2,0,0
-313,Michigan,House MI-03,Low,2,0,0
-314,Michigan,House MI-05,Low,2,0,0
-315,Michigan,House MI-06,Low,2,0,0
-316,Michigan,House MI-09,Low,2,0,0
-317,Michigan,House MI-11,Low,2,0,0
-318,Michigan,House MI-12,Low,2,0,0
-319,Michigan,House MI-13,Low,2,0,0
-320,Minnesota,House MN-01,Low,2,0,0
-321,Minnesota,House MN-03,Low,2,0,0
-322,Minnesota,House MN-04,Low,2,0,0
-323,Minnesota,House MN-05,Low,2,0,0
-324,Minnesota,House MN-06,Low,2,0,0
-325,Minnesota,House MN-07,Low,2,0,0
-326,Minnesota,House MN-08,Low,2,0,0
-327,Mississippi,House MS-01,Low,2,0,0
-328,Mississippi,House MS-02,Low,2,0,0
-329,Mississippi,House MS-03,Low,2,0,0
-330,Mississippi,House MS-04,Low,2,0,0
-331,Missouri,House MO-01,Low,2,0,0
-332,Missouri,House MO-02,Low,2,0,0
-333,Missouri,House MO-03,Low,2,0,0
-334,Missouri,House MO-04,Low,2,0,0
-335,Missouri,House MO-05,Low,2,0,0
-336,Missouri,House MO-06,Low,2,0,0
-337,Missouri,House MO-07,Low,2,0,0
-338,Missouri,House MO-08,Low,2,0,0
-339,Montana,House MT-02,Low,2,0,0
-340,Nebraska,House NE-01,Low,2,0,0
-341,Nebraska,House NE-03,Low,2,0,0
-342,Nevada,House NV-02,Low,2,0,0
-343,New Jersey,House NJ-01,Low,2,0,0
-344,New Jersey,House NJ-02,Low,2,0,0
-345,New Jersey,House NJ-03,Low,2,0,0
-346,New Jersey,House NJ-04,Low,2,0,0
-347,New Jersey,House NJ-05,Low,2,0,0
-348,New Jersey,House NJ-06,Low,2,0,0
-349,New Jersey,House NJ-08,Low,2,0,0
-350,New Jersey,House NJ-10,Low,2,0,0
-351,New Jersey,House NJ-11,Low,2,0,0
-352,New Jersey,House NJ-12,Low,2,0,0
-353,New Mexico,House NM-01,Low,2,0,0
-354,New Mexico,House NM-03,Low,2,0,0
-355,New York,House NY-01,Low,2,0,0
-356,New York,House NY-02,Low,2,0,0
-357,New York,House NY-05,Low,2,0,0
-358,New York,House NY-06,Low,2,0,0
-359,New York,House NY-07,Low,2,0,0
-360,New York,House NY-08,Low,2,0,0
-361,New York,House NY-09,Low,2,0,0
-362,New York,House NY-10,Low,2,0,0
-363,New York,House NY-11,Low,2,0,0
-364,New York,House NY-12,Low,2,0,0
-365,New York,House NY-13,Low,2,0,0
-366,New York,House NY-14,Low,2,0,0
-367,New York,House NY-15,Low,2,0,0
-368,New York,House NY-16,Low,2,0,0
-369,New York,House NY-18,Low,2,0,0
-370,New York,House NY-20,Low,2,0,0
-371,New York,House NY-21,Low,2,0,0
-372,New York,House NY-22,Low,2,0,0
-373,New York,House NY-23,Low,2,0,0
-374,New York,House NY-24,Low,2,0,0
-375,New York,House NY-25,Low,2,0,0
-376,New York,House NY-26,Low,2,0,0
-377,North Carolina,House NC-02,Low,2,0,0
-378,North Carolina,House NC-03,Low,2,0,0
-379,North Carolina,House NC-04,Low,2,0,0
-380,North Carolina,House NC-05,Low,2,0,0
-381,North Carolina,House NC-06,Low,2,0,0
-382,North Carolina,House NC-07,Low,2,0,0
-383,North Carolina,House NC-08,Low,2,0,0
-384,North Carolina,House NC-09,Low,2,0,0
-385,North Carolina,House NC-10,Low,2,0,0
-386,North Carolina,House NC-12,Low,2,0,0
-387,North Carolina,House NC-13,Low,2,0,0
-388,North Carolina,House NC-14,Low,2,0,0
-389,North Dakota,House ND-AL,Low,2,0,0
-390,Ohio,House OH-02,Low,2,0,0
-391,Ohio,House OH-03,Low,2,0,0
-392,Ohio,House OH-04,Low,2,0,0
-393,Ohio,House OH-05,Low,2,0,0
-394,Ohio,House OH-06,Low,2,0,0
-395,Ohio,House OH-07,Low,2,0,0
-396,Ohio,House OH-08,Low,2,0,0
-397,Ohio,House OH-10,Low,2,0,0
-398,Ohio,House OH-11,Low,2,0,0
-399,Ohio,House OH-12,Low,2,0,0
-400,Ohio,House OH-14,Low,2,0,0
-401,Ohio,House OH-15,Low,2,0,0
-402,Oklahoma,House OK-01,Low,2,0,0
-403,Oklahoma,House OK-02,Low,2,0,0
-404,Oklahoma,House OK-03,Low,2,0,0
-405,Oklahoma,House OK-04,Low,2,0,0
-406,Oklahoma,House OK-05,Low,2,0,0
-407,Oregon,House OR-01,Low,2,0,0
-408,Oregon,House OR-02,Low,2,0,0
-409,Oregon,House OR-03,Low,2,0,0
-410,Oregon,House OR-04,Low,2,0,0
-411,Oregon,House OR-06,Low,2,0,0
-412,Pennsylvania,House PA-02,Low,2,0,0
-413,Pennsylvania,House PA-03,Low,2,0,0
-414,Pennsylvania,House PA-04,Low,2,0,0
-415,Pennsylvania,House PA-05,Low,2,0,0
-416,Pennsylvania,House PA-06,Low,2,0,0
-417,Pennsylvania,House PA-09,Low,2,0,0
-418,Pennsylvania,House PA-11,Low,2,0,0
-419,Pennsylvania,House PA-12,Low,2,0,0
-420,Pennsylvania,House PA-13,Low,2,0,0
-421,Pennsylvania,House PA-14,Low,2,0,0
-422,Pennsylvania,House PA-15,Low,2,0,0
-423,Pennsylvania,House PA-16,Low,2,0,0
-424,Pennsylvania,House PA-17,Low,2,0,0
-425,Rhode Island,House RI-01,Low,2,0,0
-426,Rhode Island,House RI-02,Low,2,0,0
-427,South Carolina,House SC-01,Low,2,0,0
-428,South Carolina,House SC-02,Low,2,0,0
-429,South Carolina,House SC-03,Low,2,0,0
-430,South Carolina,House SC-04,Low,2,0,0
-431,South Carolina,House SC-05,Low,2,0,0
-432,South Carolina,House SC-06,Low,2,0,0
-433,South Carolina,House SC-07,Low,2,0,0
-434,South Dakota,House SD-AL,Low,2,0,0
-435,Tennessee,House TN-01,Low,2,0,0
-436,Tennessee,House TN-02,Low,2,0,0
-437,Tennessee,House TN-03,Low,2,0,0
-438,Tennessee,House TN-04,Low,2,0,0
-439,Tennessee,House TN-06,Low,2,0,0
-440,Tennessee,House TN-07,Low,2,0,0
-441,Tennessee,House TN-08,Low,2,0,0
-442,Tennessee,House TN-09,Low,2,0,0
-443,Texas,House TX-01,Low,2,0,0
-444,Texas,House TX-02,Low,2,0,0
-445,Texas,House TX-03,Low,2,0,0
-446,Texas,House TX-04,Low,2,0,0
-447,Texas,House TX-05,Low,2,0,0
-448,Texas,House TX-06,Low,2,0,0
-449,Texas,House TX-07,Low,2,0,0
-450,Texas,House TX-08,Low,2,0,0
-451,Texas,House TX-09,Low,2,0,0
-452,Texas,House TX-10,Low,2,0,0
-453,Texas,House TX-11,Low,2,0,0
-454,Texas,House TX-12,Low,2,0,0
-455,Texas,House TX-13,Low,2,0,0
-456,Texas,House TX-14,Low,2,0,0
-457,Texas,House TX-16,Low,2,0,0
-458,Texas,House TX-17,Low,2,0,0
-459,Texas,House TX-18,Low,2,0,0
-460,Texas,House TX-19,Low,2,0,0
-461,Texas,House TX-20,Low,2,0,0
-462,Texas,House TX-21,Low,2,0,0
-463,Texas,House TX-22,Low,2,0,0
-464,Texas,House TX-23,Low,2,0,0
-465,Texas,House TX-24,Low,2,0,0
-466,Texas,House TX-25,Low,2,0,0
-467,Texas,House TX-26,Low,2,0,0
-468,Texas,House TX-27,Low,2,0,0
-469,Texas,House TX-29,Low,2,0,0
-470,Texas,House TX-30,Low,2,0,0
-471,Texas,House TX-31,Low,2,0,0
-472,Texas,House TX-32,Low,2,0,0
-473,Texas,House TX-33,Low,2,0,0
-474,Texas,House TX-36,Low,2,0,0
-475,Texas,House TX-37,Low,2,0,0
-476,Texas,House TX-38,Low,2,0,0
-477,Utah,House UT-01,Low,2,0,0
-478,Utah,House UT-02,Low,2,0,0
-479,Utah,House UT-03,Low,2,0,0
-480,Utah,House UT-04,Low,2,0,0
-481,Vermont,House VT-AL,Low,2,0,0
-482,Virginia,House VA-03,Low,2,0,0
-483,Virginia,House VA-04,Low,2,0,0
-484,Virginia,House VA-05,Low,2,0,0
-485,Virginia,House VA-06,Low,2,0,0
-486,Virginia,House VA-08,Low,2,0,0
-487,Virginia,House VA-09,Low,2,0,0
-488,Virginia,House VA-10,Low,2,0,0
-489,Virginia,House VA-11,Low,2,0,0
-490,Washington,House WA-01,Low,2,0,0
-491,Washington,House WA-02,Low,2,0,0
-492,Washington,House WA-04,Low,2,0,0
-493,Washington,House WA-05,Low,2,0,0
-494,Washington,House WA-06,Low,2,0,0
-495,Washington,House WA-07,Low,2,0,0
-496,Washington,House WA-08,Low,2,0,0
-497,Washington,House WA-09,Low,2,0,0
-498,Washington,House WA-10,Low,2,0,0
-499,West Virginia,House WV-01,Low,2,0,0
-500,West Virginia,House WV-02,Low,2,0,0
-501,Wisconsin,House WI-02,Low,2,0,0
-502,Wisconsin,House WI-04,Low,2,0,0
-503,Wisconsin,House WI-05,Low,2,0,0
-504,Wisconsin,House WI-06,Low,2,0,0
-505,Wisconsin,House WI-07,Low,2,0,0
-506,Wisconsin,House WI-08,Low,2,0,0
-507,Wyoming,House WY-AL,Low,2,0,0
+Priority,State,Office,Rating
+1,Arizona,Governor,
+2,California,Governor,
+3,Colorado,Senate,
+4,Florida,Governor,
+5,Georgia,Governor,
+6,Georgia,Senate,
+7,Illinois,Senate,
+8,Iowa,Senate,
+9,Maine,Senate,
+10,Maryland,Governor,
+11,Massachusetts,Senate,
+12,Michigan,Governor,
+13,Michigan,Senate,
+14,Minnesota,Governor,
+15,Minnesota,Senate,
+16,New Hampshire,Senate,
+17,New Mexico,Senate,
+18,New York,Governor,
+19,North Carolina,Senate,
+20,Ohio,Governor,
+21,Oregon,Senate,
+22,Pennsylvania,Governor,
+23,Texas,Governor,
+24,Texas,Senate,
+25,Virginia,Senate,
+26,Wisconsin,Governor,
+27,Colorado,Governor,
+28,Nevada,Governor,
+29,Illinois,Governor,
+30,Oregon,Governor,
+31,Connecticut,Governor,
+32,New Hampshire,Governor,
+33,Kansas,Governor,
+34,New Mexico,Governor,
+35,Iowa,Governor,
+36,Maine,Governor,
+37,Kentucky,Senate,
+39,New Jersey,Senate,
+40,Florida,Senate,
+41,Ohio,Senate,
+42,Oklahoma,Senate,
+43,Massachusetts,Governor,
+44,Delaware,Senate,
+45,Rhode Island,Senate,
+46,West Virginia,Senate,
+47,Alaska,Senate,
+48,Kansas,Senate,
+49,Nebraska,Senate,
+50,South Dakota,Senate,
+51,Wyoming,Senate,
+52,Alabama,Senate,
+53,Arkansas,Senate,
+54,Idaho,Senate,
+55,Louisiana,Senate,
+56,Mississippi,Senate,
+57,Montana,Senate,
+58,South Carolina,Senate,
+59,Tennessee,Senate,
+60,Alaska,Governor,
+61,Arkansas,Governor,
+62,Hawaii,Governor,
+63,Idaho,Governor,
+64,Nebraska,Governor,
+65,Oklahoma,Governor,
+66,Rhode Island,Governor,
+67,South Carolina,Governor,
+68,South Dakota,Governor,
+69,Tennessee,Governor,
+70,Vermont,Governor,
+71,Wyoming,Governor,
+72,Alabama,Governor,
+73,Arizona,House AZ-01,Toss-Up
+74,Arizona,House AZ-06,Toss-Up
+75,California,House CA-22,Toss-Up
+76,California,House CA-48,Toss-Up
+77,Colorado,House CO-08,Toss-Up
+78,Iowa,House IA-01,Toss-Up
+79,Iowa,House IA-03,Toss-Up
+80,Michigan,House MI-07,Toss-Up
+81,New Jersey,House NJ-07,Toss-Up
+82,New York,House NY-17,Toss-Up
+83,Ohio,House OH-01,Toss-Up
+84,Ohio,House OH-09,Toss-Up
+85,Pennsylvania,House PA-07,Toss-Up
+86,Pennsylvania,House PA-10,Toss-Up
+87,Texas,House TX-34,Toss-Up
+88,Virginia,House VA-02,Toss-Up
+89,Washington,House WA-03,Toss-Up
+90,Wisconsin,House WI-03,Toss-Up
+91,California,House CA-13,Lean D
+92,California,House CA-45,Lean D
+93,Florida,House FL-23,Lean D
+94,Michigan,House MI-08,Lean D
+95,Nebraska,House NE-02,Lean D
+96,New Mexico,House NM-02,Lean D
+97,Nevada,House NV-03,Lean D
+98,New York,House NY-03,Lean D
+99,New York,House NY-04,Lean D
+100,New York,House NY-19,Lean D
+101,Ohio,House OH-13,Lean D
+102,Texas,House TX-28,Lean D
+103,Virginia,House VA-07,Lean D
+104,North Carolina,House NC-01,Lean D
+105,New Jersey,House NJ-09,Lean R
+106,Michigan,House MI-10,Lean R
+107,Pennsylvania,House PA-08,Lean R
+108,Virginia,House VA-01,Lean R
+109,California,House CA-21,Likely D
+110,Indiana,House IN-01,Likely D
+111,Minnesota,House MN-02,Likely D
+112,New Hampshire,House NH-01,Likely D
+113,New Hampshire,House NH-02,Likely D
+114,Nevada,House NV-01,Likely D
+115,Nevada,House NV-04,Likely D
+116,Oregon,House OR-05,Likely D
+117,Alaska,House AK-AL,Likely R
+118,Arizona,House AZ-02,Likely R
+119,Colorado,House CO-03,Likely R
+120,Colorado,House CO-05,Likely R
+121,Florida,House FL-07,Likely R
+122,Florida,House FL-13,Likely R
+123,Iowa,House IA-02,Likely R
+124,Maine,House ME-02,Likely R
+125,Michigan,House MI-04,Likely R
+126,Montana,House MT-01,Likely R
+127,North Carolina,House NC-11,Likely R
+128,Pennsylvania,House PA-01,Likely R
+129,Tennessee,House TN-05,Likely R
+130,Texas,House TX-15,Likely R
+131,Texas,House TX-35,Likely R
+132,Wisconsin,House WI-01,Likely R
+133,Alabama,House AL-01,Low
+134,Alabama,House AL-02,Low
+135,Alabama,House AL-03,Low
+136,Alabama,House AL-04,Low
+137,Alabama,House AL-05,Low
+138,Alabama,House AL-06,Low
+139,Alabama,House AL-07,Low
+140,Arizona,House AZ-03,Low
+141,Arizona,House AZ-04,Low
+142,Arizona,House AZ-05,Low
+143,Arizona,House AZ-07,Low
+144,Arizona,House AZ-08,Low
+145,Arizona,House AZ-09,Low
+146,Arkansas,House AR-01,Low
+147,Arkansas,House AR-02,Low
+148,Arkansas,House AR-03,Low
+149,Arkansas,House AR-04,Low
+150,California,House CA-01,Low
+151,California,House CA-02,Low
+152,California,House CA-03,Low
+153,California,House CA-04,Low
+154,California,House CA-05,Low
+155,California,House CA-06,Low
+156,California,House CA-07,Low
+157,California,House CA-08,Low
+158,California,House CA-09,Low
+159,California,House CA-10,Low
+160,California,House CA-11,Low
+161,California,House CA-12,Low
+162,California,House CA-14,Low
+163,California,House CA-15,Low
+164,California,House CA-16,Low
+165,California,House CA-17,Low
+166,California,House CA-18,Low
+167,California,House CA-19,Low
+168,California,House CA-20,Low
+169,California,House CA-23,Low
+170,California,House CA-24,Low
+171,California,House CA-25,Low
+172,California,House CA-26,Low
+173,California,House CA-27,Low
+174,California,House CA-28,Low
+175,California,House CA-29,Low
+176,California,House CA-30,Low
+177,California,House CA-31,Low
+178,California,House CA-32,Low
+179,California,House CA-33,Low
+180,California,House CA-34,Low
+181,California,House CA-35,Low
+182,California,House CA-36,Low
+183,California,House CA-37,Low
+184,California,House CA-38,Low
+185,California,House CA-39,Low
+186,California,House CA-40,Low
+187,California,House CA-41,Low
+188,California,House CA-42,Low
+189,California,House CA-43,Low
+190,California,House CA-44,Low
+191,California,House CA-46,Low
+192,California,House CA-47,Low
+193,California,House CA-49,Low
+194,California,House CA-50,Low
+195,California,House CA-51,Low
+196,California,House CA-52,Low
+197,Colorado,House CO-01,Low
+198,Colorado,House CO-02,Low
+199,Colorado,House CO-04,Low
+200,Colorado,House CO-06,Low
+201,Colorado,House CO-07,Low
+202,Connecticut,House CT-01,Low
+203,Connecticut,House CT-02,Low
+204,Connecticut,House CT-03,Low
+205,Connecticut,House CT-04,Low
+206,Connecticut,House CT-05,Low
+207,Delaware,House DE-AL,Low
+208,Florida,House FL-01,Low
+209,Florida,House FL-02,Low
+210,Florida,House FL-03,Low
+211,Florida,House FL-04,Low
+212,Florida,House FL-05,Low
+213,Florida,House FL-06,Low
+214,Florida,House FL-08,Low
+215,Florida,House FL-09,Low
+216,Florida,House FL-10,Low
+217,Florida,House FL-11,Low
+218,Florida,House FL-12,Low
+219,Florida,House FL-14,Low
+220,Florida,House FL-15,Low
+221,Florida,House FL-16,Low
+222,Florida,House FL-17,Low
+223,Florida,House FL-18,Low
+224,Florida,House FL-19,Low
+225,Florida,House FL-20,Low
+226,Florida,House FL-21,Low
+227,Florida,House FL-22,Low
+228,Florida,House FL-24,Low
+229,Florida,House FL-25,Low
+230,Florida,House FL-26,Low
+231,Florida,House FL-27,Low
+232,Florida,House FL-28,Low
+233,Georgia,House GA-01,Low
+234,Georgia,House GA-02,Low
+235,Georgia,House GA-03,Low
+236,Georgia,House GA-04,Low
+237,Georgia,House GA-05,Low
+238,Georgia,House GA-06,Low
+239,Georgia,House GA-07,Low
+240,Georgia,House GA-08,Low
+241,Georgia,House GA-09,Low
+242,Georgia,House GA-10,Low
+243,Georgia,House GA-11,Low
+244,Georgia,House GA-12,Low
+245,Georgia,House GA-13,Low
+246,Georgia,House GA-14,Low
+247,Hawaii,House HI-01,Low
+248,Hawaii,House HI-02,Low
+249,Idaho,House ID-01,Low
+250,Idaho,House ID-02,Low
+251,Illinois,House IL-01,Low
+252,Illinois,House IL-02,Low
+253,Illinois,House IL-03,Low
+254,Illinois,House IL-04,Low
+255,Illinois,House IL-05,Low
+256,Illinois,House IL-06,Low
+257,Illinois,House IL-07,Low
+258,Illinois,House IL-08,Low
+259,Illinois,House IL-09,Low
+260,Illinois,House IL-10,Low
+261,Illinois,House IL-11,Low
+262,Illinois,House IL-12,Low
+263,Illinois,House IL-13,Low
+264,Illinois,House IL-14,Low
+265,Illinois,House IL-15,Low
+266,Illinois,House IL-16,Low
+267,Illinois,House IL-17,Low
+268,Indiana,House IN-02,Low
+269,Indiana,House IN-03,Low
+270,Indiana,House IN-04,Low
+271,Indiana,House IN-05,Low
+272,Indiana,House IN-06,Low
+273,Indiana,House IN-07,Low
+274,Indiana,House IN-08,Low
+275,Indiana,House IN-09,Low
+276,Iowa,House IA-04,Low
+277,Kansas,House KS-01,Low
+278,Kansas,House KS-02,Low
+279,Kansas,House KS-03,Low
+280,Kansas,House KS-04,Low
+281,Kentucky,House KY-01,Low
+282,Kentucky,House KY-02,Low
+283,Kentucky,House KY-03,Low
+284,Kentucky,House KY-04,Low
+285,Kentucky,House KY-05,Low
+286,Kentucky,House KY-06,Low
+287,Louisiana,House LA-01,Low
+288,Louisiana,House LA-02,Low
+289,Louisiana,House LA-03,Low
+290,Louisiana,House LA-04,Low
+291,Louisiana,House LA-05,Low
+292,Louisiana,House LA-06,Low
+293,Maine,House ME-01,Low
+294,Maryland,House MD-01,Low
+295,Maryland,House MD-02,Low
+296,Maryland,House MD-03,Low
+297,Maryland,House MD-04,Low
+298,Maryland,House MD-05,Low
+299,Maryland,House MD-06,Low
+300,Maryland,House MD-07,Low
+301,Maryland,House MD-08,Low
+302,Massachusetts,House MA-01,Low
+303,Massachusetts,House MA-02,Low
+304,Massachusetts,House MA-03,Low
+305,Massachusetts,House MA-04,Low
+306,Massachusetts,House MA-05,Low
+307,Massachusetts,House MA-06,Low
+308,Massachusetts,House MA-07,Low
+309,Massachusetts,House MA-08,Low
+310,Massachusetts,House MA-09,Low
+311,Michigan,House MI-01,Low
+312,Michigan,House MI-02,Low
+313,Michigan,House MI-03,Low
+314,Michigan,House MI-05,Low
+315,Michigan,House MI-06,Low
+316,Michigan,House MI-09,Low
+317,Michigan,House MI-11,Low
+318,Michigan,House MI-12,Low
+319,Michigan,House MI-13,Low
+320,Minnesota,House MN-01,Low
+321,Minnesota,House MN-03,Low
+322,Minnesota,House MN-04,Low
+323,Minnesota,House MN-05,Low
+324,Minnesota,House MN-06,Low
+325,Minnesota,House MN-07,Low
+326,Minnesota,House MN-08,Low
+327,Mississippi,House MS-01,Low
+328,Mississippi,House MS-02,Low
+329,Mississippi,House MS-03,Low
+330,Mississippi,House MS-04,Low
+331,Missouri,House MO-01,Low
+332,Missouri,House MO-02,Low
+333,Missouri,House MO-03,Low
+334,Missouri,House MO-04,Low
+335,Missouri,House MO-05,Low
+336,Missouri,House MO-06,Low
+337,Missouri,House MO-07,Low
+338,Missouri,House MO-08,Low
+339,Montana,House MT-02,Low
+340,Nebraska,House NE-01,Low
+341,Nebraska,House NE-03,Low
+342,Nevada,House NV-02,Low
+343,New Jersey,House NJ-01,Low
+344,New Jersey,House NJ-02,Low
+345,New Jersey,House NJ-03,Low
+346,New Jersey,House NJ-04,Low
+347,New Jersey,House NJ-05,Low
+348,New Jersey,House NJ-06,Low
+349,New Jersey,House NJ-08,Low
+350,New Jersey,House NJ-10,Low
+351,New Jersey,House NJ-11,Low
+352,New Jersey,House NJ-12,Low
+353,New Mexico,House NM-01,Low
+354,New Mexico,House NM-03,Low
+355,New York,House NY-01,Low
+356,New York,House NY-02,Low
+357,New York,House NY-05,Low
+358,New York,House NY-06,Low
+359,New York,House NY-07,Low
+360,New York,House NY-08,Low
+361,New York,House NY-09,Low
+362,New York,House NY-10,Low
+363,New York,House NY-11,Low
+364,New York,House NY-12,Low
+365,New York,House NY-13,Low
+366,New York,House NY-14,Low
+367,New York,House NY-15,Low
+368,New York,House NY-16,Low
+369,New York,House NY-18,Low
+370,New York,House NY-20,Low
+371,New York,House NY-21,Low
+372,New York,House NY-22,Low
+373,New York,House NY-23,Low
+374,New York,House NY-24,Low
+375,New York,House NY-25,Low
+376,New York,House NY-26,Low
+377,North Carolina,House NC-02,Low
+378,North Carolina,House NC-03,Low
+379,North Carolina,House NC-04,Low
+380,North Carolina,House NC-05,Low
+381,North Carolina,House NC-06,Low
+382,North Carolina,House NC-07,Low
+383,North Carolina,House NC-08,Low
+384,North Carolina,House NC-09,Low
+385,North Carolina,House NC-10,Low
+386,North Carolina,House NC-12,Low
+387,North Carolina,House NC-13,Low
+388,North Carolina,House NC-14,Low
+389,North Dakota,House ND-AL,Low
+390,Ohio,House OH-02,Low
+391,Ohio,House OH-03,Low
+392,Ohio,House OH-04,Low
+393,Ohio,House OH-05,Low
+394,Ohio,House OH-06,Low
+395,Ohio,House OH-07,Low
+396,Ohio,House OH-08,Low
+397,Ohio,House OH-10,Low
+398,Ohio,House OH-11,Low
+399,Ohio,House OH-12,Low
+400,Ohio,House OH-14,Low
+401,Ohio,House OH-15,Low
+402,Oklahoma,House OK-01,Low
+403,Oklahoma,House OK-02,Low
+404,Oklahoma,House OK-03,Low
+405,Oklahoma,House OK-04,Low
+406,Oklahoma,House OK-05,Low
+407,Oregon,House OR-01,Low
+408,Oregon,House OR-02,Low
+409,Oregon,House OR-03,Low
+410,Oregon,House OR-04,Low
+411,Oregon,House OR-06,Low
+412,Pennsylvania,House PA-02,Low
+413,Pennsylvania,House PA-03,Low
+414,Pennsylvania,House PA-04,Low
+415,Pennsylvania,House PA-05,Low
+416,Pennsylvania,House PA-06,Low
+417,Pennsylvania,House PA-09,Low
+418,Pennsylvania,House PA-11,Low
+419,Pennsylvania,House PA-12,Low
+420,Pennsylvania,House PA-13,Low
+421,Pennsylvania,House PA-14,Low
+422,Pennsylvania,House PA-15,Low
+423,Pennsylvania,House PA-16,Low
+424,Pennsylvania,House PA-17,Low
+425,Rhode Island,House RI-01,Low
+426,Rhode Island,House RI-02,Low
+427,South Carolina,House SC-01,Low
+428,South Carolina,House SC-02,Low
+429,South Carolina,House SC-03,Low
+430,South Carolina,House SC-04,Low
+431,South Carolina,House SC-05,Low
+432,South Carolina,House SC-06,Low
+433,South Carolina,House SC-07,Low
+434,South Dakota,House SD-AL,Low
+435,Tennessee,House TN-01,Low
+436,Tennessee,House TN-02,Low
+437,Tennessee,House TN-03,Low
+438,Tennessee,House TN-04,Low
+439,Tennessee,House TN-06,Low
+440,Tennessee,House TN-07,Low
+441,Tennessee,House TN-08,Low
+442,Tennessee,House TN-09,Low
+443,Texas,House TX-01,Low
+444,Texas,House TX-02,Low
+445,Texas,House TX-03,Low
+446,Texas,House TX-04,Low
+447,Texas,House TX-05,Low
+448,Texas,House TX-06,Low
+449,Texas,House TX-07,Low
+450,Texas,House TX-08,Low
+451,Texas,House TX-09,Low
+452,Texas,House TX-10,Low
+453,Texas,House TX-11,Low
+454,Texas,House TX-12,Low
+455,Texas,House TX-13,Low
+456,Texas,House TX-14,Low
+457,Texas,House TX-16,Low
+458,Texas,House TX-17,Low
+459,Texas,House TX-18,Low
+460,Texas,House TX-19,Low
+461,Texas,House TX-20,Low
+462,Texas,House TX-21,Low
+463,Texas,House TX-22,Low
+464,Texas,House TX-23,Low
+465,Texas,House TX-24,Low
+466,Texas,House TX-25,Low
+467,Texas,House TX-26,Low
+468,Texas,House TX-27,Low
+469,Texas,House TX-29,Low
+470,Texas,House TX-30,Low
+471,Texas,House TX-31,Low
+472,Texas,House TX-32,Low
+473,Texas,House TX-33,Low
+474,Texas,House TX-36,Low
+475,Texas,House TX-37,Low
+476,Texas,House TX-38,Low
+477,Utah,House UT-01,Low
+478,Utah,House UT-02,Low
+479,Utah,House UT-03,Low
+480,Utah,House UT-04,Low
+481,Vermont,House VT-AL,Low
+482,Virginia,House VA-03,Low
+483,Virginia,House VA-04,Low
+484,Virginia,House VA-05,Low
+485,Virginia,House VA-06,Low
+486,Virginia,House VA-08,Low
+487,Virginia,House VA-09,Low
+488,Virginia,House VA-10,Low
+489,Virginia,House VA-11,Low
+490,Washington,House WA-01,Low
+491,Washington,House WA-02,Low
+492,Washington,House WA-04,Low
+493,Washington,House WA-05,Low
+494,Washington,House WA-06,Low
+495,Washington,House WA-07,Low
+496,Washington,House WA-08,Low
+497,Washington,House WA-09,Low
+498,Washington,House WA-10,Low
+499,West Virginia,House WV-01,Low
+500,West Virginia,House WV-02,Low
+501,Wisconsin,House WI-02,Low
+502,Wisconsin,House WI-04,Low
+503,Wisconsin,House WI-05,Low
+504,Wisconsin,House WI-06,Low
+505,Wisconsin,House WI-07,Low
+506,Wisconsin,House WI-08,Low
+507,Wyoming,House WY-AL,Low

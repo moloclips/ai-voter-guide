@@ -18,9 +18,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
+REPORTS_DIR = ROOT / "reports"
 EVIDENCE_CSV = DATA_DIR / "evidence.csv"
-OUTPUT_CSV = DATA_DIR / "exampleDescriptions.csv"
-RACE_PARTIAL_HTML = ROOT / "race.html"
+OUTPUT_CSV = REPORTS_DIR / "exampleDescriptions.csv"
 HOST = "127.0.0.1"
 PORT = 8766
 SUGGESTION_TIMEOUT_SECONDS = 90
@@ -324,12 +324,11 @@ HTML = """<!doctype html>
 <body>
   <div class="wrap">
     <h1>Example Descriptions</h1>
-    <p class="sub">One evidence row per not-yet-covered candidate. Save your rewritten description to <code>exampleDescriptions.csv</code>.</p>
+    <p class="sub">One evidence row per not-yet-covered candidate. Save your rewritten description to <code>reports/exampleDescriptions.csv</code>.</p>
     <div id="app" class="panel">
       <div class="done">Loading…</div>
     </div>
   </div>
-  <template id="race-partial">__RACE_PARTIAL__</template>
   <script>
     let currentItem = null;
     let providers = [];
@@ -363,8 +362,6 @@ HTML = """<!doctype html>
     }
 
     function getRacePartialHtml() {
-      const el = document.getElementById("race-partial");
-      if (el) return el.innerHTML.trim();
       return `<article class="{{ARTICLE_CLASS}}"><h3 class="{{TITLE_CLASS}}">{{TITLE}}</h3>{{BODY}}</article>`;
     }
 
@@ -966,10 +963,7 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def _send_html(self, html: str) -> None:
-        body = html.replace(
-            "__RACE_PARTIAL__",
-            RACE_PARTIAL_HTML.read_text(encoding="utf-8").strip(),
-        ).encode("utf-8")
+        body = html.encode("utf-8")
         self.send_response(HTTPStatus.OK)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))

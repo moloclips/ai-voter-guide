@@ -7,7 +7,7 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 EVIDENCE_CSV = ROOT / "data" / "evidence.csv"
-OUTPUT_CSV = ROOT / "data" / "gov_domains.csv"
+OUTPUT_CSV = ROOT / "reports" / "gov_domains.csv"
 
 OUTPUT_FIELDS = ["Domain", "Candidate", "Current_Descriptions", "Suggested_Description"]
 

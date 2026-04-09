@@ -1,0 +1,952 @@
+Pending verdict changes to review: 288
+
+  [2132] California|House CA-24|Bob Smith
+         no_record → nuanced  (proposed by Codex)
+  [2137] California|House CA-24|Salud Carbajal
+         no_record → nuanced  (proposed by Codex)
+  [2151] California|House CA-26|Jacqui Irwin
+         no_record → nuanced  (proposed by Codex)
+  [2166] California|House CA-27|George Whitesides
+         nuanced → nice  (proposed by Codex)
+  [2170] California|House CA-28|Judy Chu
+         nuanced → nice  (proposed by Codex)
+  [2198] California|House CA-30|Cameron Tennyson
+         no_record → nuanced  (proposed by Codex)
+  [2180] California|House CA-30|Dennis Feitosa
+         no_record → nuanced  (proposed by Codex)
+  [2186] California|House CA-30|Joel Lava
+         no_record → nuanced  (proposed by Codex)
+  [2191] California|House CA-30|Nick Melvoin
+         no_record → nuanced  (proposed by Codex)
+  [2203] California|House CA-31|Gil Cisneros
+         no_record → nuanced  (proposed by Codex)
+  [2219] California|House CA-32|Anna Wilding
+         no_record → nice  (proposed by Codex)
+  [2208] California|House CA-32|Jake Levine
+         no_record → nuanced  (proposed by Codex)
+  [2223] California|House CA-33|Pete Aguilar
+         no_record → nuanced  (proposed by Codex)
+  [2230] California|House CA-34|Jimmy Gomez
+         no_record → nice  (proposed by Codex)
+  [2239] California|House CA-36|Houston Brignano
+         no_record → nuanced  (proposed by Codex)
+  [2248] California|House CA-39|Mark Takano
+         nuanced → nice  (proposed by Codex)
+  [2410] California|House CA-40|Joe Kerr
+         no_record → nuanced  (proposed by Codex)
+  [2407] California|House CA-40|Ken Calvert
+         no_record → nuanced  (proposed by Codex)
+  [2417] California|House CA-41|Dave Karson
+         no_record → nuanced  (proposed by Codex)
+  [2422] California|House CA-41|Linda Sanchez
+         no_record → nuanced  (proposed by Codex)
+  [ 415] California|House CA-42|Robert Garcia
+         nice → nuanced  (proposed by Codex)
+  [2255] California|House CA-43|Maxine Waters
+         nuanced → nice  (proposed by Codex)
+  [1475] California|House CA-45|Brian Forde
+         no_record → nuanced  (proposed by Codex)
+  [2456] California|House CA-47|Eric J. Troutman
+         no_record → nuanced  (proposed by Codex)
+  [2450] California|House CA-47|Ryan Lam
+         no_record → nuanced  (proposed by Codex)
+  [1331] California|House CA-48|Corinna Contreras
+         no_record → nuanced  (proposed by Codex)
+  [2263] California|House CA-49|Mike Levin
+         nuanced → nice  (proposed by Codex)
+  [2471] California|House CA-50|Aishwarya Mitra
+         no_record → nuanced  (proposed by Codex)
+  [2463] California|House CA-50|Hatim Arnous
+         no_record → nice  (proposed by Codex)
+  [2477] California|House CA-50|Scott Peters
+         no_record → nuanced  (proposed by Codex)
+  [2487] California|House CA-52|Juan Vargas
+         no_record → nuanced  (proposed by Codex)
+  [ 936] Colorado|Governor|Barbara Kirkmeyer
+         no_record → nuanced  (proposed by Codex)
+  [ 944] Colorado|Governor|Scott Bottoms
+         no_record → nuanced  (proposed by Codex)
+  [ 946] Colorado|Governor|Victor Marx
+         nuanced → no_record  (proposed by Codex)
+  [2492] Colorado|House CO-01|Melat Kiros
+         no_record → nice  (proposed by Codex)
+  [ 670] Colorado|House CO-03|Jeff Hurd
+         naughty → nuanced  (proposed by Codex)
+  [2496] Colorado|House CO-04|Trisha Calvarese
+         no_record → nice  (proposed by Codex)
+  [1751] Colorado|House CO-05|Joe Reagan
+         no_record → nuanced  (proposed by Codex)
+  [1742] Colorado|House CO-05|Matt Cavanaugh
+         no_record → nuanced  (proposed by Codex)
+  [2509] Colorado|House CO-07|Brittany Pettersen
+         no_record → nice  (proposed by Codex)
+  [1340] Colorado|House CO-08|Evan Munsing
+         no_record → nuanced  (proposed by Codex)
+  [ 290] Colorado|House CO-08|Shannon Bird
+         nice → nuanced  (proposed by Codex)
+  [ 768] Colorado|Senate|Julie Gonzales
+         no_record → nice  (proposed by Codex)
+  [2513] Connecticut|House CT-01|Luke Bronin
+         no_record → nuanced  (proposed by Codex)
+  [2519] Connecticut|House CT-03|Andrew Rice
+         no_record → nuanced  (proposed by Codex)
+  [2527] Connecticut|House CT-04|Joseph Perez-Caputo
+         no_record → nice  (proposed by Codex)
+  [2531] Connecticut|House CT-05|Jahana Hayes
+         no_record → nice  (proposed by Codex)
+  [2542] Delaware|House DE-AL|Earl Cooper
+         no_record → nuanced  (proposed by Codex)
+  [2538] Delaware|House DE-AL|Sarah McBride
+         no_record → nice  (proposed by Codex)
+  [1147] Delaware|Senate|Christopher Beardsley
+         no_record → nuanced  (proposed by Codex)
+  [2553] Florida|House FL-02|Austin Rogers
+         no_record → nuanced  (proposed by Codex)
+  [2564] Florida|House FL-03|George Hubac
+         no_record → nuanced  (proposed by Codex)
+  [2559] Florida|House FL-03|Rock Aboujaoude Jr.
+         no_record → nice  (proposed by Codex)
+  [2568] Florida|House FL-04|Aaron Bean
+         no_record → nuanced  (proposed by Codex)
+  [2578] Florida|House FL-05|John Rutherford
+         no_record → nuanced  (proposed by Codex)
+  [2581] Florida|House FL-05|Mark Kaye
+         no_record → nuanced  (proposed by Codex)
+  [ 691] Florida|House FL-06|Randy Fine
+         naughty → nuanced  (proposed by Codex)
+  [2596] Florida|House FL-09|Darren Soto
+         no_record → nice  (proposed by Codex)
+  [2600] Florida|House FL-10|Maxwell Frost
+         no_record → nuanced  (proposed by Codex)
+  [1760] Florida|House FL-13|Anna Paulina Luna
+         no_record → nuanced  (proposed by Codex)
+  [2621] Florida|House FL-14|Amaro Lionheart
+         no_record → nuanced  (proposed by Codex)
+  [2282] Florida|House FL-14|Kathy Castor
+         nuanced → nice  (proposed by Codex)
+  [2635] Florida|House FL-15|Laurel Lee
+         no_record → nice  (proposed by Codex)
+  [2648] Florida|House FL-18|Scott Franklin
+         no_record → nice  (proposed by Codex)
+  [2673] Florida|House FL-20|Rudy Moise
+         no_record → nuanced  (proposed by Codex)
+  [2666] Florida|House FL-20|Sheila Cherfilus-McCormick
+         no_record → nuanced  (proposed by Codex)
+  [2683] Florida|House FL-21|Brian Mast
+         no_record → nuanced  (proposed by Codex)
+  [2690] Florida|House FL-22|Lois Frankel
+         no_record → nuanced  (proposed by Codex)
+  [1486] Florida|House FL-23|Raven Harrison
+         no_record → nuanced  (proposed by Codex)
+  [2696] Florida|House FL-24|Frederica Wilson
+         no_record → nuanced  (proposed by Codex)
+  [2701] Florida|House FL-25|Debbie Wasserman Schultz
+         no_record → nuanced  (proposed by Codex)
+  [2705] Florida|House FL-25|Michael Carbonara
+         no_record → nuanced  (proposed by Codex)
+  [2716] Florida|House FL-27|Maria Elvira Salazar
+         no_record → nice  (proposed by Codex)
+  [2726] Florida|House FL-28|Carlos Gimenez
+         no_record → nuanced  (proposed by Codex)
+  [2730] Florida|House FL-28|Phil Ehr
+         no_record → nuanced  (proposed by Codex)
+  [1123] Florida|Senate|Alan Grayson
+         no_record → nuanced  (proposed by Codex)
+  [1115] Florida|Senate|Alex Vindman
+         no_record → nuanced  (proposed by Codex)
+  [1119] Florida|Senate|Angie Nixon
+         no_record → nuanced  (proposed by Codex)
+  [ 840] Georgia|Governor|Chris Carr
+         no_record → nuanced  (proposed by Codex)
+  [ 787] Georgia|Governor|Gregg Kirkpatrick
+         nuanced → no_record  (proposed by Codex)
+  [2757] Georgia|House GA-02|Sanford Bishop
+         no_record → nuanced  (proposed by Codex)
+  [2762] Georgia|House GA-03|Brian Jack
+         no_record → nuanced  (proposed by Codex)
+  [2764] Georgia|House GA-03|George Johnson
+         no_record → nuanced  (proposed by Codex)
+  [2768] Georgia|House GA-03|Maura Keller
+         no_record → nuanced  (proposed by Codex)
+  [2776] Georgia|House GA-04|Ben Truman II
+         no_record → nuanced  (proposed by Codex)
+  [2772] Georgia|House GA-04|Hank Johnson
+         no_record → nuanced  (proposed by Codex)
+  [2781] Georgia|House GA-05|Nikema Williams
+         no_record → nuanced  (proposed by Codex)
+  [2788] Georgia|House GA-06|Lucy McBath
+         no_record → nice  (proposed by Codex)
+  [2794] Georgia|House GA-06|Sonya Halpern
+         no_record → nuanced  (proposed by Codex)
+  [2800] Georgia|House GA-07|Casey Norton
+         no_record → nice  (proposed by Codex)
+  [2805] Georgia|House GA-08|Austin Scott
+         no_record → nuanced  (proposed by Codex)
+  [2811] Georgia|House GA-09|Andrew Clyde
+         no_record → nuanced  (proposed by Codex)
+  [2831] Georgia|House GA-11|Tricia Pridemore
+         no_record → nuanced  (proposed by Codex)
+  [2839] Georgia|House GA-12|Rick Allen
+         no_record → nice  (proposed by Codex)
+  [2845] Georgia|House GA-13|David Scott
+         no_record → nuanced  (proposed by Codex)
+  [ 796] Georgia|Senate|Buddy Carter
+         no_record → nuanced  (proposed by Codex)
+  [2853] Hawaii|House HI-01|Della Au Belatti
+         no_record → nuanced  (proposed by Codex)
+  [2857] Hawaii|House HI-01|Jarrett Keohokalole
+         no_record → nice  (proposed by Codex)
+  [ 699] Hawaii|House HI-02|Jill Tokuda
+         naughty → nuanced  (proposed by Codex)
+  [2865] Idaho|House ID-01|Kaylee Peterson
+         no_record → nice  (proposed by Codex)
+  [2861] Idaho|House ID-01|Ken Brungardt
+         no_record → nuanced  (proposed by Codex)
+  [2868] Idaho|House ID-01|Sarah Zabel
+         no_record → nice  (proposed by Codex)
+  [2875] Idaho|House ID-02|Mike Simpson
+         no_record → nuanced  (proposed by Codex)
+  [2880] Idaho|House ID-02|Perry Shumway
+         no_record → nuanced  (proposed by Codex)
+  [1205] Idaho|Senate|Jim Risch
+         nuanced → nice  (proposed by Codex)
+  [ 962] Illinois|Governor|Darren Bailey
+         nuanced → no_record  (proposed by Codex)
+  [2893] Illinois|House IL-01|Christian Maxwell
+         no_record → nuanced  (proposed by Codex)
+  [2895] Illinois|House IL-02|Donna Miller
+         no_record → nuanced  (proposed by Codex)
+  [2901] Illinois|House IL-03|Delia Ramirez
+         no_record → nice  (proposed by Codex)
+  [2911] Illinois|House IL-04|Byron Sigcho-Lopez
+         no_record → nuanced  (proposed by Codex)
+  [2916] Illinois|House IL-05|Mike Quigley
+         no_record → nuanced  (proposed by Codex)
+  [2922] Illinois|House IL-06|Sean Casten
+         no_record → nuanced  (proposed by Codex)
+  [2927] Illinois|House IL-07|La Shawn Ford
+         no_record → nuanced  (proposed by Codex)
+  [2931] Illinois|House IL-08|Melissa Bean
+         no_record → nuanced  (proposed by Codex)
+  [2937] Illinois|House IL-09|Daniel Biss
+         no_record → nice  (proposed by Codex)
+  [2944] Illinois|House IL-10|Brad Schneider
+         no_record → nuanced  (proposed by Codex)
+  [2947] Illinois|House IL-11|Jeff Walter
+         no_record → nuanced  (proposed by Codex)
+  [2954] Illinois|House IL-12|Julie Fortier
+         no_record → nuanced  (proposed by Codex)
+  [2959] Illinois|House IL-13|Nikki Budzinski
+         no_record → nice  (proposed by Codex)
+  [2967] Illinois|House IL-15|Mary Miller
+         no_record → nuanced  (proposed by Codex)
+  [2973] Illinois|House IL-17|Dillan Vancil
+         no_record → nuanced  (proposed by Codex)
+  [ 811] Illinois|Senate|Don Tracy
+         no_record → nuanced  (proposed by Codex)
+  [2977] Indiana|House IN-02|Rudy Yakym
+         no_record → nuanced  (proposed by Codex)
+  [2993] Indiana|House IN-04|Craig Haggard
+         no_record → nuanced  (proposed by Codex)
+  [2989] Indiana|House IN-04|Jim Baird
+         no_record → nuanced  (proposed by Codex)
+  [2998] Indiana|House IN-05|Victoria Spartz
+         no_record → nuanced  (proposed by Codex)
+  [3014] Indiana|House IN-06|David Boyd
+         no_record → nuanced  (proposed by Codex)
+  [3019] Indiana|House IN-07|Andre Carson
+         no_record → nice  (proposed by Codex)
+  [3022] Indiana|House IN-07|George Hornedo
+         no_record → nuanced  (proposed by Codex)
+  [3030] Indiana|House IN-08|Mark Messmer
+         no_record → nuanced  (proposed by Codex)
+  [3035] Indiana|House IN-09|Erin Houchin
+         no_record → nice  (proposed by Codex)
+  [ 221] Iowa|Governor|Zach Lahn
+         nice → no_record  (proposed by Codex)
+  [ 824] Iowa|Senate|Nathan Sage
+         no_record → nuanced  (proposed by Codex)
+  [ 837] Iowa|Senate|Zach Wahls
+         nuanced → no_record  (proposed by Codex)
+  [1021] Kansas|Governor|Charlotte O'Hara
+         no_record → nuanced  (proposed by Codex)
+  [1026] Kansas|Governor|Cindy Holscher
+         no_record → nuanced  (proposed by Codex)
+  [1014] Kansas|Governor|Ty Masterson
+         no_record → nuanced  (proposed by Codex)
+  [ 702] Kansas|House KS-01|Tracey Mann
+         naughty → nuanced  (proposed by Codex)
+  [3055] Kansas|House KS-03|Sarah Preu
+         no_record → nice  (proposed by Codex)
+  [ 705] Kansas|House KS-03|Sharice Davids
+         naughty → nice  (proposed by Codex)
+  [1168] Kansas|Senate|Roger Marshall
+         nuanced → nice  (proposed by Codex)
+  [3075] Kentucky|House KY-01|James Comer
+         no_record → nice  (proposed by Codex)
+  [3084] Kentucky|House KY-02|Brett Guthrie
+         no_record → nuanced  (proposed by Codex)
+  [2297] Kentucky|House KY-03|Morgan McGarvey
+         nuanced → nice  (proposed by Codex)
+  [3101] Kentucky|House KY-04|Ed Gallrein
+         no_record → nuanced  (proposed by Codex)
+  [3105] Kentucky|House KY-05|Hal Rogers
+         no_record → nuanced  (proposed by Codex)
+  [3132] Kentucky|House KY-06|David Kloiber
+         no_record → nuanced  (proposed by Codex)
+  [3125] Kentucky|House KY-06|Deanna Gordon
+         no_record → nuanced  (proposed by Codex)
+  [3117] Kentucky|House KY-06|Ryan Dotson
+         no_record → nuanced  (proposed by Codex)
+  [1097] Kentucky|Senate|Charles Booker
+         nuanced → nice  (proposed by Codex)
+  [3138] Louisiana|House LA-01|Steve Scalise
+         no_record → nuanced  (proposed by Codex)
+  [3143] Louisiana|House LA-02|Troy Carter
+         no_record → nice  (proposed by Codex)
+  [3153] Louisiana|House LA-03|Clay Higgins
+         no_record → nuanced  (proposed by Codex)
+  [3162] Louisiana|House LA-04|Mike Johnson
+         no_record → nuanced  (proposed by Codex)
+  [3169] Louisiana|House LA-05|Blake Miguez
+         no_record → nuanced  (proposed by Codex)
+  [3184] Louisiana|House LA-05|Kyle Green Jr.
+         no_record → nuanced  (proposed by Codex)
+  [3173] Louisiana|House LA-05|Misti Cordell
+         no_record → nuanced  (proposed by Codex)
+  [3178] Louisiana|House LA-05|Rick Edmonds
+         no_record → nuanced  (proposed by Codex)
+  [3189] Louisiana|House LA-06|Cleo Fields
+         no_record → nuanced  (proposed by Codex)
+  [3192] Louisiana|House LA-06|Larry Davis
+         no_record → nuanced  (proposed by Codex)
+  [1059] Maine|Governor|Angus King III
+         no_record → nuanced  (proposed by Codex)
+  [1065] Maine|Governor|Eloise Vitelli
+         nuanced → no_record  (proposed by Codex)
+  [1072] Maine|Governor|James Libby
+         no_record → nuanced  (proposed by Codex)
+  [1077] Maine|Governor|Jonathan Bush
+         no_record → nuanced  (proposed by Codex)
+  [ 604] Maine|Governor|Owen McCarthy
+         naughty → nuanced  (proposed by Codex)
+  [ 224] Maine|Governor|Shenna Bellows
+         nice → nuanced  (proposed by Codex)
+  [3196] Maine|House ME-01|Chellie Pingree
+         no_record → nuanced  (proposed by Codex)
+  [1777] Maine|House ME-02|Joe Baldacci
+         no_record → nuanced  (proposed by Codex)
+  [1781] Maine|House ME-02|Paige Loud
+         no_record → nice  (proposed by Codex)
+  [ 848] Maine|Senate|Graham Platner
+         no_record → nuanced  (proposed by Codex)
+  [3202] Maryland|House MD-01|Andy Harris
+         no_record → nuanced  (proposed by Codex)
+  [3208] Maryland|House MD-01|Dan Schwartz
+         no_record → nuanced  (proposed by Codex)
+  [3215] Maryland|House MD-02|Johnny Olszewski
+         no_record → nuanced  (proposed by Codex)
+  [3224] Maryland|House MD-03|Austin Dyches
+         no_record → nuanced  (proposed by Codex)
+  [3220] Maryland|House MD-03|Sarah Elfreth
+         no_record → nuanced  (proposed by Codex)
+  [3234] Maryland|House MD-04|Glenn Ivey
+         no_record → nuanced  (proposed by Codex)
+  [3250] Maryland|House MD-05|Adrian Boafo
+         no_record → nuanced  (proposed by Codex)
+  [3256] Maryland|House MD-06|April McClain Delaney
+         no_record → nice  (proposed by Codex)
+  [3263] Maryland|House MD-06|David Trone
+         no_record → nice  (proposed by Codex)
+  [3269] Maryland|House MD-07|Kweisi Mfume
+         no_record → nuanced  (proposed by Codex)
+  [3273] Maryland|House MD-07|Mark Conway
+         no_record → nuanced  (proposed by Codex)
+  [1145] Massachusetts|Governor|Michael Minogue
+         no_record → nuanced  (proposed by Codex)
+  [3288] Massachusetts|House MA-01|Jeromie Whalen
+         no_record → nuanced  (proposed by Codex)
+  [3296] Massachusetts|House MA-02|Jim McGovern
+         no_record → nice  (proposed by Codex)
+  [2303] Massachusetts|House MA-03|Lori Trahan
+         nuanced → nice  (proposed by Codex)
+  [3301] Massachusetts|House MA-04|Chris Boyd
+         no_record → nice  (proposed by Codex)
+  [2307] Massachusetts|House MA-04|Jake Auchincloss
+         nuanced → nice  (proposed by Codex)
+  [3310] Massachusetts|House MA-06|Beth Andres-Beck
+         no_record → nuanced  (proposed by Codex)
+  [3325] Massachusetts|House MA-06|Micah Jones
+         no_record → nuanced  (proposed by Codex)
+  [3328] Massachusetts|House MA-08|Patrick Roath
+         no_record → nuanced  (proposed by Codex)
+  [3335] Michigan|House MI-01|Jack Bergman
+         no_record → nuanced  (proposed by Codex)
+  [3344] Michigan|House MI-01|Kyle Blomquist
+         no_record → nice  (proposed by Codex)
+  [3347] Michigan|House MI-01|Wayne Stiles
+         no_record → nuanced  (proposed by Codex)
+  [3354] Michigan|House MI-02|John Moolenaar
+         no_record → nuanced  (proposed by Codex)
+  [1789] Michigan|House MI-04|Diop Harris
+         no_record → nuanced  (proposed by Codex)
+  [3363] Michigan|House MI-05|Tim Walberg
+         no_record → nuanced  (proposed by Codex)
+  [ 321] Michigan|House MI-08|Kristen McDonald Rivet
+         nice → nuanced  (proposed by Codex)
+  [3369] Michigan|House MI-09|Lisa McClain
+         no_record → nuanced  (proposed by Codex)
+  [1614] Michigan|House MI-10|Eric Chung
+         no_record → nuanced  (proposed by Codex)
+  [3378] Michigan|House MI-11|Aisha Farooqi
+         no_record → nuanced  (proposed by Codex)
+  [3385] Michigan|House MI-11|Don Ufford
+         no_record → nuanced  (proposed by Codex)
+  [3376] Michigan|House MI-11|Jeremy Moss
+         no_record → nice  (proposed by Codex)
+  [3381] Michigan|House MI-11|John Torres
+         no_record → nuanced  (proposed by Codex)
+  [2318] Michigan|House MI-13|Shri Thanedar
+         nuanced → nice  (proposed by Codex)
+  [ 869] Michigan|Senate|Mike Rogers
+         no_record → nuanced  (proposed by Codex)
+  [2321] Minnesota|House MN-06|Tom Emmer
+         nuanced → no_record  (proposed by Codex)
+  [1803] Montana|House MT-01|Matt Rains
+         no_record → nuanced  (proposed by Codex)
+  [1807] Montana|House MT-01|Russell Cleveland
+         no_record → nice  (proposed by Codex)
+  [1797] Montana|House MT-01|Ryan Busse
+         no_record → nuanced  (proposed by Codex)
+  [ 249] Montana|Senate|Reilly Neill
+         nice → nuanced  (proposed by Codex)
+  [ 632] Montana|Senate|Seth Bodnar
+         naughty → nuanced  (proposed by Codex)
+  [ 710] Nebraska|House NE-01|Mike Flood
+         naughty → nuanced  (proposed by Codex)
+  [1497] Nebraska|House NE-02|Crystal Rhoades
+         no_record → nuanced  (proposed by Codex)
+  [1495] Nebraska|House NE-02|Denise Powell
+         no_record → nuanced  (proposed by Codex)
+  [ 958] Nevada|Governor|Matthew Winterhawk
+         no_record → nuanced  (proposed by Codex)
+  [1699] Nevada|House NV-01|Carrie Buck
+         no_record → nuanced  (proposed by Codex)
+  [1531] Nevada|House NV-03|Aury Nagy
+         no_record → nuanced  (proposed by Codex)
+  [1517] Nevada|House NV-03|Sean Hutchinson
+         no_record → nuanced  (proposed by Codex)
+  [1705] Nevada|House NV-04|Steven Horsford
+         nuanced → nice  (proposed by Codex)
+  [1669] New Hampshire|House NH-01|Carleigh Beriont
+         no_record → nuanced  (proposed by Codex)
+  [1674] New Hampshire|House NH-01|Stefany Shaheen
+         no_record → nuanced  (proposed by Codex)
+  [1361] New Jersey|House NJ-07|Rebecca Bennett
+         no_record → nuanced  (proposed by Codex)
+  [1608] New Jersey|House NJ-09|Nellie Pou
+         no_record → nuanced  (proposed by Codex)
+  [ 600] New Mexico|Governor|Sam Bregman
+         naughty → nuanced  (proposed by Codex)
+  [2329] New Mexico|House NM-01|Melanie Stansbury
+         nuanced → nice  (proposed by Codex)
+  [1539] New York|House NY-03|Tom Suozzi
+         no_record → nuanced  (proposed by Codex)
+  [ 667] New York|House NY-04|Laura Gillen
+         naughty → nuanced  (proposed by Codex)
+  [2340] New York|House NY-13|Oscar Romero
+         nuanced → nice  (proposed by Codex)
+  [1370] New York|House NY-17|John Cappello
+         no_record → nuanced  (proposed by Codex)
+  [1377] New York|House NY-17|Mike Sacks
+         no_record → nice  (proposed by Codex)
+  [1556] New York|House NY-19|Josh Riley
+         no_record → nuanced  (proposed by Codex)
+  [1601] North Carolina|House NC-01|Laurie Buckhout
+         no_record → naughty  (proposed by Codex)
+  [2350] North Carolina|House NC-02|Deborah Ross
+         nuanced → nice  (proposed by Codex)
+  [1811] North Carolina|House NC-11|Chuck Edwards
+         no_record → nuanced  (proposed by Codex)
+  [ 143] North Carolina|Senate|Roy Cooper
+         nice → no_record  (proposed by Codex)
+  [ 662] Ohio|House OH-09|Josh Williams
+         naughty → nuanced  (proposed by Codex)
+  [ 719] Ohio|House OH-15|Mike Carey
+         naughty → nuanced  (proposed by Codex)
+  [ 619] Ohio|Senate|Jon Husted
+         naughty → nuanced  (proposed by Codex)
+  [1124] Ohio|Senate|Sherrod Brown
+         nuanced → nice  (proposed by Codex)
+  [ 723] Oklahoma|House OK-05|Stephanie Bice
+         naughty → nuanced  (proposed by Codex)
+  [ 623] Oklahoma|Senate|Kevin Hern
+         naughty → nuanced  (proposed by Codex)
+  [ 984] Oregon|Governor|David Medina
+         no_record → nuanced  (proposed by Codex)
+  [ 975] Oregon|Governor|Forest Alexander
+         no_record → nice  (proposed by Codex)
+  [ 989] Oregon|Governor|Kyle Duyck
+         no_record → nuanced  (proposed by Codex)
+  [1713] Oregon|House OR-05|Janelle Bynum
+         no_record → nuanced  (proposed by Codex)
+  [1717] Oregon|House OR-05|Zeva Rosenbaum
+         no_record → nice  (proposed by Codex)
+  [ 726] Oregon|House OR-06|Andrea Salinas
+         naughty → nice  (proposed by Codex)
+  [1393] Pennsylvania|House PA-07|Bob Brooks
+         no_record → nuanced  (proposed by Codex)
+  [1399] Pennsylvania|House PA-07|Carol Obando-Derstine
+         no_record → nice  (proposed by Codex)
+  [1395] Pennsylvania|House PA-07|Ryan Crosswell
+         no_record → nuanced  (proposed by Codex)
+  [1626] Pennsylvania|House PA-08|Rob Bresnahan
+         no_record → nuanced  (proposed by Codex)
+  [1404] Pennsylvania|House PA-10|Scott Perry
+         no_record → nuanced  (proposed by Codex)
+  [1258] South Carolina|Governor|Nancy Mace
+         nuanced → nice  (proposed by Codex)
+  [ 644] South Carolina|Governor|Pamela Evette
+         naughty → nuanced  (proposed by Codex)
+  [1262] South Carolina|Governor|Ralph Norman
+         no_record → nuanced  (proposed by Codex)
+  [1222] South Carolina|Senate|Annie Andrews
+         no_record → nuanced  (proposed by Codex)
+  [ 636] South Carolina|Senate|Paul Dans
+         naughty → nuanced  (proposed by Codex)
+  [1267] South Dakota|Governor|Larry Rhoden
+         nuanced → nice  (proposed by Codex)
+  [1274] South Dakota|Governor|Toby Doeden
+         no_record → nuanced  (proposed by Codex)
+  [1286] Tennessee|Governor|Jerri Green
+         nuanced → nice  (proposed by Codex)
+  [1278] Tennessee|Governor|John Rose
+         no_record → nuanced  (proposed by Codex)
+  [1282] Tennessee|Governor|Monty Fritts
+         no_record → nuanced  (proposed by Codex)
+  [1416] Tennessee|House TN-07|Matt Van Epps
+         no_record → nuanced  (proposed by Codex)
+  [ 641] Tennessee|Senate|Bill Hagerty
+         naughty → nuanced  (proposed by Codex)
+  [1225] Tennessee|Senate|Marquita Bradshaw
+         no_record → nuanced  (proposed by Codex)
+  [ 907] Texas|Governor|Gina Hinojosa
+         no_record → nuanced  (proposed by Codex)
+  [1830] Texas|House TX-15|Monica De La Cruz
+         no_record → nuanced  (proposed by Codex)
+  [1581] Texas|House TX-28|Andrew Vantine
+         no_record → nuanced  (proposed by Codex)
+  [1570] Texas|House TX-28|Henry Cuellar
+         nuanced → nice  (proposed by Codex)
+  [1834] Texas|House TX-35|Carlos De La Cruz
+         no_record → nice  (proposed by Codex)
+  [1836] Texas|House TX-35|Maureen Galindo
+         no_record → nuanced  (proposed by Codex)
+  [ 920] Texas|Senate|Ken Paxton
+         nuanced → nice  (proposed by Codex)
+  [1645] Virginia|House VA-01|James Shea
+         no_record → nuanced  (proposed by Codex)
+  [1653] Virginia|House VA-01|Melvin Tull
+         no_record → nice  (proposed by Codex)
+  [1638] Virginia|House VA-01|Tim Cywinski
+         no_record → nice  (proposed by Codex)
+  [1439] Virginia|House VA-02|Burk Stringfellow
+         no_record → nuanced  (proposed by Codex)
+  [1432] Virginia|House VA-02|Elaine Luria
+         no_record → nuanced  (proposed by Codex)
+  [1437] Virginia|House VA-02|Matt Strickler
+         no_record → nuanced  (proposed by Codex)
+  [1593] Virginia|House VA-07|Dorothy McAuliffe
+         no_record → nuanced  (proposed by Codex)
+  [2375] Washington|House WA-01|Suzan DelBene
+         nuanced → nice  (proposed by Codex)
+  [2379] Washington|House WA-02|Rick Larsen
+         nuanced → nice  (proposed by Codex)
+  [1450] Washington|House WA-03|Antony Barran
+         no_record → nuanced  (proposed by Codex)
+  [1453] Washington|House WA-03|Brent Hennrich
+         no_record → nuanced  (proposed by Codex)
+  [2383] Washington|House WA-08|Kim Schrier
+         nuanced → nice  (proposed by Codex)
+  [1159] West Virginia|Senate|Tom Willis
+         no_record → nuanced  (proposed by Codex)
+  [1456] Wisconsin|House WI-03|Derrick Van Orden
+         no_record → nuanced  (proposed by Codex)
+  [1187] Wyoming|Senate|Harriet Hageman
+         nuanced → nice  (proposed by Codex)
+  [1190] Wyoming|Senate|Jimmy Skovgard
+         no_record → nuanced  (proposed by Codex)
+
+[1/288] California|House CA-24|Bob Smith
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   24s] assistant: {"confidence": 68, "reasoning": "If the proposed evidence URLs are accurate, Smith has explicit AI positions (guardrails, competitiveness, defense focus, UCSB l
+  [claude   24s] result:success | in=3 out=955
+  [claude] confidence : 68%
+  [claude] reasoning  : If the proposed evidence URLs are accurate, Smith has explicit AI positions (guardrails, competitiveness, defense focus, UCSB lab proposal) that clearly disqualify no_record and fit nuanced well. The main uncertainty is that the current evidence row explicitly states no AI position was found and links to a different domain (votebobsmith.com vs bobsmithforcongress.com), so the new evidence cannot be verified here — but the internal reasoning is consistent and three independent campaign sources are cited.
+
+[2/288] California|House CA-24|Salud Carbajal
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   13s] assistant: {"confidence": 72, "reasoning": "If the two cited official press releases exist and say what the reasoning claims — supporting AI research under CHIPS/Science A
+  [claude   13s] result:success | in=3 out=485
+  [claude] confidence : 72%
+  [claude] reasoning  : If the two cited official press releases exist and say what the reasoning claims — supporting AI research under CHIPS/Science Act funding and criticizing AI facial recognition for civil rights concerns — that constitutes a limited but real mixed record that clearly warrants nuanced over no_record. The confidence is not higher because the actual URLs and content of the new evidence rows (2135, 2136) are not shown, so the verdict hinges on those sources being valid and substantive.
+
+[3/288] California|House CA-26|Jacqui Irwin
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   18s] assistant: {"confidence": 82, "reasoning": "Authoring and successfully passing a California generative AI training-data transparency bill that was signed into law constitu
+  [claude   18s] result:success | in=3 out=497
+  [claude] confidence : 82%
+  [claude] reasoning  : Authoring and successfully passing a California generative AI training-data transparency bill that was signed into law constitutes meaningful AI governance engagement, clearly disqualifying no_record. Nuanced is appropriate rather than nice because a single transparency bill, while pro-governance, represents a limited and incomplete record on AI safety broadly.
+
+[4/288] California|House CA-27|George Whitesides
+  nuanced → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   17s] assistant: ```json {   "confidence": 35,   "reasoning": "The two confirmed evidence rows show mixed signals: opposition to a federal AI moratorium (which prioritizes state
+  [claude   17s] result:success | in=3 out=696
+  [claude] confidence : 35%
+  [claude] reasoning  : The two confirmed evidence rows show mixed signals: opposition to a federal AI moratorium (which prioritizes state-level consumer protection but doesn't clearly signal pro-safety governance) and AI infrastructure oversight questioning — a record that fits 'nuanced' well. The verdict upgrade to 'nice' is explicitly predicated on a third, still-pending evidence addition (change 2165) about AI guardrails and defense oversight, which is not yet part of the confirmed record; without that evidence, the existing two rows do not clearly cross the threshold from nuanced to nice.
+
+[5/288] California|House CA-28|Judy Chu
+  nuanced → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   19s] assistant: ```json {   "confidence": 68,   "reasoning": "Two concrete legislative actions (the CMS Medicare Advantage AI guardrails letter and the 2026 AI language-service
+  [claude   19s] result:success | in=3 out=765
+  [claude] confidence : 68%
+  [claude] reasoning  : Two concrete legislative actions (the CMS Medicare Advantage AI guardrails letter and the 2026 AI language-services bill with bias testing and privacy requirements) provide a consistent pro-oversight pattern that reasonably supports upgrading from 'nuanced' to 'nice.' However, the evidence base remains thin — only two targeted actions — and the new evidence item (change 2169) is incompletely shown, making full verification of the second data point uncertain.
+
+[6/288] California|House CA-30|Cameron Tennyson
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    2s] system:init
+  [claude   15s] assistant: {"confidence": 62, "reasoning": "If the campaign website evidence is accurate (explicit support for AI regulation and banning AI job replacement), nuanced is mo
+  [claude   15s] result:success | in=3 out=498
+  [claude] confidence : 62%
+  [claude] reasoning  : If the campaign website evidence is accurate (explicit support for AI regulation and banning AI job replacement), nuanced is more appropriate than no_record — campaign-level AI positions constitute a meaningful record even without governing history. However, confidence is tempered because the supporting evidence rows are unverified proposals (pending review) and the only confirmed evidence is a weak Wikipedia election-page entry.
+
+[7/288] California|House CA-30|Dennis Feitosa
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: {"confidence": 40, "reasoning": "The proposed new evidence rows (2178, 2179) lack visible Source_Description and URL fields, making the underlying claims unveri
+  [claude   14s] result:success | in=3 out=559
+  [claude] confidence : 40%
+  [claude] reasoning  : The proposed new evidence rows (2178, 2179) lack visible Source_Description and URL fields, making the underlying claims unverifiable from the context provided; the only confirmed source is a generic Wikipedia election page. Campaign platform positions on AI workforce training and copyright protections could qualify as 'nuanced' if substantiated, but without inspectable evidence the upgrade from no_record carries significant uncertainty.
+
+[8/288] California|House CA-30|Joel Lava
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   12s] assistant: {"confidence": 45, "reasoning": "The proposed evidence additions (changes 2184, 2185) reference campaign statements supporting AI regulation, which would justif
+  [claude   13s] result:success | in=3 out=455
+  [claude] confidence : 45%
+  [claude] reasoning  : The proposed evidence additions (changes 2184, 2185) reference campaign statements supporting AI regulation, which would justify upgrading from no_record to nuanced, but neither new evidence row includes a URL or content that can be verified in this context. Without being able to confirm the campaign page actually contains substantive AI policy positions, the upgrade remains plausible but unverified.
+
+[9/288] California|House CA-30|Nick Melvoin
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   13s] assistant: {"confidence": 65, "reasoning": "The proposed evidence shows Melvoin co-sponsored an AI governance measure and supported an AI education platform rollout at LAU
+  [claude   13s] result:success | in=3 out=484
+  [claude] confidence : 65%
+  [claude] reasoning  : The proposed evidence shows Melvoin co-sponsored an AI governance measure and supported an AI education platform rollout at LAUSD — real but limited and education-focused AI activity that justifies upgrading from no_record to nuanced. However, confidence is tempered because the new evidence rows lack visible URLs/descriptions to verify the LAUSD sources, and local school board AI adoption actions are a thin basis for a federal-race AI verdict.
+
+[10/288] California|House CA-31|Gil Cisneros
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    2s] system:init
+  [claude   17s] assistant: ```json {   "confidence": 30,   "reasoning": "The proposed evidence additions (change_ids 2201 and 2202) do not show their actual content — only the candidate k
+  [claude   17s] result:success | in=3 out=748
+  [claude] confidence : 30%
+  [claude] reasoning  : The proposed evidence additions (change_ids 2201 and 2202) do not show their actual content — only the candidate key field is visible, leaving the specific AI-related claims unverifiable. A single health care action plan press release with AI-adjacent signals on algorithm transparency is a thin basis for upgrading from no_record to nuanced, especially when the existing evidence explicitly concluded no clear AI policy position was found after a broader search.
+
+[11/288] California|House CA-32|Anna Wilding
+  no_record → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   15s] assistant: {"confidence": 42, "reasoning": "The proposed new evidence (changes 2217–2218) describes campaign-page statements supporting AI guardrails and creator protectio
+  [claude   15s] result:success | in=3 out=544
+  [claude] confidence : 42%
+  [claude] reasoning  : The proposed new evidence (changes 2217–2218) describes campaign-page statements supporting AI guardrails and creator protections, which would clearly support 'nice' — but neither change record includes a URL or source description, making the underlying evidence unverifiable. Without confirmed URLs, this rests entirely on Codex's characterization of pages that cannot be checked, leaving meaningful doubt that 'no_record' may still be correct.
+
+[12/288] California|House CA-32|Jake Levine
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   11s] assistant: {"confidence": 78, "reasoning": "Two specific AI-related campaign commitments (cracking down on AI-driven insurance denials and protecting creators from AI copy
+  [claude   11s] result:success | in=3 out=405
+  [claude] confidence : 78%
+  [claude] reasoning  : Two specific AI-related campaign commitments (cracking down on AI-driven insurance denials and protecting creators from AI copyright harm) constitute a meaningful AI record, clearly warranting a move away from no_record. Nuanced rather than nice is appropriate since these are campaign statements rather than a legislative record, and they address narrow consumer/labor concerns rather than broad AI safety governance.
+
+[13/288] California|House CA-33|Pete Aguilar
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   13s] assistant: {"confidence": 72, "reasoning": "Aguilar's announced federal funding for AI education, workforce development, and AI-related cybersecurity research constitutes 
+  [claude   13s] result:success | in=3 out=436
+  [claude] confidence : 72%
+  [claude] reasoning  : Aguilar's announced federal funding for AI education, workforce development, and AI-related cybersecurity research constitutes a meaningful AI record that clearly warrants moving off no_record. However, the activities described are promotional/funding-oriented rather than safety or governance-focused, making nuanced appropriate but not certain — the unseen full content of the two new evidence rows could shift this further in either direction.
+
+[14/288] California|House CA-34|Jimmy Gomez
+  no_record → nice
+  [claude   0s] starting claude -p
+  [claude    2s] system:init
+  [claude   12s] assistant: ```json {   "confidence": 72,   "reasoning": "Gomez has a documented record of introducing legislation and leading letters specifically targeting facial recogni
+  [claude   12s] result:success | in=3 out=461
+  [claude] confidence : 72%
+  [claude] reasoning  : Gomez has a documented record of introducing legislation and leading letters specifically targeting facial recognition AI in law enforcement, emphasizing civil-rights safeguards and transparency — this constitutes real, substantive AI governance activity that clearly exceeds 'no_record.' The mild discount reflects that the evidence is narrowly focused on one AI application (facial recognition) rather than a broader AI safety/governance portfolio.
+
+[15/288] California|House CA-36|Houston Brignano
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: ```json {   "confidence": 52,   "reasoning": "The proposed evidence rows (2237, 2238) lack visible URLs or source descriptions, making it impossible to verify t
+  [claude   14s] result:success | in=3 out=497
+  [claude] confidence : 52%
+  [claude] reasoning  : The proposed evidence rows (2237, 2238) lack visible URLs or source descriptions, making it impossible to verify the claimed campaign statements exist or say what is described. If the direct campaign statements are real, 'nuanced' would be well-justified over 'no_record', but the change group data as presented does not include enough detail to confirm the evidence quality.
+
+[16/288] California|House CA-39|Mark Takano
+  nuanced → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: {"confidence": 65, "reasoning": "All existing evidence points consistently in one direction — oversight, transparency, and accountability for AI systems — with 
+  [claude   14s] result:success | in=3 out=541
+  [claude] confidence : 65%
+  [claude] reasoning  : All existing evidence points consistently in one direction — oversight, transparency, and accountability for AI systems — with no conflicting signals that would justify 'nuanced.' However, the evidence base is thin (two current rows plus one proposed addition), and the proposed change relies partly on an evidence item not yet reviewed, so moderate uncertainty remains about whether this thin record is sufficient to clear the bar for 'nice' over 'nuanced.'
+
+[17/288] California|House CA-40|Joe Kerr
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   18s] assistant: ```json {   "confidence": 65,   "reasoning": "If the LA Times voter guide genuinely quotes Kerr identifying AI-funded wildfire detection as a legislative priori
+  [claude   18s] result:success | in=3 out=787
+  [claude] confidence : 65%
+  [claude] reasoning  : If the LA Times voter guide genuinely quotes Kerr identifying AI-funded wildfire detection as a legislative priority, that constitutes a meaningful if narrow AI-related record, making 'nuanced' more appropriate than 'no_record.' However, the actual LA Times evidence row content is not visible in the provided context (change 2409 fields are incomplete), so confidence is tempered by reliance on the model's characterization of that source rather than the source itself.
+
+[18/288] California|House CA-40|Ken Calvert
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   12s] assistant: {"confidence": 72, "reasoning": "If the cited House press releases are accurate, Calvert has a meaningful AI record centered on defense AI deployment (FY25 NDAA
+  [claude   13s] result:success | in=3 out=475
+  [claude] confidence : 72%
+  [claude] reasoning  : If the cited House press releases are accurate, Calvert has a meaningful AI record centered on defense AI deployment (FY25 NDAA pilot, CDAO repository, SBIR/STTR innovation), which clearly disqualifies no_record. Nuanced is the appropriate landing spot since defense-deployment-focused AI activity without clear safety/governance positioning fits the mixed/unclear definition, though confidence is tempered because the new evidence rows lack full source details for independent verification.
+
+[19/288] California|House CA-41|Dave Karson
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   16s] assistant: ```json {   "confidence": 72,   "reasoning": "If Karson's campaign site genuinely has a dedicated AI policy page covering strategy, compute clusters, and civil-
+  [claude   16s] result:success | in=3 out=588
+  [claude] confidence : 72%
+  [claude] reasoning  : If Karson's campaign site genuinely has a dedicated AI policy page covering strategy, compute clusters, and civil-liberties protections, that clearly constitutes a meaningful record that warrants moving off no_record. The nuanced verdict fits well given the positions are centered on competitiveness and investment rather than a strong safety-first agenda, though confidence is tempered because the actual URL content cannot be verified here and the supporting evidence relies entirely on Codex's claims about the site.
+
+[20/288] California|House CA-41|Linda Sanchez
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude    8s] assistant: {"confidence": 78, "reasoning": "A signed congressional letter specifically raising AI oversight and taxpayer-data protection concerns about IRS use of AI-gener
+  [claude    8s] result:success | in=3 out=290
+  [claude] confidence : 78%
+  [claude] reasoning  : A signed congressional letter specifically raising AI oversight and taxpayer-data protection concerns about IRS use of AI-generated code is direct, voter-verifiable evidence of AI governance engagement, which clearly surpasses no_record. However, this is a single, narrow action rather than a broad or sustained AI policy record, making nuanced the appropriate fit over nice.
+
+[21/288] California|House CA-42|Robert Garcia
+  nice → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   15s] assistant: {"confidence": 75, "reasoning": "If the two stronger evidence items (NO FAKES Act co-sponsorship and Democratic Commission on AI membership) are correctly remov
+  [claude   15s] result:success | in=3 out=692
+  [claude] confidence : 75%
+  [claude] reasoning  : If the two stronger evidence items (NO FAKES Act co-sponsorship and Democratic Commission on AI membership) are correctly removed as unsupported, the remaining record — founding a Popular Arts Caucus with an AI component — is a thin, indirect signal that doesn't clearly establish a pro-AI-safety legislative stance. The downgrade to nuanced is well-reasoned given the evidence base, though confidence is not higher because the validity of the deletions themselves (based on URL resolution failures) cannot be independently confirmed here.
+
+[22/288] California|House CA-43|Maxine Waters
+  nuanced → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   15s] assistant: {"confidence": 62, "reasoning": "Waters' record shows consistent pro-oversight, pro-transparency AI actions within financial services — bipartisan working group
+  [claude   15s] result:success | in=3 out=560
+  [claude] confidence : 62%
+  [claude] reasoning  : Waters' record shows consistent pro-oversight, pro-transparency AI actions within financial services — bipartisan working group, anti-deregulation stance, transparency and anti-discrimination advocacy — which does lean 'nice' rather than merely mixed. However, all evidence is domain-specific (financial services committee work), the total evidence base is thin (2–3 items), and 'nuanced' remains defensible given the narrow scope; the upgrade is plausible but not strongly compelled.
+
+[23/288] California|House CA-45|Brian Forde
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: ```json {   "confidence": 72,   "reasoning": "Two direct Forde quotes — one on AI affecting parole, credit, and civil rights (LBS) and one calling for smart leg
+  [claude   14s] result:success | in=3 out=550
+  [claude] confidence : 72%
+  [claude] reasoning  : Two direct Forde quotes — one on AI affecting parole, credit, and civil rights (LBS) and one calling for smart legislation on AI risks (OC Weekly) — are enough to clear the no_record bar and support nuanced, as they show proactive governance awareness rather than silence. Confidence is not higher because both quotes appear to be campaign-level statements without deep policy specificity, and the OC Weekly evidence is not yet visible in the current evidence rows, so its content cannot be independently verified here.
+
+[24/288] California|House CA-47|Eric J. Troutman
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   11s] assistant: {"confidence": 60, "reasoning": "The two proposed evidence additions describe plausible but unverified AI-related positions (industry self-regulation advocacy a
+  [claude   11s] result:success | in=3 out=372
+  [claude] confidence : 60%
+  [claude] reasoning  : The two proposed evidence additions describe plausible but unverified AI-related positions (industry self-regulation advocacy and a firm policy against generative AI in legal work), which together would constitute a mixed record warranting 'nuanced.' However, the change records for 2454 and 2455 show blank URLs and source descriptions, making it impossible to verify the underlying sources exist or accurately represent Troutman's positions.
+
+[25/288] California|House CA-47|Ryan Lam
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   18s] assistant: {"confidence": 60, "reasoning": "If the campaign website evidence (change_id 2449) is accurate — that Lam explicitly supports consumer-protection guardrails for
+  [claude   18s] result:success | in=3 out=817
+  [claude] confidence : 60%
+  [claude] reasoning  : If the campaign website evidence (change_id 2449) is accurate — that Lam explicitly supports consumer-protection guardrails for AI deception, facial recognition misuse, and algorithmic discrimination — then nuanced is more appropriate than no_record, as it represents a limited but meaningful AI policy position. However, the AI-related evidence is entirely from a pending, unverified addition; the only confirmed evidence row is a Wikipedia link that the model itself flags as inaccurate for this candidate, leaving the verdict upgrade contingent on unconfirmed sourcing.
+
+[26/288] California|House CA-48|Corinna Contreras
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   13s] assistant: {"confidence": 62, "reasoning": "If the platform page genuinely contains explicit AI governance language around worker and environmental protections, a 'nuanced
+  [claude   13s] result:success | in=3 out=470
+  [claude] confidence : 62%
+  [claude] reasoning  : If the platform page genuinely contains explicit AI governance language around worker and environmental protections, a 'nuanced' verdict is appropriate over 'no_record' — even thin but explicit policy positions warrant nuanced. However, confidence is limited because the only direct evidence is an unverified URL update; 'AI protections for workers and environment' could reflect substantive AI policy or merely passing mentions in broader labor/climate planks.
+
+[27/288] California|House CA-49|Mike Levin
+  nuanced → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   18s] assistant: ```json {   "confidence": 58,   "reasoning": "The existing evidence (campaign guardrails language + caucus membership) supports at most a nuanced rating; the pr
+  [claude   18s] result:success | in=3 out=675
+  [claude] confidence : 58%
+  [claude] reasoning  : The existing evidence (campaign guardrails language + caucus membership) supports at most a nuanced rating; the proposed upgrade hinges on two new evidence items (2261, 2262) whose actual Source_Description and URL fields are blank in the context provided, making them unverifiable here. The described content — an AI data center bill focused on costs/emissions and a co-led oversight letter — are positive signals for responsible governance, but neither is a strong AI safety stance on its own, and the data center bill in particular addresses environmental concerns more than AI safety directly.
+
+[28/288] California|House CA-50|Aishwarya Mitra
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   15s] assistant: ```json {   "confidence": 25,   "reasoning": "The verdict change hinges entirely on a proposed new evidence row (change 2470) whose URL and source description a
+  [claude   15s] result:success | in=3 out=572
+  [claude] confidence : 25%
+  [claude] reasoning  : The verdict change hinges entirely on a proposed new evidence row (change 2470) whose URL and source description are absent from the context, making the claimed AI campaign statement unverifiable. Without a visible, checkable source, the Codex model's assertion about a pro-AI-funding platform statement may be a hallucination, and the Gemini score of 0 further suggests no AI record was independently found.
+
+[29/288] California|House CA-50|Hatim Arnous
+  no_record → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   10s] assistant: {"confidence": 10, "reasoning": "The proposed source URL (timforsandiego.com) appears to belong to a candidate named 'Tim,' not Hatim Arnous, suggesting the mod
+  [claude   10s] result:success | in=3 out=349
+  [claude] confidence : 10%
+  [claude] reasoning  : The proposed source URL (timforsandiego.com) appears to belong to a candidate named 'Tim,' not Hatim Arnous, suggesting the model may have cited the wrong campaign website entirely. Without verified evidence that Arnous himself has stated AI policy positions, the no_record verdict should stand.
+
+[30/288] California|House CA-50|Scott Peters
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   11s] assistant: {"confidence": 78, "reasoning": "The proposed evidence — co-leading AI-focused patent legislation, a permitting bill tied to AI data center energy needs, and co
+  [claude   11s] result:success | in=3 out=434
+  [claude] confidence : 78%
+  [claude] reasoning  : The proposed evidence — co-leading AI-focused patent legislation, a permitting bill tied to AI data center energy needs, and cosponsoring AI health technology legislation — constitutes a meaningful AI-related record absent from the current evidence row, which itself points to an irrelevant App Challenge page. Peters' record appears oriented toward AI innovation and competitiveness rather than safety or guardrails, making 'nuanced' a reasonable fit, though confidence is tempered by inability to verify the source URLs directly.
+
+[31/288] California|House CA-52|Juan Vargas
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude    8s] assistant: {"confidence": 78, "reasoning": "Two direct sources show Vargas expressing concern about AI risks to the financial system and co-signing a letter urging AI over
+  [claude    8s] result:success | in=3 out=275
+  [claude] confidence : 78%
+  [claude] reasoning  : Two direct sources show Vargas expressing concern about AI risks to the financial system and co-signing a letter urging AI oversight — sufficient to move off no_record. The nuanced verdict is appropriate rather than nice, since his engagement appears narrow and sector-specific, but the evidence quality depends on the actual content of the cited Congress.gov transcript and press release not fully reproduced here.
+
+[32/288] Colorado|Governor|Barbara Kirkmeyer
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: ```json {   "confidence": 82,   "reasoning": "Two existing evidence rows already document real legislative votes with opposite AI-governance signals — Kirkmeyer
+  [claude   14s] result:success | in=3 out=598
+  [claude] confidence : 82%
+  [claude] reasoning  : Two existing evidence rows already document real legislative votes with opposite AI-governance signals — Kirkmeyer voted yes on consumer protections (SB24-205) and no on deepfake disclosure — which is a textbook mixed record warranting 'nuanced' rather than 'no_record.' The pending URL correction and additional facial-recognition vote (change 935) would only reinforce that conclusion, but the verdict upgrade is already well-supported by the current evidence.
+
+[33/288] Colorado|Governor|Scott Bottoms
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: {"confidence": 75, "reasoning": "The existing evidence already shows Bottoms casting votes on AI legislation in opposing directions — no on one consumer protect
+  [claude   14s] result:success | in=3 out=609
+  [claude] confidence : 75%
+  [claude] reasoning  : The existing evidence already shows Bottoms casting votes on AI legislation in opposing directions — no on one consumer protections measure, yes on another — which is a textbook mixed record warranting 'nuanced' over 'no_record'. The proposed addition of a deepfake sponsorship further solidifies this, though the URLs cannot be independently verified here, and the distinction between the 2024 vs. 2025 bills needs to be accurate for the narrative of evolution to hold.
+
+[34/288] Colorado|Governor|Victor Marx
+  nuanced → no_record
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   12s] assistant: {"confidence": 65, "reasoning": "A single generic campaign newsletter statement calling for 'responsible oversight and security measures' for AI is very thin ev
+  [claude   13s] result:success | in=3 out=504
+  [claude] confidence : 65%
+  [claude] reasoning  : A single generic campaign newsletter statement calling for 'responsible oversight and security measures' for AI is very thin evidence — it's the kind of boilerplate language that barely distinguishes a candidate's actual position. However, the statement does exist and explicitly addresses AI governance, which arguably clears the minimal bar for a 'nuanced' (unclear/partial) record rather than 'no_record.' The case for downgrading is reasonable but not decisive.
+
+[35/288] Colorado|House CO-01|Melat Kiros
+  no_record → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: {"confidence": 32, "reasoning": "The only actual evidence on file is a generic Wikipedia election overview with no AI-specific content about Kiros, supporting t
+  [claude   14s] result:success | in=3 out=592
+  [claude] confidence : 32%
+  [claude] reasoning  : The only actual evidence on file is a generic Wikipedia election overview with no AI-specific content about Kiros, supporting the current no_record verdict. The proposed new evidence (change 2491) cites a campaign issues page with an AI platform plank, but no URL or content is shown in the audit record, making it impossible to verify the claimed positions on oversight, automation, discrimination, and surveillance — so the nice verdict rests entirely on an unverified model assertion.
+
+[36/288] Colorado|House CO-03|Jeff Hurd
+  naughty → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude    6s] assistant: {"confidence": 72, "reasoning": "Hurd's record shows a mix of signals: cosponsoring a deregulatory bill (using AI to cut federal regulations) leans naughty, whi
+  [claude    6s] result:success | in=3 out=108
+  [claude] confidence : 72%
+  [claude] reasoning  : Hurd's record shows a mix of signals: cosponsoring a deregulatory bill (using AI to cut federal regulations) leans naughty, while backing federal-level AI regulation over a state patchwork is a pro-governance stance, though 'light-touch' framing suggests limited regulatory appetite. Two thin evidence points make a clear naughty verdict harder to justify, and nuanced fits the ambiguity better.
+
+[37/288] Colorado|House CO-04|Trisha Calvarese
+  no_record → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   15s] assistant: ```json {   "confidence": 35,   "reasoning": "The only visible evidence row is a generic Wikipedia elections page with no AI content; the actual AI platform evi
+  [claude   15s] result:success | in=3 out=450
+  [claude] confidence : 35%
+  [claude] reasoning  : The only visible evidence row is a generic Wikipedia elections page with no AI content; the actual AI platform evidence (change_id 2495) has no fields shown, so the specific claim of a 'clear pro-safety AI platform' cannot be verified from what is presented. Additionally, she has suspended her campaign, making the verdict less consequential, but the 'nice' rating still requires substantiated evidence that is not visible here.
+
+[38/288] Colorado|House CO-05|Joe Reagan
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   15s] assistant: {"confidence": 72, "reasoning": "The campaign issues page at reaganforcolorado.com/issues appears to contain at least two distinct AI-related policy positions (
+  [claude   15s] result:success | in=3 out=633
+  [claude] confidence : 72%
+  [claude] reasoning  : The campaign issues page at reaganforcolorado.com/issues appears to contain at least two distinct AI-related policy positions (workplace oversight/worker transitions and water use regulation), which is meaningfully more than no_record. However, confidence is limited because these positions are narrow and context-specific rather than reflecting a broad AI governance stance, and the underlying URL has not been independently verified here — the verdict rests on the model's reading of the page.
+
+[39/288] Colorado|House CO-05|Matt Cavanaugh
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   20s] assistant: ```json {   "confidence": 28,   "reasoning": "The only support for 'nuanced' comes from Codex's unverified assertion (change 1741) that a different URL on the c
+  [claude   20s] result:success | in=3 out=906
+  [claude] confidence : 28%
+  [claude] reasoning  : The only support for 'nuanced' comes from Codex's unverified assertion (change 1741) that a different URL on the campaign site now contains AI safety language — but the original evidence search found no AI policy, the candidate has since dropped out of the race (Evidence 2736), and there is no independent corroboration of the claimed AI-specific content. With no verified AI record in the existing evidence rows, 'no_record' remains the better-supported verdict.
+
+[40/288] Colorado|House CO-07|Brittany Pettersen
+  no_record → nice
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   14s] assistant: ```json {   "confidence": 65,   "reasoning": "The proposed new evidence describes specific, plausible actions — participation in a bipartisan House AI task forc
+  [claude   14s] result:success | in=3 out=618
+  [claude] confidence : 65%
+  [claude] reasoning  : The proposed new evidence describes specific, plausible actions — participation in a bipartisan House AI task force and introducing anti-deepfake legislation for consumer protection — that would clearly support a 'nice' verdict over 'no_record'. However, the actual evidence sources and URLs are not shown (only reasoning descriptions), and both evidence rows are still pending review, so the underlying claims cannot be independently verified from what is presented here.
+
+[41/288] Colorado|House CO-08|Evan Munsing
+  no_record → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init
+  [claude   11s] assistant: {"confidence": 82, "reasoning": "Two direct interview sources from February 2026 provide clear AI-related statements from Munsing, definitively removing him fro
+  [claude   11s] result:success | in=3 out=419
+  [claude] confidence : 82%
+  [claude] reasoning  : Two direct interview sources from February 2026 provide clear AI-related statements from Munsing, definitively removing him from no_record. His positions are genuinely mixed—combining safety-oriented concerns (rejecting self-regulation, harms to children/workers, infrastructure risks) with a competition/national-security framing that doesn't map cleanly to pro-safety governance—which fits nuanced well.
+
+[42/288] Colorado|House CO-08|Shannon Bird
+  nice → nuanced
+  [claude   0s] starting claude -p
+  [claude    1s] system:init

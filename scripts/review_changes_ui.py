@@ -16,28 +16,36 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-
 ROOT = Path(__file__).resolve().parent.parent
-CHANGES_CSV = ROOT / "changes.csv"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.changes_file import DEFAULT_CHANGES_FILENAME, available_changes_filenames, resolve_changes_csv
+from scripts.verdict_legend import inject_verdict_legend
+
+CHANGES_CSV = resolve_changes_csv()
 CANDIDATES_CSV = ROOT / "data" / "candidates.csv"
 EVIDENCE_CSV = ROOT / "data" / "evidence.csv"
 RACES_CSV = ROOT / "data" / "races.csv"
+REPORTS_DIR = ROOT / "reports"
 RACE_RUNNER = ROOT / "scripts" / "race_runner.py"
+VERDICT_REVIEW = ROOT / "scripts" / "verdict_review.py"
 RACE_RUNNER_PROMPT = ROOT / "scripts" / "race_runner_prompt.txt"
 APPLY_CHANGES = ROOT / "scripts" / "apply_changes.py"
 SUMMARIZE_RACE_RUNNER_LOGS = ROOT / "scripts" / "summarize_race_runner_logs.py"
-WIKIPEDIA_EXCLUSIONS_CSV = ROOT / "data" / "wikipedia_description_exclusions.csv"
-RACE_RUNNER_LOG_SUMMARY_CSV = ROOT / "data" / "race_runner_log_summary.csv"
+WIKIPEDIA_EXCLUSIONS_CSV = REPORTS_DIR / "wikipedia_description_exclusions.csv"
+RACE_RUNNER_LOG_SUMMARY_CSV = REPORTS_DIR / "race_runner_log_summary.csv"
 HOST = "127.0.0.1"
 PORT = 8767
-FIELDNAMES = ["change_id", "table", "key", "action", "reasoning", "field", "value", "status"]
+FIELDNAMES = ["change_id", "table", "key", "action", "reasoning", "Model", "field", "value", "D", "Reasoning D", "I", "Reasoning I"]
+REVIEW_COLUMNS = ("D", "I")
 VALID_STATUSES = {"pending", "approved", "denied", "applied", "conflict"}
 POLL_SECONDS = 1.5
 MAX_LOG_CHARS = 50000
 
 
 def load_race_runner_prompt_template() -> str:
-    return RACE_RUNNER_PROMPT.read_text(encoding="utf-8")
+    return inject_verdict_legend(RACE_RUNNER_PROMPT.read_text(encoding="utf-8"))
 
 
 HTML = """<!doctype html>
@@ -77,11 +85,34 @@ HTML = """<!doctype html>
       margin: 0;
       padding: 28px 20px 48px;
     }
-    .tabs {
+    .navbar {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       margin: 0 0 18px;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255,250,240,0.84);
+      box-shadow: 0 10px 28px rgba(40, 28, 17, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(6px);
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
     }
     .tab-btn {
       background: rgba(255,255,255,0.72);
@@ -94,19 +125,47 @@ HTML = """<!doctype html>
     .tab-panel[hidden] {
       display: none;
     }
-    h1 {
-      margin: 0 0 6px;
-      font-size: 2rem;
-    }
-    .sub {
-      margin: 0 0 18px;
-      color: var(--muted);
-    }
     .grid {
       display: grid;
       grid-template-columns: minmax(360px, 1fr) minmax(720px, 2fr);
       gap: 18px;
       align-items: start;
+    }
+    .run-stack {
+      display: grid;
+      gap: 18px;
+      align-items: start;
+    }
+    .verify-stack {
+      display: grid;
+      gap: 18px;
+      align-items: start;
+    }
+    .run-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+    .verify-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+    .checkbox-inline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding-top: 22px;
+      white-space: nowrap;
+    }
+    .checkbox-inline input {
+      width: auto;
+      margin: 0;
     }
     .panel {
       border: 1px solid var(--border);
@@ -123,6 +182,18 @@ HTML = """<!doctype html>
       display: flex;
       justify-content: space-between;
       gap: 12px;
+      align-items: center;
+    }
+    .review-header {
+      position: sticky;
+      top: 74px;
+      z-index: 6;
+      backdrop-filter: blur(6px);
+      background: rgba(255,250,240,0.96);
+      margin-bottom: 12px;
+    }
+    .review-header .toolbar {
+      justify-content: flex-start;
       align-items: center;
     }
     .panel-body {
@@ -161,6 +232,66 @@ HTML = """<!doctype html>
       flex-wrap: wrap;
       align-items: center;
     }
+    .filter-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.5);
+    }
+    .review-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(255,250,240,0.96);
+      padding: 6px 0;
+      backdrop-filter: blur(4px);
+      gap: 0;
+    }
+    .review-count {
+      font-weight: 700;
+      white-space: nowrap;
+      padding-right: 8px;
+    }
+    .reviewer-toggle {
+      min-width: 0;
+    }
+    .verdict-filter {
+      align-items: flex-start;
+    }
+    .verdict-grid {
+      display: grid;
+      grid-template-columns: auto repeat(4, auto);
+      gap: 8px 12px;
+      align-items: center;
+    }
+    .verdict-grid-header {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .verdict-grid-row {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-right: 4px;
+    }
+    .checkbox-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      font-size: 0.88rem;
+    }
+    .checkbox-chip input {
+      width: auto;
+      margin: 0;
+    }
     button {
       border: 1px solid var(--border);
       background: #fff;
@@ -180,23 +311,19 @@ HTML = """<!doctype html>
     button.good {
       color: var(--ok);
     }
-    .statusline {
-      min-height: 1.4em;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-    .statusline.ok { color: var(--ok); }
-    .statusline.error { color: var(--bad); }
-    .statusline.info { color: var(--info); }
     .jobs {
       display: grid;
       gap: 12px;
+      min-width: 0;
     }
     .job-card {
       border: 1px solid var(--border);
       border-radius: 12px;
       background: #fff;
       padding: 12px;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
     }
     .job-head {
       display: flex;
@@ -241,6 +368,9 @@ HTML = """<!doctype html>
       line-height: 1.45;
       white-space: pre-wrap;
       word-break: break-word;
+      overflow-wrap: anywhere;
+      max-width: 100%;
+      overflow-x: hidden;
     }
     .state-group, .race-group, .candidate-group {
       border: 1px solid var(--border);
@@ -302,6 +432,29 @@ HTML = """<!doctype html>
     .reasoning {
       margin: 0 0 10px;
       line-height: 1.45;
+    }
+    .reasoning a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .review-notes {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .review-notes textarea {
+      min-height: 78px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      resize: vertical;
+    }
+    .review-notes .save-note {
+      color: var(--muted);
+      font-size: 0.82rem;
+      min-height: 1.2em;
     }
     .diff-old, .diff-new {
       display: block;
@@ -416,6 +569,92 @@ HTML = """<!doctype html>
       color: var(--muted);
       white-space: nowrap;
     }
+    .coverage-key {
+      display: grid;
+      gap: 16px;
+    }
+    .coverage-grid-title {
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+    .coverage-grid {
+      display: grid;
+      grid-template-columns: auto 1fr 1fr;
+      gap: 6px;
+      align-items: stretch;
+    }
+    .coverage-grid-head,
+    .coverage-grid-rowhead,
+    .coverage-grid-cell {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: #fff;
+      font-size: 0.9rem;
+    }
+    .coverage-grid-head,
+    .coverage-grid-rowhead {
+      font-weight: 700;
+    }
+    .coverage-grid-head {
+      text-align: center;
+    }
+    .coverage-grid-rowhead {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .coverage-grid-corner {
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+    .coverage-grid-cell {
+      min-height: 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+    }
+    .coverage-grid-cell:hover {
+      outline: 2px solid rgba(31, 26, 23, 0.18);
+      outline-offset: -2px;
+    }
+    .coverage-grid-count {
+      font-weight: 700;
+    }
+    .coverage-grid-percent {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .coverage-detail {
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fffdf8;
+      display: grid;
+      gap: 8px;
+    }
+    .coverage-detail[hidden] {
+      display: none;
+    }
+    .coverage-detail-title {
+      font-weight: 700;
+    }
+    .coverage-detail-list {
+      display: grid;
+      gap: 6px;
+      max-height: 240px;
+      overflow: auto;
+    }
+    .coverage-detail-item {
+      padding: 6px 8px;
+      border: 1px solid #e7dccb;
+      border-radius: 10px;
+      background: #fff;
+    }
     .inspect-table-wrap {
       overflow: auto;
       max-height: calc(100vh - 260px);
@@ -468,9 +707,14 @@ HTML = """<!doctype html>
     }
     @media (max-width: 980px) {
       .grid { grid-template-columns: 1fr; }
+      .run-controls-grid { grid-template-columns: 1fr 1fr; }
+      .verify-controls-grid { grid-template-columns: 1fr 1fr; }
       .inspect-chart { grid-template-columns: 1fr; }
+      .navbar { position: static; }
     }
     @media (max-width: 700px) {
+      .run-controls-grid { grid-template-columns: 1fr; }
+      .verify-controls-grid { grid-template-columns: 1fr; }
       .change-head, .key-header, .job-head {
         flex-direction: column;
       }
@@ -491,40 +735,47 @@ HTML = """<!doctype html>
 </head>
 <body>
   <div class="wrap">
-    <h1>Review Changes</h1>
-    <p class="sub">Launch background research runs, inspect live logs, review queued changes, and apply approved edits from one place.</p>
-    <div id="statusline" class="statusline"></div>
-    <nav class="tabs" aria-label="Primary">
-      <button id="tabRunBtn" class="tab-btn active" type="button" data-tab="run">Run Research</button>
-      <button id="tabReviewBtn" class="tab-btn" type="button" data-tab="review">Review Changes</button>
-      <button id="tabInspectBtn" class="tab-btn" type="button" data-tab="inspect">Inspect Data</button>
-      <button id="tabLogsBtn" class="tab-btn" type="button" data-tab="logs">Inspect Logs</button>
+    <nav class="navbar" aria-label="Primary">
+      <div class="nav-tabs">
+        <button id="tabRunBtn" class="tab-btn active" type="button" data-tab="run">Run Research</button>
+        <button id="tabVerifyVerdictsBtn" class="tab-btn" type="button" data-tab="verify-verdicts">Verify Verdicts</button>
+        <button id="tabReviewBtn" class="tab-btn" type="button" data-tab="review">Review Changes</button>
+        <button id="tabInspectBtn" class="tab-btn" type="button" data-tab="inspect">Inspect Data</button>
+        <button id="tabLogsBtn" class="tab-btn" type="button" data-tab="logs">Inspect Logs</button>
+      </div>
+      <div class="nav-controls">
+        <label>Changes File
+          <select id="changesFile"></select>
+        </label>
+      </div>
     </nav>
     <section id="tab-run" class="tab-panel">
-      <div class="grid">
+      <div class="run-stack">
         <section class="panel">
           <div class="panel-header">Run Research</div>
           <div class="panel-body stack">
-            <label>Provider
-              <select id="provider"></select>
-            </label>
-            <label>Race
-              <input id="raceSearch" type="text" placeholder="Filter races, e.g. colorado house">
-              <select id="race"></select>
-            </label>
-            <label>Candidate
-              <select id="candidate"></select>
-            </label>
-            <label>Verdict Filter
-              <select id="candidateVerdict">
-                <option value="">Any verdict</option>
-                <option value="no_record">no_record</option>
-                <option value="nice">nice</option>
-                <option value="nuanced">nuanced</option>
-                <option value="naughty">naughty</option>
-              </select>
-            </label>
-            <label><input id="skipCandidatesWithChanges" type="checkbox"> Skip candidates already covered in changes.csv</label>
+            <div class="run-controls-grid">
+              <label>Provider
+                <select id="provider"></select>
+              </label>
+              <label>Race
+                <input id="raceSearch" type="text" placeholder="Filter races, e.g. colorado house">
+                <select id="race"></select>
+              </label>
+              <label>Candidate
+                <select id="candidate"></select>
+              </label>
+              <label>Verdict Filter
+                <select id="candidateVerdict">
+                  <option value="">Any verdict</option>
+                  <option value="no_record">no_record</option>
+                  <option value="nice">nice</option>
+                  <option value="nuanced">nuanced</option>
+                  <option value="naughty">naughty</option>
+                </select>
+              </label>
+              <label class="checkbox-inline"><input id="skipCandidatesWithChanges" type="checkbox"> Skip reviewed candidates</label>
+            </div>
             <label>Prompt Template
               <textarea id="promptTemplate" spellcheck="false"></textarea>
             </label>
@@ -544,17 +795,98 @@ HTML = """<!doctype html>
         </section>
       </div>
     </section>
+    <section id="tab-verify-verdicts" class="tab-panel" hidden>
+      <div class="verify-stack">
+        <section class="panel">
+          <div class="panel-header">Verify Verdicts</div>
+          <div class="panel-body stack">
+            <div class="verify-controls-grid">
+              <label>Provider
+                <select id="verdictReviewProvider"></select>
+              </label>
+              <label>Candidate Key
+                <input id="verdictReviewCandidate" type="text" placeholder="Optional exact Candidate_Key">
+              </label>
+              <label>Timeout (seconds)
+                <input id="verdictReviewTimeout" type="number" min="1" step="1" value="300">
+              </label>
+            </div>
+            <div class="filter-group verdict-filter">
+              <div class="verdict-grid">
+                <span></span>
+                <span class="verdict-grid-header">no_record</span>
+                <span class="verdict-grid-header">nuanced</span>
+                <span class="verdict-grid-header">naughty</span>
+                <span class="verdict-grid-header">nice</span>
+                <span class="verdict-grid-row">Before</span>
+                <label class="checkbox-chip"><input id="verdictReviewBeforeNoRecord" type="checkbox" checked><span></span></label>
+                <label class="checkbox-chip"><input id="verdictReviewBeforeNuanced" type="checkbox" checked><span></span></label>
+                <label class="checkbox-chip"><input id="verdictReviewBeforeNaughty" type="checkbox" checked><span></span></label>
+                <label class="checkbox-chip"><input id="verdictReviewBeforeNice" type="checkbox" checked><span></span></label>
+                <span class="verdict-grid-row">After</span>
+                <label class="checkbox-chip"><input id="verdictReviewAfterNoRecord" type="checkbox" checked><span></span></label>
+                <label class="checkbox-chip"><input id="verdictReviewAfterNuanced" type="checkbox" checked><span></span></label>
+                <label class="checkbox-chip"><input id="verdictReviewAfterNaughty" type="checkbox" checked><span></span></label>
+                <label class="checkbox-chip"><input id="verdictReviewAfterNice" type="checkbox" checked><span></span></label>
+              </div>
+            </div>
+            <div class="toolbar">
+              <button id="startVerdictReviewBtn" class="primary" type="button">Start Verdict Review</button>
+              <button id="clearFinishedVerdictJobsBtn" type="button">Clear Finished Jobs</button>
+              <span class="job-meta">Runs `scripts/verdict_review.py` and streams the live log below.</span>
+            </div>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel-header">Verdict Review Output</div>
+          <div class="panel-body">
+            <div id="verdictJobsMirror" class="jobs"></div>
+          </div>
+        </section>
+      </div>
+    </section>
     <section id="tab-review" class="tab-panel" hidden>
-      <section class="panel">
-        <div class="panel-header">
-          <span id="queuedChangesTitle">Queued Changes</span>
-          <div class="toolbar">
-            <label><input id="pendingOnly" type="checkbox" checked> Show only pending</label>
-            <label><input id="excludeNoRecord" type="checkbox"> Exclude no_record</label>
-            <label><input id="verdictChange" type="checkbox"> Verdict change</label>
-            <button id="applyBtn" class="good" type="button">Apply Approved</button>
+      <div class="panel-header review-header">
+        <div class="toolbar review-toolbar">
+          <span id="reviewCandidateCount" class="review-count">0 candidates</span>
+          <label class="reviewer-toggle">
+            <select id="reviewer">
+              <option value="D">D</option>
+              <option value="I">I</option>
+            </select>
+          </label>
+          <div class="filter-group">
+            <label><input id="showPending" type="checkbox" checked> Pending</label>
+            <label><input id="showApproved" type="checkbox"> Approved</label>
+            <label><input id="showDenied" type="checkbox"> Denied</label>
+          </div>
+          <div class="filter-group">
+            <label><input id="showMod" type="checkbox" checked> Mod</label>
+            <label><input id="showAdd" type="checkbox" checked> Add</label>
+            <label><input id="showDel" type="checkbox" checked> Delete</label>
+          </div>
+          <div class="filter-group verdict-filter">
+            <div class="verdict-grid">
+              <span></span>
+              <span class="verdict-grid-header">no_record</span>
+              <span class="verdict-grid-header">nuanced</span>
+              <span class="verdict-grid-header">naughty</span>
+              <span class="verdict-grid-header">nice</span>
+              <span class="verdict-grid-row">Before</span>
+              <label class="checkbox-chip"><input id="showBeforeNoRecord" type="checkbox" checked><span></span></label>
+              <label class="checkbox-chip"><input id="showBeforeNuanced" type="checkbox" checked><span></span></label>
+              <label class="checkbox-chip"><input id="showBeforeNaughty" type="checkbox" checked><span></span></label>
+              <label class="checkbox-chip"><input id="showBeforeNice" type="checkbox" checked><span></span></label>
+              <span class="verdict-grid-row">After</span>
+              <label class="checkbox-chip"><input id="showAfterNoRecord" type="checkbox" checked><span></span></label>
+              <label class="checkbox-chip"><input id="showAfterNuanced" type="checkbox" checked><span></span></label>
+              <label class="checkbox-chip"><input id="showAfterNaughty" type="checkbox" checked><span></span></label>
+              <label class="checkbox-chip"><input id="showAfterNice" type="checkbox" checked><span></span></label>
+            </div>
           </div>
         </div>
+      </div>
+      <section class="panel">
         <div class="panel-body">
           <div id="changes"></div>
         </div>
@@ -575,6 +907,10 @@ HTML = """<!doctype html>
           <div class="inspect-chart">
             <div id="coverageChart"></div>
             <div id="coverageLegend" class="inspect-legend"></div>
+          </div>
+          <div class="inspect-chart">
+            <div id="changeTypeChart"></div>
+            <div id="changeTypeLegend" class="inspect-legend"></div>
           </div>
           <div class="wiki-panel">
             <div class="wiki-toolbar">
@@ -622,9 +958,10 @@ HTML = """<!doctype html>
     </section>
   </div>
   <script>
-    let meta = { providers: [], races: [], candidates_by_race: {}, default_prompt_template: "" };
+    let meta = { providers: [], verdict_review_providers: [], races: [], candidates_by_race: {}, default_prompt_template: "" };
     let logSort = { column: "Candidate", direction: "asc" };
     let logsDataCache = { columns: [], rows: [] };
+    const reasoningDrafts = new Map();
     const defaultHiddenLogColumns = new Set([
       "Total_Web_Lookups",
       "Total_Command_Executions",
@@ -652,7 +989,8 @@ HTML = """<!doctype html>
     }
 
     function formatStatus(status, changeId) {
-      const label = status ? status.charAt(0).toUpperCase() + status.slice(1) : "Unknown";
+      const normalized = status || "pending";
+      const label = normalized ? normalized.charAt(0).toUpperCase() + normalized.slice(1) : "Pending";
       const icons = {
         pending: "🟡",
         approved: "🟢",
@@ -660,7 +998,19 @@ HTML = """<!doctype html>
         applied: "✅",
         conflict: "⚠️"
       };
-      return `${icons[status] || "⚪"} ${label} (change_id:${changeId})`;
+      return `${icons[normalized] || "⚪"} ${label} (change_id:${changeId})`;
+    }
+
+    function selectedReviewer() {
+      return document.getElementById("reviewer")?.value || "D";
+    }
+
+    function formatReviewBadge(reviewer, status, changeId) {
+      return `${reviewer}: ${formatStatus(status, changeId)}`;
+    }
+
+    function reviewerReasoningField(reviewer) {
+      return reviewer === "D" ? "Reasoning D" : "Reasoning I";
     }
 
     function cardTitle(group) {
@@ -679,6 +1029,11 @@ HTML = """<!doctype html>
 
     function setStatus(text, cls="") {
       const el = document.getElementById("statusline");
+      if (!el) {
+        if (cls === "error") console.error(text);
+        else console.log(text);
+        return;
+      }
       el.className = "statusline" + (cls ? " " + cls : "");
       el.textContent = text;
     }
@@ -707,6 +1062,32 @@ HTML = """<!doctype html>
       return fields;
     }
 
+    function renderLinkedValue(field, value, className="") {
+      const text = value || "—";
+      if (field !== "URL" || !value) {
+        return className ? `<span class="${className}">${escapeHtml(text)}</span>` : escapeHtml(text);
+      }
+      const safeHref = escapeHtml(value);
+      const safeText = escapeHtml(value);
+      const link = `<a href="${safeHref}" target="_blank" rel="noopener noreferrer">${safeText}</a>`;
+      return className ? `<span class="${className}">${link}</span>` : link;
+    }
+
+    function renderReasoningHtml(text) {
+      const source = String(text || "");
+      const pattern = /(evidence\\s+(\\d{3,4}))/gi;
+      let html = "";
+      let lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(source)) !== null) {
+        html += escapeHtml(source.slice(lastIndex, match.index));
+        html += `<a href="#evidence-${escapeHtml(match[2])}">${escapeHtml(match[1])}</a>`;
+        lastIndex = match.index + match[1].length;
+      }
+      html += escapeHtml(source.slice(lastIndex));
+      return html;
+    }
+
     function renderModTable(group) {
       const currentRow = group.current_row || {};
       const updates = new Map(
@@ -722,10 +1103,29 @@ HTML = """<!doctype html>
       const valueHtml = headers.map((field) => {
         const oldValue = currentRow[field] || "—";
         if (!updates.has(field)) {
-          return `<td data-label="${escapeHtml(field)}">${escapeHtml(oldValue)}</td>`;
+          return `<td data-label="${escapeHtml(field)}">${renderLinkedValue(field, oldValue)}</td>`;
         }
         const newValue = updates.get(field) || "—";
-        return `<td data-label="${escapeHtml(field)}"><span class="diff-old">${escapeHtml(oldValue)}</span><span class="diff-new">${escapeHtml(newValue)}</span></td>`;
+        return `<td data-label="${escapeHtml(field)}">${renderLinkedValue(field, oldValue, "diff-old")}${renderLinkedValue(field, newValue, "diff-new")}</td>`;
+      }).join("");
+      return `
+        <table>
+          <thead><tr>${headerHtml}</tr></thead>
+          <tbody><tr>${valueHtml}</tr></tbody>
+        </table>
+      `;
+    }
+
+    function renderDeleteTable(group) {
+      const currentRow = group.current_row || {};
+      const headers = visibleFields(group, currentRow);
+      if (!headers.length) {
+        return '<p class="reasoning">No canonical row found for delete view.</p>';
+      }
+      const headerHtml = headers.map((field) => `<th>${escapeHtml(field)}</th>`).join("");
+      const valueHtml = headers.map((field) => {
+        const value = currentRow[field] || "—";
+        return `<td data-label="${escapeHtml(field)}">${renderLinkedValue(field, value, "diff-old")}</td>`;
       }).join("");
       return `
         <table>
@@ -742,7 +1142,7 @@ HTML = """<!doctype html>
         return renderModTable(group);
       }
       if (action === "del") {
-        return '<p class="reasoning">Deletes this row.</p>';
+        return renderDeleteTable(group);
       }
       const cells = rows
         .filter((row) => row.field)
@@ -753,7 +1153,7 @@ HTML = """<!doctype html>
         return '<p class="reasoning">No field values.</p>';
       }
       const headers = cells.map((cell) => `<th>${escapeHtml(cell.field)}</th>`).join("");
-      const values = cells.map((cell) => `<td data-label="${escapeHtml(cell.field)}">${escapeHtml(cell.value)}</td>`).join("");
+      const values = cells.map((cell) => `<td data-label="${escapeHtml(cell.field)}">${renderLinkedValue(cell.field, cell.value)}</td>`).join("");
       return `
         <table>
           <thead><tr>${headers}</tr></thead>
@@ -764,9 +1164,11 @@ HTML = """<!doctype html>
 
     function renderChanges(groups) {
       const app = document.getElementById("changes");
-      const title = document.getElementById("queuedChangesTitle");
+      const countEl = document.getElementById("reviewCandidateCount");
+      const activeReviewer = selectedReviewer();
+      const assignedEvidenceAnchors = new Set();
       const candidateCount = new Set(groups.map((group) => group.candidate).filter((candidate) => candidate && candidate !== "(no candidate)")).size;
-      title.textContent = `Queued Changes (${candidateCount} candidates)`;
+      if (countEl) countEl.textContent = `${candidateCount} candidates`;
       if (!groups.length) {
         app.innerHTML = '<div class="empty">No changes to show.</div>';
         return;
@@ -778,24 +1180,52 @@ HTML = """<!doctype html>
         for (const [race, candidates] of races) {
           html += `<section class="race-group"><div class="race-header">${escapeHtml(race)}</div>`;
           for (const [candidate, changeGroups] of candidates) {
-            html += `<section class="candidate-group"><div class="candidate-header">${escapeHtml(candidate)}</div>`;
+            const verdict = changeGroups[0]?.candidate_verdict || "";
+            const candidateLabel = verdict ? `${candidate} (${verdict})` : candidate;
+            html += `<section class="candidate-group"><div class="candidate-header">${escapeHtml(candidateLabel)}</div>`;
             const cards = [];
             for (const group of changeGroups) {
+              const reasoningField = reviewerReasoningField(activeReviewer);
+              const draftKey = `${group.change_id}-${activeReviewer}`;
+              const reviewerReasoning = reasoningDrafts.has(draftKey)
+                ? reasoningDrafts.get(draftKey)
+                : (group[reasoningField] || "");
+              let anchorAttrs = "";
+              const evidenceKey = String(group.key || "").trim();
+              if (group.table === "evidence" && /^\\d{3,4}$/.test(evidenceKey)) {
+                anchorAttrs += ` data-evidence-id="${escapeHtml(evidenceKey)}"`;
+                if (!assignedEvidenceAnchors.has(evidenceKey)) {
+                  assignedEvidenceAnchors.add(evidenceKey);
+                  anchorAttrs += ` id="evidence-${escapeHtml(evidenceKey)}"`;
+                }
+              }
               cards.push(`
                 <div class="change-block">
-                  <article class="change-card">
+                  <article class="change-card"${anchorAttrs}>
                     <div class="change-head">
                       <div>
                         <div class="badge action-badge">${escapeHtml(cardTitle(group))}</div>
-                        <p class="reasoning"><strong>Reasoning</strong><br>${escapeHtml(group.reasoning || "")}</p>
+                        <p class="reasoning"><strong>Reasoning</strong><br>${renderReasoningHtml(group.reasoning || "")}</p>
                       </div>
-                      <span class="badge">${escapeHtml(formatStatus(group.status, group.change_id))}</span>
+                      <div style="display:grid;gap:6px">
+                        <span class="badge">${escapeHtml(formatReviewBadge("D", group.D, group.change_id))}</span>
+                        <span class="badge">${escapeHtml(formatReviewBadge("I", group.I, group.change_id))}</span>
+                      </div>
                     </div>
                     ${renderChangeTable(group)}
                     <div class="actions">
-                      <button class="good" data-change-id="${escapeHtml(group.change_id)}" data-status="approved">Approve</button>
-                      <button class="danger" data-change-id="${escapeHtml(group.change_id)}" data-status="denied">Deny</button>
-                      <button data-change-id="${escapeHtml(group.change_id)}" data-status="pending">Reset to Pending</button>
+                      <button class="good" data-change-id="${escapeHtml(group.change_id)}" data-status="approved">Approve ${escapeHtml(activeReviewer)}</button>
+                      <button class="danger" data-change-id="${escapeHtml(group.change_id)}" data-status="denied">Deny ${escapeHtml(activeReviewer)}</button>
+                      <button data-change-id="${escapeHtml(group.change_id)}" data-status="">Reset ${escapeHtml(activeReviewer)}</button>
+                    </div>
+                    <div class="review-notes">
+                      <label>Reasoning ${escapeHtml(activeReviewer)}
+                        <textarea data-change-id="${escapeHtml(group.change_id)}" data-reviewer="${escapeHtml(activeReviewer)}" data-reasoning-field="${escapeHtml(reasoningField)}" placeholder="Optional reviewer reasoning">${escapeHtml(reviewerReasoning)}</textarea>
+                      </label>
+                      <div class="actions">
+                        <button class="primary" type="button" data-save-reasoning="${escapeHtml(group.change_id)}" data-save-reviewer="${escapeHtml(activeReviewer)}">Save ${escapeHtml(activeReviewer)} Reasoning</button>
+                      </div>
+                      <div class="save-note" data-save-note="${escapeHtml(group.change_id)}-${escapeHtml(activeReviewer)}"></div>
                     </div>
                   </article>
                 </div>`);
@@ -810,20 +1240,39 @@ HTML = """<!doctype html>
         html += `</section>`;
       }
       app.innerHTML = html;
-      app.querySelectorAll("[data-change-id]").forEach((button) => {
+      app.querySelectorAll("button[data-change-id][data-status]").forEach((button) => {
         button.addEventListener("click", async () => {
-          await updateStatus(button.dataset.changeId, button.dataset.status);
+          await updateStatus(button.dataset.changeId, selectedReviewer(), button.dataset.status);
+        });
+      });
+      app.querySelectorAll("[data-save-reasoning]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const changeId = button.dataset.saveReasoning || "";
+          const reviewer = button.dataset.saveReviewer || "";
+          const noteKey = `${changeId}-${reviewer}`;
+          const textarea = app.querySelector(`textarea[data-change-id="${CSS.escape(changeId)}"][data-reviewer="${CSS.escape(reviewer)}"]`);
+          const statusEl = app.querySelector(`[data-save-note="${CSS.escape(noteKey)}"]`);
+          const value = textarea ? textarea.value : "";
+          try {
+            if (statusEl) statusEl.textContent = "Saving…";
+            await updateReviewerReasoning(changeId, reviewer, value);
+            reasoningDrafts.set(noteKey, value);
+            if (statusEl) statusEl.textContent = "Saved";
+          } catch (err) {
+            if (statusEl) statusEl.textContent = "Save failed";
+          }
         });
       });
     }
 
-    function renderJobs(jobs) {
-      const mirror = document.getElementById("jobsMirror");
-      if (!jobs.length) {
-        if (mirror) mirror.innerHTML = '<div class="empty">No jobs started yet.</div>';
+    function renderJobs(jobs, rootId, allowedKinds, emptyText) {
+      const mirror = document.getElementById(rootId);
+      const filteredJobs = jobs.filter((job) => allowedKinds.includes(job.kind));
+      if (!filteredJobs.length) {
+        if (mirror) mirror.innerHTML = `<div class="empty">${escapeHtml(emptyText)}</div>`;
         return;
       }
-      const html = jobs.map((job) => `
+      const html = filteredJobs.map((job) => `
         <article class="job-card">
           <div class="job-head">
             <div>
@@ -1133,12 +1582,76 @@ HTML = """<!doctype html>
       }).join("");
     }
 
+    function renderChangeTypeChart(rows) {
+      const chartRoot = document.getElementById("changeTypeChart");
+      const legendRoot = document.getElementById("changeTypeLegend");
+      const grouped = new Map();
+      for (const row of rows) {
+        const changeId = (row.change_id || "").trim();
+        if (!changeId) continue;
+        if (!grouped.has(changeId)) grouped.set(changeId, []);
+        grouped.get(changeId).push(row);
+      }
+      const counts = new Map([["mod", 0], ["add", 0], ["del", 0]]);
+      for (const groupRows of grouped.values()) {
+        const action = ((groupRows[0]?.action) || "").trim();
+        if (counts.has(action)) {
+          counts.set(action, (counts.get(action) || 0) + 1);
+        }
+      }
+      const items = Array.from(counts.entries()).filter(([, count]) => count > 0);
+      if (!items.length) {
+        chartRoot.innerHTML = '<div class="empty">No change groups to chart.</div>';
+        legendRoot.innerHTML = "";
+        return;
+      }
+      const total = items.reduce((sum, [, count]) => sum + count, 0);
+      const palette = { mod: "#d4aa5f", add: "#5d7b6f", del: "#a85d7f" };
+      const labels = { mod: "Mod", add: "Add", del: "Delete" };
+      const radius = 180;
+      const cx = 220;
+      const cy = 220;
+      let angle = 0;
+      const slices = items.map(([action, count]) => {
+        const sweep = (count / total) * 360;
+        const startAngle = angle;
+        angle += sweep;
+        return {
+          action,
+          count,
+          color: palette[action] || "#9a9085",
+          path: slicePath(cx, cy, radius, startAngle, angle),
+        };
+      });
+      chartRoot.innerHTML = `
+        <svg viewBox="0 0 440 440" role="img" aria-label="Change type pie chart">
+          ${slices.map((slice) => `<path d="${slice.path}" fill="${slice.color}"></path>`).join("")}
+          <circle cx="${cx}" cy="${cy}" r="72" fill="#fffaf0"></circle>
+          <text x="${cx}" y="${cy - 8}" text-anchor="middle" font-size="20" font-weight="700" fill="#1f1a17">${total}</text>
+          <text x="${cx}" y="${cy + 18}" text-anchor="middle" font-size="13" fill="#6b6158">change groups</text>
+        </svg>
+      `;
+      legendRoot.innerHTML = slices.map((slice) => {
+        const percent = ((slice.count / total) * 100).toFixed(1);
+        return `
+          <div class="legend-row">
+            <span class="legend-swatch" style="background:${slice.color}"></span>
+            <span class="legend-label">${escapeHtml(labels[slice.action] || slice.action)}</span>
+            <span class="legend-value">${escapeHtml(String(slice.count))} · ${escapeHtml(percent)}%</span>
+          </div>
+        `;
+      }).join("");
+    }
+
     function renderChangeCoverageChart(candidateRows, evidenceRows, changeRows) {
       const chartRoot = document.getElementById("coverageChart");
       const legendRoot = document.getElementById("coverageLegend");
       const allCandidates = candidateRows
         .map((row) => ({
+          candidateKey: (row.Candidate_Key || "").trim() || `${(row.State || "").trim()}|${(row.Office || "").trim()}|${(row.Candidate || "").trim()}`,
           candidate: (row.Candidate || "").trim(),
+          state: (row.State || "").trim(),
+          office: (row.Office || "").trim(),
           verdict: (row.Verdict || "").trim() || "no_record",
         }))
         .filter((row) => row.candidate);
@@ -1150,36 +1663,60 @@ HTML = """<!doctype html>
       const evidenceToCandidate = new Map();
       for (const row of evidenceRows) {
         const evId = (row.Evidence_ID || "").trim();
-        const candidate = (row.Candidate || "").trim();
-        if (evId && candidate) {
-          evidenceToCandidate.set(evId, candidate);
+        const candidateKey = (row.Candidate_Key || "").trim() || `${(row.State || "").trim()}|${(row.Office || "").trim()}|${(row.Candidate || "").trim()}`;
+        if (evId && candidateKey) {
+          evidenceToCandidate.set(evId, candidateKey);
         }
       }
       const coveredCandidates = new Set();
+      const latestVerdictChange = new Map();
+      function parseChangeId(value) {
+        const n = Number.parseInt(String(value || "").trim(), 10);
+        return Number.isFinite(n) ? n : -1;
+      }
       for (const row of changeRows) {
         const table = (row.table || "").trim();
         const key = (row.key || "").trim();
         if (table === "candidates" && key) {
           coveredCandidates.add(key);
+          if ((row.field || "").trim() === "Verdict") {
+            const changeId = parseChangeId(row.change_id);
+            const prev = latestVerdictChange.get(key);
+            if (!prev || changeId >= prev.changeId) {
+              latestVerdictChange.set(key, {
+                changeId,
+                verdict: (row.value || "").trim() || "no_record",
+              });
+            }
+          }
         } else if (table === "evidence") {
           if (key && evidenceToCandidate.has(key)) {
             coveredCandidates.add(evidenceToCandidate.get(key));
-          } else if ((row.field || "").trim() === "Candidate" && (row.value || "").trim()) {
+          } else if ((row.field || "").trim() === "Candidate_Key" && (row.value || "").trim()) {
             coveredCandidates.add((row.value || "").trim());
           }
         }
       }
-      const combos = new Map([
-        ["0-0", { label: "no_record + no proposed changes", count: 0, color: "rgb(0,0,0)" }],
-        ["0-255", { label: "no_record + proposed changes", count: 0, color: "rgb(0,255,0)" }],
-        ["255-0", { label: "reviewed verdict + no proposed changes", count: 0, color: "rgb(255,0,0)" }],
-        ["255-255", { label: "reviewed verdict + proposed changes", count: 0, color: "rgb(255,255,0)" }],
-      ]);
+      const combos = new Map();
       for (const row of allCandidates) {
         const reviewed = row.verdict !== "no_record";
-        const hasChanges = coveredCandidates.has(row.candidate);
-        const key = `${reviewed ? 255 : 0}-${hasChanges ? 255 : 0}`;
+        const hasChanges = coveredCandidates.has(row.candidateKey);
+        const effectiveVerdict = latestVerdictChange.get(row.candidateKey)?.verdict || row.verdict;
+        const effectiveReviewed = effectiveVerdict !== "no_record";
+        const active = 128;
+        const key = `${reviewed ? active : 0}-${hasChanges ? active : 0}-${effectiveReviewed ? active : 0}`;
+        if (!combos.has(key)) {
+          combos.set(key, {
+            currentReviewed: reviewed,
+            hasChanges,
+            effectiveReviewed,
+            count: 0,
+            color: `rgb(${reviewed ? active : 0},${hasChanges ? active : 0},${effectiveReviewed ? active : 0})`,
+            candidates: [],
+          });
+        }
         combos.get(key).count += 1;
+        combos.get(key).candidates.push(row);
       }
       const items = Array.from(combos.values()).filter((item) => item.count > 0);
       const total = items.reduce((sum, item) => sum + item.count, 0);
@@ -1204,16 +1741,94 @@ HTML = """<!doctype html>
           <text x="${cx}" y="${cy + 18}" text-anchor="middle" font-size="13" fill="#6b6158">candidates</text>
         </svg>
       `;
-      legendRoot.innerHTML = slices.map((slice) => {
-        const percent = ((slice.count / total) * 100).toFixed(1);
+      function getSlice(finalReviewed, startReviewed, reviewed) {
+        return slices.find((slice) =>
+          slice.effectiveReviewed === finalReviewed &&
+          slice.currentReviewed === startReviewed &&
+          slice.hasChanges === reviewed
+        ) || { count: 0, color: "rgb(255,255,255)", candidates: [] };
+      }
+      function candidateLabel(candidate) {
+        const office = candidate.office || "(unknown office)";
+        const state = candidate.state || "(unknown state)";
+        return `${candidate.candidate} (${state} - ${office})`;
+      }
+      function renderCoverageDetail(slice, title) {
+        if (!slice.candidates || !slice.candidates.length) {
+          return `
+            <div class="coverage-detail" hidden>
+              <div class="coverage-detail-title"></div>
+              <div class="coverage-detail-list"></div>
+            </div>
+          `;
+        }
+        const labels = [...slice.candidates]
+          .sort((a, b) => candidateLabel(a).localeCompare(candidateLabel(b)))
+          .map((candidate) => `<div class="coverage-detail-item">${escapeHtml(candidateLabel(candidate))}</div>`)
+          .join("");
         return `
-          <div class="legend-row">
-            <span class="legend-swatch" style="background:${slice.color}"></span>
-            <span class="legend-label">${escapeHtml(slice.label)}</span>
-            <span class="legend-value">${escapeHtml(String(slice.count))} · ${escapeHtml(percent)}%</span>
+          <div class="coverage-detail">
+            <div class="coverage-detail-title">${escapeHtml(title)} (${escapeHtml(String(slice.count))})</div>
+            <div class="coverage-detail-list">${labels}</div>
           </div>
         `;
-      }).join("");
+      }
+      function renderCoverageGrid(finalReviewed, title) {
+        const columns = [
+          { reviewed: false, label: "No record (start)" },
+          { reviewed: true, label: "AI record (start)" },
+        ];
+        const rows = [
+          { reviewed: true, label: "Reviewed" },
+          { reviewed: false, label: "Unreviewed" },
+        ];
+        return `
+          <div>
+            <div class="coverage-grid-title">${escapeHtml(title)}</div>
+            <div class="coverage-grid">
+              <div class="coverage-grid-corner"></div>
+              ${columns.map((column) => `<div class="coverage-grid-head">${escapeHtml(column.label)}</div>`).join("")}
+              ${rows.map((row) => {
+                return `
+                  <div class="coverage-grid-rowhead">${escapeHtml(row.label)}</div>
+                  ${columns.map((column) => {
+                    const slice = getSlice(finalReviewed, column.reviewed, row.reviewed);
+                    const percent = total ? ((slice.count / total) * 100).toFixed(1) : "0.0";
+                    const detailTitle = `${title} / ${row.label} / ${column.label}`;
+                    return `
+                      <div class="coverage-grid-cell" style="background:${slice.color}" data-coverage-detail="${escapeHtml(detailTitle)}" data-coverage-key="${escapeHtml(`${finalReviewed ? "1" : "0"}-${column.reviewed ? "1" : "0"}-${row.reviewed ? "1" : "0"}`)}">
+                        <div class="coverage-grid-count">${escapeHtml(String(slice.count))}</div>
+                        <div class="coverage-grid-percent">${escapeHtml(percent)}%</div>
+                      </div>
+                    `;
+                  }).join("")}
+                `;
+              }).join("")}
+            </div>
+          </div>
+        `;
+      }
+      legendRoot.innerHTML = `
+        <div class="coverage-key">
+          ${renderCoverageGrid(false, "No record (final)")}
+          ${renderCoverageGrid(true, "AI record (final)")}
+        </div>
+        <div id="coverageDetailHost">
+          ${renderCoverageDetail({ candidates: [] }, "")}
+        </div>
+      `;
+      const detailHost = document.getElementById("coverageDetailHost");
+      function detailSliceForKey(key) {
+        const [finalReviewed, startReviewed, reviewed] = String(key || "").split("-");
+        return getSlice(finalReviewed === "1", startReviewed === "1", reviewed === "1");
+      }
+      legendRoot.querySelectorAll("[data-coverage-key]").forEach((cell) => {
+        cell.addEventListener("click", () => {
+          const detailKey = cell.getAttribute("data-coverage-key") || "";
+          const detailTitle = cell.getAttribute("data-coverage-detail") || "Coverage bucket";
+          detailHost.innerHTML = renderCoverageDetail(detailSliceForKey(detailKey), detailTitle);
+        });
+      });
     }
 
     function wikipediaEntries(rows) {
@@ -1275,6 +1890,50 @@ HTML = """<!doctype html>
       }
     }
 
+    function populateVerdictReviewProviders() {
+      const select = document.getElementById("verdictReviewProvider");
+      const providers = meta.verdict_review_providers || [];
+      let savedProvider = "";
+      try {
+        savedProvider = localStorage.getItem("reviewChanges.verdictReviewProvider") || "";
+      } catch {}
+      const currentProvider = select.value;
+      select.innerHTML = providers.map((provider) => `
+        <option value="${escapeHtml(provider.name)}">${escapeHtml(provider.label)}</option>
+      `).join("");
+      if (savedProvider && providers.some((provider) => provider.name === savedProvider)) {
+        select.value = savedProvider;
+      } else if (currentProvider && providers.some((provider) => provider.name === currentProvider)) {
+        select.value = currentProvider;
+      } else if (providers.length) {
+        select.value = providers[0].name;
+      }
+    }
+
+    function selectedChangesFile() {
+      return document.getElementById("changesFile").value || "changes.csv";
+    }
+
+    function populateChangesFiles() {
+      const select = document.getElementById("changesFile");
+      let saved = "";
+      try {
+        saved = localStorage.getItem("reviewChanges.selectedChangesFile") || "";
+      } catch {}
+      const current = select.value;
+      const files = meta.change_files || ["changes.csv"];
+      select.innerHTML = files.map((name) => `
+        <option value="${escapeHtml(name)}">${escapeHtml(name)}</option>
+      `).join("");
+      if (saved && files.includes(saved)) {
+        select.value = saved;
+      } else if (current && files.includes(current)) {
+        select.value = current;
+      } else if ((meta.current_changes_file || "") && files.includes(meta.current_changes_file)) {
+        select.value = meta.current_changes_file;
+      }
+    }
+
     function filteredRaces() {
       const query = document.getElementById("raceSearch").value.trim().toLowerCase();
       if (!query) return meta.races;
@@ -1328,20 +1987,39 @@ HTML = """<!doctype html>
     async function fetchMeta() {
       const res = await fetch("/api/meta");
       meta = await res.json();
+      populateChangesFiles();
       populateProviders();
+      populateVerdictReviewProviders();
       populateRaces();
       document.getElementById("promptTemplate").value = meta.default_prompt_template || "";
       try {
         document.getElementById("candidateVerdict").value = localStorage.getItem("reviewChanges.candidateVerdict") || "";
         document.getElementById("skipCandidatesWithChanges").checked = localStorage.getItem("reviewChanges.skipCandidatesWithChanges") === "true";
+        document.getElementById("verdictReviewCandidate").value = localStorage.getItem("reviewChanges.verdictReviewCandidate") || "";
+        document.getElementById("verdictReviewTimeout").value = localStorage.getItem("reviewChanges.verdictReviewTimeout") || "300";
       } catch {}
     }
 
     async function fetchChanges() {
-      const pendingOnly = document.getElementById("pendingOnly").checked;
-      const excludeNoRecord = document.getElementById("excludeNoRecord").checked;
-      const verdictChange = document.getElementById("verdictChange").checked;
-      const res = await fetch(`/api/changes?pending_only=${pendingOnly ? "1" : "0"}&exclude_no_record=${excludeNoRecord ? "1" : "0"}&verdict_change=${verdictChange ? "1" : "0"}`);
+      const showPending = document.getElementById("showPending").checked;
+      const showApproved = document.getElementById("showApproved").checked;
+      const showDenied = document.getElementById("showDenied").checked;
+      const showMod = document.getElementById("showMod").checked;
+      const showAdd = document.getElementById("showAdd").checked;
+      const showDel = document.getElementById("showDel").checked;
+      const showBeforeNoRecord = document.getElementById("showBeforeNoRecord").checked;
+      const showBeforeNuanced = document.getElementById("showBeforeNuanced").checked;
+      const showBeforeNaughty = document.getElementById("showBeforeNaughty").checked;
+      const showBeforeNice = document.getElementById("showBeforeNice").checked;
+      const showAfterNoRecord = document.getElementById("showAfterNoRecord").checked;
+      const showAfterNuanced = document.getElementById("showAfterNuanced").checked;
+      const showAfterNaughty = document.getElementById("showAfterNaughty").checked;
+      const showAfterNice = document.getElementById("showAfterNice").checked;
+      const reviewer = selectedReviewer();
+      const changesFile = selectedChangesFile();
+      const res = await fetch(
+        `/api/changes?show_pending=${showPending ? "1" : "0"}&show_approved=${showApproved ? "1" : "0"}&show_denied=${showDenied ? "1" : "0"}&show_mod=${showMod ? "1" : "0"}&show_add=${showAdd ? "1" : "0"}&show_del=${showDel ? "1" : "0"}&show_before_no_record=${showBeforeNoRecord ? "1" : "0"}&show_before_nuanced=${showBeforeNuanced ? "1" : "0"}&show_before_naughty=${showBeforeNaughty ? "1" : "0"}&show_before_nice=${showBeforeNice ? "1" : "0"}&show_after_no_record=${showAfterNoRecord ? "1" : "0"}&show_after_nuanced=${showAfterNuanced ? "1" : "0"}&show_after_naughty=${showAfterNaughty ? "1" : "0"}&show_after_nice=${showAfterNice ? "1" : "0"}&reviewer=${encodeURIComponent(reviewer)}&changes_file=${encodeURIComponent(changesFile)}`
+      );
       const data = await res.json();
       renderChanges(data.groups || []);
     }
@@ -1349,13 +2027,15 @@ HTML = """<!doctype html>
     async function fetchJobs() {
       const res = await fetch("/api/jobs");
       const data = await res.json();
-      renderJobs(data.jobs || []);
+      renderJobs(data.jobs || [], "jobsMirror", ["run", "apply"], "No research/apply jobs started yet.");
+      renderJobs(data.jobs || [], "verdictJobsMirror", ["verdict_review"], "No verdict review jobs started yet.");
     }
 
     async function fetchInspectData() {
       const table = document.getElementById("inspectTable").value;
       const filter = document.getElementById("inspectFilter").value.trim();
       const params = new URLSearchParams({ table });
+      params.set("changes_file", selectedChangesFile());
       if (filter) params.set("filter", filter);
       const res = await fetch(`/api/data?${params.toString()}`);
       const data = await res.json();
@@ -1390,7 +2070,7 @@ HTML = """<!doctype html>
       const [evidenceRes, candidatesRes, changesRes] = await Promise.all([
         fetch("/api/data?table=evidence"),
         fetch("/api/data?table=candidates"),
-        fetch("/api/data?table=changes"),
+        fetch(`/api/data?table=changes&changes_file=${encodeURIComponent(selectedChangesFile())}`),
       ]);
       const evidenceData = await evidenceRes.json();
       const candidateData = await candidatesRes.json();
@@ -1399,6 +2079,7 @@ HTML = """<!doctype html>
       renderWikipediaList(evidenceData.rows || []);
       renderVerdictChart(candidateData.rows || []);
       renderChangeCoverageChart(candidateData.rows || [], evidenceData.rows || [], changesData.rows || []);
+      renderChangeTypeChart(changesData.rows || []);
     }
 
     async function exportWikipediaExclusions() {
@@ -1417,20 +2098,33 @@ HTML = """<!doctype html>
       setStatus(`Exported ${data.count} Wikipedia exclusions to ${data.path}`, "ok");
     }
 
-    async function updateStatus(changeId, status) {
+    async function updateStatus(changeId, reviewer, status) {
       setStatus("Saving…", "info");
       const res = await fetch("/api/status", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ change_id: changeId, status })
+        body: JSON.stringify({ change_id: changeId, reviewer, status, changes_file: selectedChangesFile() })
       });
       const data = await res.json();
       if (!res.ok) {
         setStatus(data.error || "Save failed.", "error");
         return;
       }
-      setStatus(`Updated ${changeId} -> ${status}`, "ok");
+      setStatus(`Updated ${changeId} -> ${reviewer}:${status}`, "ok");
       await fetchChanges();
+    }
+
+    async function updateReviewerReasoning(changeId, reviewer, reasoning) {
+      const res = await fetch("/api/reviewer-reasoning", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ change_id: changeId, reviewer, reasoning, changes_file: selectedChangesFile() })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Reasoning save failed.");
+      }
+      return data;
     }
 
     async function startRun() {
@@ -1441,7 +2135,8 @@ HTML = """<!doctype html>
         candidate: document.getElementById("candidate").value,
         candidate_verdict: document.getElementById("candidateVerdict").value,
         skip_candidates_with_changes: document.getElementById("skipCandidatesWithChanges").checked,
-        prompt_template: document.getElementById("promptTemplate").value
+        prompt_template: document.getElementById("promptTemplate").value,
+        changes_file: selectedChangesFile()
       };
       const res = await fetch("/api/run", {
         method: "POST",
@@ -1466,7 +2161,8 @@ HTML = """<!doctype html>
         candidate_verdict: document.getElementById("candidateVerdict").value,
         skip_candidates_with_changes: document.getElementById("skipCandidatesWithChanges").checked,
         prompt_template: document.getElementById("promptTemplate").value,
-        all_races: true
+        all_races: true,
+        changes_file: selectedChangesFile()
       };
       const res = await fetch("/api/run", {
         method: "POST",
@@ -1482,9 +2178,59 @@ HTML = """<!doctype html>
       await fetchJobs();
     }
 
+    function selectedVerdictReviewValues(prefix) {
+      const mapping = [
+        ["NoRecord", "no_record"],
+        ["Nuanced", "nuanced"],
+        ["Naughty", "naughty"],
+        ["Nice", "nice"],
+      ];
+      return mapping
+        .filter(([suffix]) => document.getElementById(`${prefix}${suffix}`).checked)
+        .map(([, value]) => value);
+    }
+
+    async function startVerdictReview() {
+      setStatus("Starting verdict review job…", "info");
+      const oldVerdicts = selectedVerdictReviewValues("verdictReviewBefore");
+      const newVerdicts = selectedVerdictReviewValues("verdictReviewAfter");
+      if (!oldVerdicts.length) {
+        setStatus("Select at least one 'Before' verdict filter.", "error");
+        return;
+      }
+      if (!newVerdicts.length) {
+        setStatus("Select at least one 'After' verdict filter.", "error");
+        return;
+      }
+      const payload = {
+        provider: document.getElementById("verdictReviewProvider").value,
+        candidate: document.getElementById("verdictReviewCandidate").value.trim(),
+        timeout: Number.parseInt(document.getElementById("verdictReviewTimeout").value || "300", 10),
+        old_verdicts: oldVerdicts,
+        new_verdicts: newVerdicts,
+        changes_file: selectedChangesFile()
+      };
+      const res = await fetch("/api/verdict-review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setStatus(data.error || "Failed to start verdict review job.", "error");
+        return;
+      }
+      setStatus(`Started ${data.job.provider} verdict review job ${data.job.id}`, "ok");
+      await fetchJobs();
+    }
+
     async function applyApproved() {
       setStatus("Starting apply job…", "info");
-      const res = await fetch("/api/apply", { method: "POST" });
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ changes_file: selectedChangesFile() })
+      });
       const data = await res.json();
       if (!res.ok) {
         setStatus(data.error || "Failed to apply changes.", "error");
@@ -1527,7 +2273,7 @@ HTML = """<!doctype html>
     }
 
     function switchTab(tabName) {
-      const names = ["run", "review", "inspect", "logs"];
+      const names = ["run", "verify-verdicts", "review", "inspect", "logs"];
       for (const name of names) {
         const panel = document.getElementById(`tab-${name}`);
         const button = document.querySelector(`[data-tab="${name}"]`);
@@ -1540,6 +2286,8 @@ HTML = """<!doctype html>
       } catch {}
       if (tabName === "review") {
         fetchChanges().catch(console.error);
+      } else if (tabName === "verify-verdicts") {
+        fetchJobs().catch(console.error);
       } else if (tabName === "inspect") {
         fetchDomainChart().catch(console.error);
         fetchInspectData().catch(console.error);
@@ -1552,6 +2300,21 @@ HTML = """<!doctype html>
       try {
         localStorage.setItem("reviewChanges.selectedProvider", document.getElementById("provider").value);
       } catch {}
+    });
+    document.getElementById("verdictReviewProvider").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.verdictReviewProvider", document.getElementById("verdictReviewProvider").value);
+      } catch {}
+    });
+    document.getElementById("changesFile").addEventListener("change", async () => {
+      try {
+        localStorage.setItem("reviewChanges.selectedChangesFile", document.getElementById("changesFile").value);
+      } catch {}
+      await fetchChanges();
+      if (!document.getElementById("tab-inspect").hidden) {
+        await fetchDomainChart();
+        await fetchInspectData();
+      }
     });
     document.getElementById("race").addEventListener("change", () => {
       try {
@@ -1569,30 +2332,103 @@ HTML = """<!doctype html>
         localStorage.setItem("reviewChanges.candidateVerdict", document.getElementById("candidateVerdict").value);
       } catch {}
     });
+    document.getElementById("verdictReviewCandidate").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.verdictReviewCandidate", document.getElementById("verdictReviewCandidate").value);
+      } catch {}
+    });
+    document.getElementById("verdictReviewTimeout").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.verdictReviewTimeout", document.getElementById("verdictReviewTimeout").value);
+      } catch {}
+    });
     document.getElementById("skipCandidatesWithChanges").addEventListener("change", () => {
       try {
         localStorage.setItem("reviewChanges.skipCandidatesWithChanges", String(document.getElementById("skipCandidatesWithChanges").checked));
       } catch {}
     });
     document.getElementById("raceSearch").addEventListener("input", populateRaces);
-    document.getElementById("pendingOnly").addEventListener("change", fetchChanges);
-    document.getElementById("excludeNoRecord").addEventListener("change", () => {
+    document.getElementById("showPending").addEventListener("change", () => {
       try {
-        localStorage.setItem("reviewChanges.excludeNoRecord", String(document.getElementById("excludeNoRecord").checked));
+        localStorage.setItem("reviewChanges.showPending", String(document.getElementById("showPending").checked));
       } catch {}
       fetchChanges();
     });
-    document.getElementById("verdictChange").addEventListener("change", () => {
+    document.getElementById("showApproved").addEventListener("change", () => {
       try {
-        localStorage.setItem("reviewChanges.verdictChange", String(document.getElementById("verdictChange").checked));
+        localStorage.setItem("reviewChanges.showApproved", String(document.getElementById("showApproved").checked));
       } catch {}
       fetchChanges();
+    });
+    document.getElementById("showDenied").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.showDenied", String(document.getElementById("showDenied").checked));
+      } catch {}
+      fetchChanges();
+    });
+    document.getElementById("showMod").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.showMod", String(document.getElementById("showMod").checked));
+      } catch {}
+      fetchChanges();
+    });
+    document.getElementById("showAdd").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.showAdd", String(document.getElementById("showAdd").checked));
+      } catch {}
+      fetchChanges();
+    });
+    document.getElementById("showDel").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.showDel", String(document.getElementById("showDel").checked));
+      } catch {}
+      fetchChanges();
+    });
+    document.getElementById("reviewer").addEventListener("change", () => {
+      try {
+        localStorage.setItem("reviewChanges.reviewer", document.getElementById("reviewer").value);
+      } catch {}
+      fetchChanges();
+    });
+    [
+      "showBeforeNoRecord",
+      "showBeforeNuanced",
+      "showBeforeNaughty",
+      "showBeforeNice",
+      "showAfterNoRecord",
+      "showAfterNuanced",
+      "showAfterNaughty",
+      "showAfterNice",
+    ].forEach((id) => {
+      document.getElementById(id).addEventListener("change", () => {
+        try {
+          localStorage.setItem(`reviewChanges.${id}`, String(document.getElementById(id).checked));
+        } catch {}
+        fetchChanges();
+      });
+    });
+    [
+      "verdictReviewBeforeNoRecord",
+      "verdictReviewBeforeNuanced",
+      "verdictReviewBeforeNaughty",
+      "verdictReviewBeforeNice",
+      "verdictReviewAfterNoRecord",
+      "verdictReviewAfterNuanced",
+      "verdictReviewAfterNaughty",
+      "verdictReviewAfterNice",
+    ].forEach((id) => {
+      document.getElementById(id).addEventListener("change", () => {
+        try {
+          localStorage.setItem(`reviewChanges.${id}`, String(document.getElementById(id).checked));
+        } catch {}
+      });
     });
     document.getElementById("reloadBtn").addEventListener("click", refreshAll);
     document.getElementById("runBtn").addEventListener("click", startRun);
     document.getElementById("runAllBtn").addEventListener("click", startAllRacesRun);
+    document.getElementById("startVerdictReviewBtn").addEventListener("click", startVerdictReview);
+    document.getElementById("clearFinishedVerdictJobsBtn").addEventListener("click", clearFinishedJobs);
     document.getElementById("clearFinishedBtn").addEventListener("click", clearFinishedJobs);
-    document.getElementById("applyBtn").addEventListener("click", applyApproved);
     document.getElementById("inspectReloadBtn").addEventListener("click", fetchInspectData);
     document.getElementById("inspectTable").addEventListener("change", fetchInspectData);
     document.getElementById("inspectFilter").addEventListener("input", fetchInspectData);
@@ -1610,11 +2446,32 @@ HTML = """<!doctype html>
       let initialTab = "run";
       try {
         const savedTab = localStorage.getItem("reviewChanges.activeTab");
-        if (savedTab && ["run", "review", "inspect", "logs"].includes(savedTab)) {
+        if (savedTab && ["run", "verify-verdicts", "review", "inspect", "logs"].includes(savedTab)) {
           initialTab = savedTab;
         }
-        document.getElementById("excludeNoRecord").checked = localStorage.getItem("reviewChanges.excludeNoRecord") === "true";
-        document.getElementById("verdictChange").checked = localStorage.getItem("reviewChanges.verdictChange") === "true";
+        document.getElementById("reviewer").value = localStorage.getItem("reviewChanges.reviewer") || "D";
+        document.getElementById("showPending").checked = localStorage.getItem("reviewChanges.showPending") !== "false";
+        document.getElementById("showApproved").checked = localStorage.getItem("reviewChanges.showApproved") === "true";
+        document.getElementById("showDenied").checked = localStorage.getItem("reviewChanges.showDenied") === "true";
+        document.getElementById("showMod").checked = localStorage.getItem("reviewChanges.showMod") !== "false";
+        document.getElementById("showAdd").checked = localStorage.getItem("reviewChanges.showAdd") !== "false";
+        document.getElementById("showDel").checked = localStorage.getItem("reviewChanges.showDel") !== "false";
+        document.getElementById("showBeforeNoRecord").checked = localStorage.getItem("reviewChanges.showBeforeNoRecord") !== "false";
+        document.getElementById("showBeforeNuanced").checked = localStorage.getItem("reviewChanges.showBeforeNuanced") !== "false";
+        document.getElementById("showBeforeNaughty").checked = localStorage.getItem("reviewChanges.showBeforeNaughty") !== "false";
+        document.getElementById("showBeforeNice").checked = localStorage.getItem("reviewChanges.showBeforeNice") !== "false";
+        document.getElementById("showAfterNoRecord").checked = localStorage.getItem("reviewChanges.showAfterNoRecord") !== "false";
+        document.getElementById("showAfterNuanced").checked = localStorage.getItem("reviewChanges.showAfterNuanced") !== "false";
+        document.getElementById("showAfterNaughty").checked = localStorage.getItem("reviewChanges.showAfterNaughty") !== "false";
+        document.getElementById("showAfterNice").checked = localStorage.getItem("reviewChanges.showAfterNice") !== "false";
+        document.getElementById("verdictReviewBeforeNoRecord").checked = localStorage.getItem("reviewChanges.verdictReviewBeforeNoRecord") !== "false";
+        document.getElementById("verdictReviewBeforeNuanced").checked = localStorage.getItem("reviewChanges.verdictReviewBeforeNuanced") !== "false";
+        document.getElementById("verdictReviewBeforeNaughty").checked = localStorage.getItem("reviewChanges.verdictReviewBeforeNaughty") !== "false";
+        document.getElementById("verdictReviewBeforeNice").checked = localStorage.getItem("reviewChanges.verdictReviewBeforeNice") !== "false";
+        document.getElementById("verdictReviewAfterNoRecord").checked = localStorage.getItem("reviewChanges.verdictReviewAfterNoRecord") !== "false";
+        document.getElementById("verdictReviewAfterNuanced").checked = localStorage.getItem("reviewChanges.verdictReviewAfterNuanced") !== "false";
+        document.getElementById("verdictReviewAfterNaughty").checked = localStorage.getItem("reviewChanges.verdictReviewAfterNaughty") !== "false";
+        document.getElementById("verdictReviewAfterNice").checked = localStorage.getItem("reviewChanges.verdictReviewAfterNice") !== "false";
       } catch {}
       switchTab(initialTab);
       setInterval(fetchJobs, %POLL_SECONDS%);
@@ -1630,10 +2487,15 @@ HTML = """<!doctype html>
 """.replace("%POLL_SECONDS%", str(POLL_SECONDS * 1000))
 
 
-def ensure_changes_csv() -> None:
-    if CHANGES_CSV.exists():
+def changes_csv_path(filename: str | None = None) -> Path:
+    return resolve_changes_csv(filename)
+
+
+def ensure_changes_csv(filename: str | None = None) -> None:
+    path = changes_csv_path(filename)
+    if path.exists():
         return
-    with CHANGES_CSV.open("w", newline="", encoding="utf-8") as f:
+    with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
         writer.writeheader()
 
@@ -1643,24 +2505,23 @@ def load_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
-def load_changes() -> list[dict[str, str]]:
-    ensure_changes_csv()
-    rows = load_csv(CHANGES_CSV)
+def load_changes(filename: str | None = None) -> list[dict[str, str]]:
+    path = changes_csv_path(filename)
+    ensure_changes_csv(path.name)
+    rows = load_csv(path)
     out = []
     for row in rows:
         normalized = {field: row.get(field, "").strip() for field in FIELDNAMES}
-        if not normalized["status"]:
-            normalized["status"] = "pending"
         out.append(normalized)
     return out
 
 
-def load_data_table(name: str, filter_text: str) -> dict[str, object]:
+def load_data_table(name: str, filter_text: str, changes_filename: str | None = None) -> dict[str, object]:
     table_map = {
         "races": RACES_CSV,
         "candidates": CANDIDATES_CSV,
         "evidence": EVIDENCE_CSV,
-        "changes": CHANGES_CSV,
+        "changes": changes_csv_path(changes_filename),
     }
     path = table_map.get(name)
     if path is None:
@@ -1732,25 +2593,43 @@ def write_wikipedia_exclusions(urls: list[str]) -> int:
     return len(rows)
 
 
-def write_changes(rows: list[dict[str, str]]) -> None:
-    with CHANGES_CSV.open("w", newline="", encoding="utf-8") as f:
+def write_changes(rows: list[dict[str, str]], filename: str | None = None) -> None:
+    with changes_csv_path(filename).open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
         writer.writeheader()
         writer.writerows(rows)
 
 
-def set_change_status(change_id: str, status: str) -> int:
-    if status not in VALID_STATUSES:
+def set_change_status(change_id: str, reviewer: str, status: str, filename: str | None = None) -> int:
+    if reviewer not in REVIEW_COLUMNS:
+        raise ValueError(f"Invalid reviewer: {reviewer}")
+    if status and status not in VALID_STATUSES:
         raise ValueError(f"Invalid status: {status}")
-    rows = load_changes()
+    rows = load_changes(filename)
     count = 0
     for row in rows:
         if row["change_id"] == change_id:
-            row["status"] = status
+            row[reviewer] = status
             count += 1
     if count == 0:
         raise KeyError(change_id)
-    write_changes(rows)
+    write_changes(rows, filename)
+    return count
+
+
+def set_change_reasoning(change_id: str, reviewer: str, reasoning_text: str, filename: str | None = None) -> int:
+    if reviewer not in REVIEW_COLUMNS:
+        raise ValueError(f"Invalid reviewer: {reviewer}")
+    reasoning_field = f"Reasoning {reviewer}"
+    rows = load_changes(filename)
+    count = 0
+    for row in rows:
+        if row["change_id"] == change_id:
+            row[reasoning_field] = reasoning_text
+            count += 1
+    if count == 0:
+        raise KeyError(change_id)
+    write_changes(rows, filename)
     return count
 
 
@@ -1772,6 +2651,19 @@ def available_providers() -> list[dict[str, str]]:
         providers.append({"name": "codex", "label": "Codex"})
     if resolve_cli("gemini"):
         providers.append({"name": "gemini", "label": "Gemini"})
+    return providers
+
+
+def available_verdict_review_providers() -> list[dict[str, str]]:
+    providers: list[dict[str, str]] = []
+    has_claude = bool(resolve_cli("claude"))
+    has_codex = bool(resolve_cli("codex"))
+    if has_codex:
+        providers.append({"name": "codex", "label": "Codex"})
+    if has_claude:
+        providers.append({"name": "claude", "label": "Claude"})
+    if has_codex and has_claude:
+        providers.append({"name": "both", "label": "Both"})
     return providers
 
 
@@ -1805,20 +2697,65 @@ def parse_race_key(key: str) -> tuple[str, str]:
     return state.strip(), office.strip()
 
 
-def build_review_groups(rows: list[dict[str, str]]) -> list[dict[str, object]]:
+def candidate_key(row: dict[str, str]) -> str:
+    existing = row.get("Candidate_Key", "").strip()
+    if existing:
+        return existing
+    candidate = row.get("Candidate", "").strip()
+    state = row.get("State", "").strip()
+    office = row.get("Office", "").strip()
+    if candidate and state and office:
+        return f"{state}|{office}|{candidate}"
+    return candidate
+
+
+def build_review_groups(rows: list[dict[str, str]], *, all_rows: list[dict[str, str]] | None = None) -> list[dict[str, object]]:
     candidate_rows = load_csv(CANDIDATES_CSV)
     evidence_rows = load_csv(EVIDENCE_CSV)
+    source_rows = all_rows if all_rows is not None else rows
+    unique_name_lookup: dict[str, dict[str, object]] = {}
+    counts: dict[str, int] = {}
+    for row in candidate_rows:
+        name = row.get("Candidate", "").strip()
+        counts[name] = counts.get(name, 0) + 1
     candidate_lookup = {
-        row.get("Candidate", "").strip(): {
+        candidate_key(row): {
             "state": row.get("State", "").strip(),
             "office": row.get("Office", "").strip(),
+            "candidate": row.get("Candidate", "").strip(),
             "row": dict(row),
         }
         for row in candidate_rows
     }
+    for row in candidate_rows:
+        name = row.get("Candidate", "").strip()
+        if counts.get(name, 0) == 1:
+            unique_name_lookup[name] = candidate_lookup[candidate_key(row)]
+    current_verdict_by_candidate_key = {
+        candidate_key(row): (row.get("Verdict", "").strip() or "no_record")
+        for row in candidate_rows
+    }
+    latest_verdict_change_by_candidate_key: dict[str, tuple[int, str]] = {}
+    for row in source_rows:
+        if row.get("table", "").strip() != "candidates":
+            continue
+        if row.get("field", "").strip() != "Verdict":
+            continue
+        candidate_key_value = row.get("key", "").strip()
+        if not candidate_key_value:
+            continue
+        try:
+            change_id = int(row.get("change_id", "0").strip() or "0")
+        except ValueError:
+            change_id = 0
+        verdict_value = row.get("value", "").strip() or "no_record"
+        previous = latest_verdict_change_by_candidate_key.get(candidate_key_value)
+        if previous is None or change_id >= previous[0]:
+            latest_verdict_change_by_candidate_key[candidate_key_value] = (change_id, verdict_value)
     evidence_lookup = {
         row.get("Evidence_ID", "").strip(): {
             "candidate": row.get("Candidate", "").strip(),
+            "candidate_key": row.get("Candidate_Key", "").strip(),
             "description": row.get("Source_Description", "").strip(),
             "url": row.get("URL", "").strip(),
             "row": dict(row),
@@ -1844,6 +2781,7 @@ def build_review_groups(rows: list[dict[str, str]]) -> list[dict[str, object]]:
         state = ""
         office = ""
         candidate = ""
+        candidate_key_value = ""
         evidence_label = ""
         current_row: dict[str, str] = {}
 
@@ -1851,8 +2789,9 @@ def build_review_groups(rows: list[dict[str, str]]) -> list[dict[str, object]]:
             state, office = parse_race_key(key)
             evidence_label = "(race change)"
         elif table == "candidates":
-            candidate = key
-            candidate_meta = candidate_lookup.get(candidate, {})
+            candidate_key_value = key
+            candidate_meta = candidate_lookup.get(key, {})
+            candidate = str(candidate_meta.get("candidate", "")).strip() or key
             state = str(candidate_meta.get("state", "")).strip()
             office = str(candidate_meta.get("office", "")).strip()
             evidence_label = "(candidate change)"
@@ -1861,6 +2800,10 @@ def build_review_groups(rows: list[dict[str, str]]) -> list[dict[str, object]]:
             if key and key in evidence_lookup:
                 evidence_meta = evidence_lookup[key]
                 candidate = str(evidence_meta.get("candidate", "")).strip()
+                candidate_key_value = str(evidence_meta.get("candidate_key", "")).strip()
+                candidate_meta = candidate_lookup.get(candidate_key_value, {})
+                if not candidate_meta:
+                    candidate_meta = unique_name_lookup.get(candidate, {})
                 desc = str(evidence_meta.get("description", "")).strip()
                 evidence_label = f'{key}: {desc}' if desc else f"Evidence {key}"
                 current_row = dict(evidence_meta.get("row", {}))
@@ -1873,8 +2816,21 @@ def build_review_groups(rows: list[dict[str, str]]) -> list[dict[str, object]]:
                     ),
                     "",
                 )
+                candidate_key_value = next(
+                    (
+                        row.get("value", "").strip()
+                        for row in group
+                        if row.get("field", "").strip() == "Candidate_Key" and row.get("value", "").strip()
+                    ),
+                    "",
+                )
                 evidence_label = "New evidence"
-            candidate_meta = candidate_lookup.get(candidate, {})
+                candidate_key_value = candidate_key_value.strip()
+                candidate_meta = candidate_lookup.get(candidate_key_value, {})
+                if not candidate_meta:
+                    candidate_meta = unique_name_lookup.get(candidate, {})
+                if not candidate:
+                    candidate = str(candidate_meta.get("candidate", "")).strip()
             state = str(candidate_meta.get("state", "")).strip()
             office = str(candidate_meta.get("office", "")).strip()
 
@@ -1885,17 +2841,26 @@ def build_review_groups(rows: list[dict[str, str]]) -> list[dict[str, object]]:
             candidate = "(no candidate)"
         if not evidence_label:
             evidence_label = "(row change)"
+        current_verdict = current_verdict_by_candidate_key.get(candidate_key_value, "no_record")
+        final_verdict = latest_verdict_change_by_candidate_key.get(candidate_key_value, (0, current_verdict))[1]
 
         out.append(
             {
                 "change_id": change_id,
                 "table": table,
                 "key": key,
-                "status": first.get("status", "").strip(),
+                "candidate_key": candidate_key_value,
+                "D": first.get("D", "").strip(),
+                "Reasoning D": first.get("Reasoning D", "").strip(),
+                "I": first.get("I", "").strip(),
+                "Reasoning I": first.get("Reasoning I", "").strip(),
                 "reasoning": first.get("reasoning", "").strip(),
                 "state": state,
                 "race": race,
                 "candidate": candidate,
+                "current_verdict": current_verdict,
+                "final_verdict": final_verdict,
+                "candidate_verdict": str(candidate_meta.get("row", {}).get("Verdict", "")).strip(),
                 "evidence": evidence_label,
                 "current_row": current_row,
                 "rows": group,
@@ -1904,29 +2869,21 @@ def build_review_groups(rows: list[dict[str, str]]) -> list[dict[str, object]]:
     return out
 
 
-def filter_review_groups(groups: list[dict[str, object]], exclude_no_record: bool, verdict_change: bool) -> list[dict[str, object]]:
-    if not exclude_no_record and not verdict_change:
-        return groups
-    candidate_rows = load_csv(CANDIDATES_CSV)
-    verdict_by_candidate = {
-        row.get("Candidate", "").strip(): row.get("Verdict", "").strip()
-        for row in candidate_rows
-    }
-    included_candidates: set[str] = set()
+def filter_review_groups(
+    groups: list[dict[str, object]],
+    allowed_before: set[str],
+    allowed_after: set[str],
+) -> list[dict[str, object]]:
+    filtered: list[dict[str, object]] = []
     for group in groups:
-        candidate = str(group.get("candidate", "")).strip()
-        if not candidate or candidate == "(no candidate)":
+        current_verdict = str(group.get("current_verdict", "")).strip() or "no_record"
+        final_verdict = str(group.get("final_verdict", "")).strip() or current_verdict
+        if current_verdict not in allowed_before:
             continue
-        current_verdict = verdict_by_candidate.get(candidate, "")
-        if exclude_no_record and current_verdict in {"nice", "nuanced", "naughty"}:
-            included_candidates.add(candidate)
+        if final_verdict not in allowed_after:
             continue
-        if verdict_change and str(group.get("table", "")).strip() == "candidates":
-            for row in group.get("rows", []):
-                if row.get("field", "").strip() == "Verdict":
-                    included_candidates.add(candidate)
-                    break
-    return [group for group in groups if str(group.get("candidate", "")).strip() in included_candidates]
+        filtered.append(group)
+    return filtered
 
 
 @dataclass
@@ -2085,21 +3042,76 @@ class Handler(BaseHTTPRequestHandler):
             races, candidates_by_race = races_payload()
             self._send_json({
                 "providers": available_providers(),
+                "verdict_review_providers": available_verdict_review_providers(),
                 "races": races,
                 "candidates_by_race": candidates_by_race,
                 "default_prompt_template": load_race_runner_prompt_template(),
+                "change_files": available_changes_filenames(),
+                "current_changes_file": CHANGES_CSV.name,
             })
             return
         if parsed.path == "/api/changes":
             params = parse_qs(parsed.query)
-            pending_only = params.get("pending_only", ["0"])[0] == "1"
-            exclude_no_record = params.get("exclude_no_record", ["0"])[0] == "1"
-            verdict_change = params.get("verdict_change", ["0"])[0] == "1"
-            rows = load_changes()
-            if pending_only:
-                rows = [row for row in rows if row["status"] == "pending"]
-            groups = build_review_groups(rows)
-            groups = filter_review_groups(groups, exclude_no_record, verdict_change)
+            changes_filename = params.get("changes_file", [CHANGES_CSV.name])[0].strip() or CHANGES_CSV.name
+            show_pending = params.get("show_pending", ["1"])[0] == "1"
+            show_approved = params.get("show_approved", ["0"])[0] == "1"
+            show_denied = params.get("show_denied", ["0"])[0] == "1"
+            show_mod = params.get("show_mod", ["1"])[0] == "1"
+            show_add = params.get("show_add", ["1"])[0] == "1"
+            show_del = params.get("show_del", ["1"])[0] == "1"
+            show_before_no_record = params.get("show_before_no_record", ["1"])[0] == "1"
+            show_before_nuanced = params.get("show_before_nuanced", ["1"])[0] == "1"
+            show_before_naughty = params.get("show_before_naughty", ["1"])[0] == "1"
+            show_before_nice = params.get("show_before_nice", ["1"])[0] == "1"
+            show_after_no_record = params.get("show_after_no_record", ["1"])[0] == "1"
+            show_after_nuanced = params.get("show_after_nuanced", ["1"])[0] == "1"
+            show_after_naughty = params.get("show_after_naughty", ["1"])[0] == "1"
+            show_after_nice = params.get("show_after_nice", ["1"])[0] == "1"
+            reviewer = params.get("reviewer", ["D"])[0].strip() or "D"
+            if reviewer not in REVIEW_COLUMNS:
+                self._send_json({"error": f"Unknown reviewer: {reviewer}"}, HTTPStatus.BAD_REQUEST)
+                return
+            all_rows = load_changes(changes_filename)
+            rows = list(all_rows)
+            allowed_statuses = set()
+            if show_pending:
+                allowed_statuses.update({"", "pending"})
+            if show_approved:
+                allowed_statuses.add("approved")
+            if show_denied:
+                allowed_statuses.add("denied")
+            rows = [row for row in rows if row.get(reviewer, "").strip() in allowed_statuses]
+            allowed_actions = set()
+            if show_mod:
+                allowed_actions.add("mod")
+            if show_add:
+                allowed_actions.add("add")
+            if show_del:
+                allowed_actions.add("del")
+            groups = build_review_groups(rows, all_rows=all_rows)
+            groups = [
+                group for group in groups
+                if str(group.get("rows", [{}])[0].get("action", "")).strip() in allowed_actions
+            ]
+            allowed_before = set()
+            if show_before_no_record:
+                allowed_before.add("no_record")
+            if show_before_nuanced:
+                allowed_before.add("nuanced")
+            if show_before_naughty:
+                allowed_before.add("naughty")
+            if show_before_nice:
+                allowed_before.add("nice")
+            allowed_after = set()
+            if show_after_no_record:
+                allowed_after.add("no_record")
+            if show_after_nuanced:
+                allowed_after.add("nuanced")
+            if show_after_naughty:
+                allowed_after.add("naughty")
+            if show_after_nice:
+                allowed_after.add("nice")
+            groups = filter_review_groups(groups, allowed_before, allowed_after)
             self._send_json({"groups": groups})
             return
         if parsed.path == "/api/jobs":
@@ -2109,8 +3121,9 @@ class Handler(BaseHTTPRequestHandler):
             params = parse_qs(parsed.query)
             table = params.get("table", ["races"])[0].strip()
             filter_text = params.get("filter", [""])[0].strip()
+            changes_filename = params.get("changes_file", [CHANGES_CSV.name])[0].strip() or CHANGES_CSV.name
             try:
-                payload = load_data_table(table, filter_text)
+                payload = load_data_table(table, filter_text, changes_filename)
             except KeyError:
                 self._send_json({"error": f"Unknown table: {table}"}, HTTPStatus.BAD_REQUEST)
                 return
@@ -2129,12 +3142,33 @@ class Handler(BaseHTTPRequestHandler):
 
         if self.path == "/api/status":
             change_id = str(payload.get("change_id", "")).strip()
+            reviewer = str(payload.get("reviewer", "")).strip()
             status = str(payload.get("status", "")).strip()
-            if not change_id or not status:
-                self._send_json({"error": "Missing change_id or status."}, HTTPStatus.BAD_REQUEST)
+            changes_filename = str(payload.get("changes_file", "")).strip() or CHANGES_CSV.name
+            if not change_id or not reviewer:
+                self._send_json({"error": "Missing change_id or reviewer."}, HTTPStatus.BAD_REQUEST)
                 return
             try:
-                updated = set_change_status(change_id, status)
+                updated = set_change_status(change_id, reviewer, status, changes_filename)
+            except ValueError as exc:
+                self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
+                return
+            except KeyError:
+                self._send_json({"error": f"Unknown change_id: {change_id}"}, HTTPStatus.NOT_FOUND)
+                return
+            self._send_json({"ok": True, "updated": updated})
+            return
+
+        if self.path == "/api/reviewer-reasoning":
+            change_id = str(payload.get("change_id", "")).strip()
+            reviewer = str(payload.get("reviewer", "")).strip()
+            reasoning = str(payload.get("reasoning", ""))
+            changes_filename = str(payload.get("changes_file", "")).strip() or CHANGES_CSV.name
+            if not change_id or not reviewer:
+                self._send_json({"error": "Missing change_id or reviewer."}, HTTPStatus.BAD_REQUEST)
+                return
+            try:
+                updated = set_change_reasoning(change_id, reviewer, reasoning, changes_filename)
             except ValueError as exc:
                 self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
                 return
@@ -2153,6 +3187,7 @@ class Handler(BaseHTTPRequestHandler):
             model = str(payload.get("model", "")).strip()
             prompt_template = str(payload.get("prompt_template", "")).strip()
             all_races = bool(payload.get("all_races", False))
+            changes_filename = str(payload.get("changes_file", "")).strip() or CHANGES_CSV.name
             if not all_races and not race:
                 self._send_json({"error": "Missing race."}, HTTPStatus.BAD_REQUEST)
                 return
@@ -2160,6 +3195,7 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json({"error": f"Provider unavailable: {provider}"}, HTTPStatus.BAD_REQUEST)
                 return
             command = [sys.executable, str(RACE_RUNNER), "--provider", provider]
+            command.extend(["--changes-file", changes_filename])
             if all_races:
                 command.extend(["--max-races", "0"])
             else:
@@ -2180,8 +3216,58 @@ class Handler(BaseHTTPRequestHandler):
             self._send_json({"ok": True, "job": job})
             return
 
+        if self.path == "/api/verdict-review":
+            provider = str(payload.get("provider", "")).strip() or "codex"
+            candidate = str(payload.get("candidate", "")).strip()
+            timeout = int(payload.get("timeout", 300) or 300)
+            old_verdicts = [
+                str(value).strip()
+                for value in payload.get("old_verdicts", [])
+                if str(value).strip()
+            ]
+            new_verdicts = [
+                str(value).strip()
+                for value in payload.get("new_verdicts", [])
+                if str(value).strip()
+            ]
+            changes_filename = str(payload.get("changes_file", "")).strip() or CHANGES_CSV.name
+            valid_providers = {item["name"] for item in available_verdict_review_providers()}
+            if provider not in valid_providers:
+                self._send_json({"error": f"Verdict review provider unavailable: {provider}"}, HTTPStatus.BAD_REQUEST)
+                return
+            valid_verdicts = {"no_record", "nuanced", "naughty", "nice"}
+            if any(value not in valid_verdicts for value in old_verdicts + new_verdicts):
+                self._send_json({"error": "Invalid verdict filter."}, HTTPStatus.BAD_REQUEST)
+                return
+            if timeout < 1:
+                self._send_json({"error": "Timeout must be at least 1 second."}, HTTPStatus.BAD_REQUEST)
+                return
+            command = [
+                sys.executable,
+                str(VERDICT_REVIEW),
+                "--provider",
+                provider,
+                "--timeout",
+                str(timeout),
+                "--changes-file",
+                changes_filename,
+                "--output",
+                str(REPORTS_DIR / f"verdict_review_confidence.{Path(changes_filename).stem}.csv"),
+            ]
+            if candidate:
+                command.extend(["--candidate", candidate])
+            for verdict in old_verdicts:
+                command.extend(["--old-verdict", verdict])
+            for verdict in new_verdicts:
+                command.extend(["--new-verdict", verdict])
+            job_candidate = candidate or "pending verdict changes"
+            job = JOB_MANAGER.start(kind="verdict_review", provider=provider, race=changes_filename, candidate=job_candidate, command=command)
+            self._send_json({"ok": True, "job": job})
+            return
+
         if self.path == "/api/apply":
-            command = [sys.executable, str(APPLY_CHANGES)]
+            changes_filename = str(payload.get("changes_file", "")).strip() or CHANGES_CSV.name
+            command = [sys.executable, str(APPLY_CHANGES), "--changes-file", changes_filename]
             job = JOB_MANAGER.start(kind="apply", provider="system", race="", candidate="", command=command)
             self._send_json({"ok": True, "job": job})
             return

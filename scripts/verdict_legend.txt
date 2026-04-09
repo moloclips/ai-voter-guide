@@ -1,0 +1,4 @@
+nice = generally supports AI safety / responsible governance (backed by concrete AI policy action, specific votes, or non-generic governance positions — not generic "responsible AI" rhetoric alone)
+nuanced = mixed, partial, or unclear record
+no_record = no meaningful AI record found
+naughty = generally opposed to AI safety / responsible governance (backed by concrete AI policy action, specific votes, or non-generic anti-governance positions — not generic pro-innovation, anti-regulation, or "light-touch AI" rhetoric alone)

@@ -12,7 +12,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 LOG_DIR = ROOT / ".claude" / "race_runner_logs"
 CANDIDATES_CSV = ROOT / "data" / "candidates.csv"
-DEFAULT_OUTPUT = ROOT / "data" / "race_runner_log_summary.csv"
+DEFAULT_OUTPUT = ROOT / "reports" / "race_runner_log_summary.csv"
 TIMESTAMP_FORMAT = "%Y%m%d-%H%M%S"
 STATE_ABBREVIATIONS = {
     "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA",

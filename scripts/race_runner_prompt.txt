@@ -1,8 +1,5 @@
 You are reviewing a candidate for the AI Voter Guide project.
 
-Today's date:
-{today}
-
 Workflow
 1. Review the candidate's current evidence.
 2. Check whether any current evidence needs revision or deletion.
@@ -27,31 +24,52 @@ Things to check for:
 	- dead link
 	- irrelevant to candidate
 	- misleading description
-	- long description. 5-12 words and format as "Description (Source)"
+	- long description. Usually aim for 5-14 words and format as "Description (Source)"; use more words when needed to briefly explain what a bill, vote, or proposal does and why it matters for the candidate's AI record
+	- assume an uninformed voter reading the description without prior knowledge of the bill name, acronym, or legislative context; prefer descriptions that convey what the legislation or statement does, not just its title or a generic AI label
+	- the source name should appear parenthetically at the end of the description
+	- for official sources, prefer concise standardized parenthetical source labels like "(House Rep Website)", "(Senator Website)", "(Governor Website)", or "(Campaign Website)"
 	- avoid negative assertions like "No AI position found" in evidence descriptions; the verdict should capture absence of an AI record
-	- if a source is still worth keeping but contains no AI-specific content, prefer a neutral label like "U.S. House Website (riley.house.gov)"
+	- if a source is still worth keeping but contains no AI-specific content, prefer a neutral description with one of those parenthetical source labels
+	- before proposing any mod to `Source_Description`, inspect the current source itself, not just the existing description
+	- only rewrite a description if the new wording is directly supported by the source as currently loaded
+	- do not shorten a description if doing so would remove the key AI-related claim
+	- if the source contains a specific AI-related statement, action, vote, bill, or proposal, prefer a specific claim-focused description over a generic site label
+	- if the source is weak, irrelevant, dead, soft-404, or does not support the rewritten claim, prefer del or replacement over cosmetic shortening
+	- when revising an existing evidence description, preserve the most important supported policy angle from the current description unless the source clearly does not support it; when multiple concise descriptions are supported, choose the one most relevant to an AI single-issue voter deciding whether the candidate is pro-safety, anti-safety, pro-regulation, anti-regulation, or China/competition focused
+	- if the source centrally frames AI in terms of China competition, national security, or export controls, include that framing in the description rather than flattening it into a generic AI label
+	- if the source specifically supports guardrails, regulation, oversight, or research access, name that mechanism in the description instead of using a more generic AI phrase
+	- if a source supports the claim but would be easier to verify with a better anchor, fragment, or deeper link, prefer updating the URL over deleting the row
+	- if you replace an evidence URL with a better source, keep the core claim emphasis from the previous row only if the new source also clearly supports that emphasis; before proposing a URL replacement, inspect the replacement source itself and verify it directly supports the proposed description
+	- do not add identity-only or candidacy-only evidence if stronger direct AI-related evidence is already present
+	- if deleting a weak source because a better direct source exists, include the replacement in the same batch when possible
 	- never delete the only remaining evidence row unless you also add a replacement source in the same batch that lets a voter verify the candidate's identity
 - Status
-	- only propose a Status change if the candidate is no longer active
-	- the only allowed new Status value is `Out`
+	- `Status` is the descriptive human-readable race status (for example `Incumbent`, `Nominee`, `Dem Primary Candidate`, `Filed Candidate`, `Exploratory Candidate`)
+	- only propose a `Status` change if the descriptive status itself is wrong or outdated
+	- preserve useful descriptive detail in `Status`; do not collapse it to `In` or `Out`
+	- the only allowed new `Status` value is `Out`
+- Active
+	- `Active` is the normalized voter-guide inclusion status and must be either `In` or `Out`
+	- propose an `Active` change whenever the candidate should be included in or excluded from the voter guide
+	- use `Out` for candidates who are no longer active in the race (for example removed from ballot, failed to qualify, exploratory-only, or clearly not running)
+	- use `In` for candidates who are still active, filed, declared, competing in a primary/runoff/general, incumbent, challenger, or nominee
 - Verdict
 	- Modify if the balance of evidence (after revising) changes your opinion of their overall AI safety stance
+	- do not change `Verdict` based on one weak or ambiguous source; prefer multiple direct signals when moving away from `no_record`
 
 Output requirements:
 - Return JSON only matching the provided schema.
 - `changes` should contain only concrete proposals for `changes.csv`.
 - Use only actions `add`, `mod`, or `del`.
-- For `candidates`, use key exactly equal to the candidate name.
-- For candidate changes, valid fields are `Verdict` and `Status`.
+- For `candidates`, the candidate identity is set automatically by the script for the candidate under review.
+- For candidate changes, valid fields are `Verdict`, `Status`, and `Active`.
+- Valid `Active` values are `In` and `Out`.
 - Valid `Verdict` values are `nice`, `nuanced`, `no_record`, and `naughty`.
 - Verdict legend:
-	- `nice` = generally supports AI safety / responsible governance
-	- `nuanced` = mixed, partial, or unclear record
-	- `no_record` = no meaningful AI record found
-	- `naughty` = generally opposed to AI safety / responsible governance
+%VERDICT_LEGEND%
 - For `evidence` `mod` or `del`, use key equal to the exact `Evidence_ID`.
 - For `evidence` `add`, leave key as an empty string.
-- For evidence changes, valid fields are `Source_Description` and `URL`. Do not include `Candidate` — it is set automatically.
+- For evidence changes, valid fields are `Source_Description` and `URL`. Candidate identity is set automatically by the script, so do not include `Candidate` or `Candidate_Key`.
 - For `add` and `mod`, include one `fields` entry per field to change.
 - For `del`, include `fields: []`.
 - Do not propose a `mod` change group unless at least one proposed field value differs from the current value, and omit any field entry whose proposed value equals the current value.
@@ -60,8 +78,7 @@ Output requirements:
 Candidate under review:
 {candidate_json}
 
-Existing queued and reviewed changes already touching this candidate:
-{changes_json}
+{changes_block}
 
 Current evidence rows for this candidate:
 {evidence_json}

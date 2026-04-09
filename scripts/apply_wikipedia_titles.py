@@ -7,7 +7,7 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 EVIDENCE_CSV = ROOT / "data" / "evidence.csv"
-WIKIPEDIA_TITLES_CSV = ROOT / "data" / "wikipedia_titles.csv"
+WIKIPEDIA_TITLES_CSV = ROOT / "reports" / "wikipedia_titles.csv"
 
 EVIDENCE_FIELDS = ["Evidence_ID", "Candidate", "Source_Description", "URL"]
 TITLE_FIELDS = ["URL", "Display_Title"]

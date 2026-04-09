@@ -12,7 +12,6 @@ TEMPLATE_HTML = ROOT / "template.html"
 GUIDE_HTML = ROOT / "guide.html"
 XLSX_PATH = ROOT / "data.xlsx"
 FAVICON_SVG = ROOT / "brand" / "plug-logo.svg"
-RACE_PARTIAL_HTML = ROOT / "race.html"
 
 CSV_SPECS = [
     ("Candidates", DATA_DIR / "candidates.csv"),
@@ -41,15 +40,35 @@ def present(*vals):
     return all(str(v).strip() and str(v).strip().lower() != "nan" for v in vals)
 
 
+def candidate_key(row):
+    existing = str(row.get("Candidate_Key", "")).strip()
+    if existing:
+        return existing
+    candidate = str(row.get("Candidate", "")).strip()
+    state = str(row.get("State", "")).strip()
+    office = str(row.get("Office", "")).strip()
+    if candidate and state and office:
+        return f"{state}|{office}|{candidate}"
+    return candidate
+
+
 def build_voter_data(candidates, evidence):
+    name_counts = {}
+    for _, row in candidates.iterrows():
+        name = str(row.get("Candidate", "")).strip()
+        name_counts[name] = name_counts.get(name, 0) + 1
     evidence_map = {}
     for _, row in evidence.iterrows():
         name = str(row.get("Candidate", "")).strip()
+        cid = str(row.get("Candidate_Key", "")).strip()
         desc = str(row.get("Source_Description", "")).strip()
         url = str(row.get("URL", "")).strip()
         if not present(name, desc, url):
             continue
-        evidence_map.setdefault(name, []).append({
+        if not cid and name_counts.get(name, 0) != 1:
+            continue
+        key = cid or name
+        evidence_map.setdefault(key, []).append({
             "description": desc,
             "url": url,
         })
@@ -71,14 +90,15 @@ def build_voter_data(candidates, evidence):
             continue
         if verdict not in VERDICT_ORDER:
             verdict = "no_record"
+        cid = candidate_key(row)
 
-        races.setdefault((state, office), {})[candidate] = {
+        races.setdefault((state, office), {})[cid] = {
             "candidate": candidate,
             "party": party,
             "status": status,
             "verdict": verdict,
             "preference": int(preference) if preference.isdigit() else None,
-            "sources": evidence_map.get(candidate, []),
+            "sources": evidence_map.get(cid, evidence_map.get(candidate, [])),
         }
 
     voter_data = []
@@ -129,17 +149,6 @@ def write_guide_html(voter_data):
     if favicon is not None:
         favicon_svg = FAVICON_SVG.read_text(encoding="utf-8").strip()
         favicon["href"] = f"data:image/svg+xml;charset=utf-8,{quote(favicon_svg)}"
-
-    race_partial = soup.find("template", id="race-partial")
-    if race_partial is None:
-        race_partial = soup.new_tag("template", id="race-partial")
-        if soup.body is None:
-            raise RuntimeError("Missing <body> in template.html")
-        soup.body.append(race_partial)
-    race_partial.clear()
-    partial_soup = BeautifulSoup(RACE_PARTIAL_HTML.read_text(encoding="utf-8"), "html.parser")
-    for node in list(partial_soup.contents):
-        race_partial.append(node)
 
     with GUIDE_HTML.open("w", encoding="utf-8") as f:
         f.write(str(soup))

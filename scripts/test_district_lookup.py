@@ -72,7 +72,7 @@ def lookup_address(address):
 
 
 def main():
-    path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data/district_lookup_test_addresses.csv")
+    path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("reports/district_lookup_test_addresses.csv")
     rows = list(csv.DictReader(path.open(newline="", encoding="utf-8")))
     if len(sys.argv) > 2:
         rows = rows[: int(sys.argv[2])]

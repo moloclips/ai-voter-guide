@@ -7,9 +7,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
+REPORTS_DIR = ROOT / "reports"
 CANDIDATES_CSV = DATA_DIR / "candidates.csv"
 EVIDENCE_CSV = DATA_DIR / "evidence.csv"
-OUTPUT_JSON = DATA_DIR / "ties.json"
+OUTPUT_JSON = REPORTS_DIR / "ties.json"
 
 EXCLUDED_STATUS_TERMS = (
     "removed from ballot",

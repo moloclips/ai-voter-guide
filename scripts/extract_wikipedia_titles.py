@@ -8,7 +8,7 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 EVIDENCE_CSV = ROOT / "data" / "evidence.csv"
-OUTPUT_CSV = ROOT / "data" / "wikipedia_titles.csv"
+OUTPUT_CSV = ROOT / "reports" / "wikipedia_titles.csv"
 
 INPUT_FIELDS = ["Evidence_ID", "Candidate", "Source_Description", "URL"]
 OUTPUT_FIELDS = ["URL", "Display_Title"]

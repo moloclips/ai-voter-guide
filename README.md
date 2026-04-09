@@ -16,6 +16,9 @@ Canonical source of truth:
 - `data/races.csv`
 - `data/verdicts.csv`
 
+Workflow artifacts and derived reports:
+- `reports/`
+
 Proposed change queue:
 - `changes.csv`
 
@@ -52,7 +55,7 @@ stop and explain the uncertainty before moving on to the next race.
 
 `data/candidates.csv`
 - One row per candidate.
-- Columns: `Candidate, State, Office, Party, Status, Verdict`
+- Columns: `Candidate, State, Office, Party, Status, Active, Verdict`
 - `Candidate` must exactly match `data/evidence.csv`.
 - `State` uses full state names.
 - `Office` is `Governor` or `Senate`.
@@ -83,18 +86,21 @@ application.
 - `key`
   - `action`
   - `reasoning`
-  - `field`
+- `field`
   - `value`
-  - `status`
+  - `D`
+  - `Reasoning D`
+  - `I`
+  - `Reasoning I`
 - `change_id` is the stable logical change identifier. Use simple integers.
   Multiple rows may share the same `change_id` when one proposed edit touches
   multiple fields.
-- `status` is one of:
-  - `pending`
+- `D` and `I` are reviewer decision columns. Blank means pending. Non-blank values are:
   - `approved`
   - `denied`
   - `applied`
   - `conflict`
+- `Reasoning D` and `Reasoning I` are optional reviewer notes
 
 Queue semantics:
 - `table` is one of `candidates`, `evidence`, `races`
@@ -115,27 +121,27 @@ Examples:
 Candidate verdict change:
 
 ```csv
-1,candidates,Katie Porter,mod,New evidence supports stronger verdict,Verdict,nice,pending
+1,candidates,Katie Porter,mod,New evidence supports stronger verdict,Verdict,nice,,,,
 ```
 
 Evidence add (same `change_id` across multiple rows):
 
 ```csv
-2,evidence,,add,New direct campaign source found,Candidate,Katie Porter,pending
-2,evidence,,add,New direct campaign source found,Source_Description,Meaningful AI regulation statement,pending
-2,evidence,,add,New direct campaign source found,URL,https://example.com,pending
+2,evidence,,add,New direct campaign source found,Candidate,Katie Porter,,,,
+2,evidence,,add,New direct campaign source found,Source_Description,Meaningful AI regulation statement,,,,
+2,evidence,,add,New direct campaign source found,URL,https://example.com,,,,
 ```
 
 Race review increment:
 
 ```csv
-3,races,California|Governor,check,Completed Codex review pass,Codex,+1,pending
+3,races,California|Governor,check,Completed Codex review pass,Codex,+1,,,,
 ```
 
 Review workflow:
 1. Assistants research a race and append proposed changes to `changes.csv`.
-2. Review changes in the local UI and mark them `approved` or `denied`.
-3. A later apply step merges approved changes into the canonical CSVs.
+2. Review changes in the local UI and mark reviewer decisions in `D` and `I`.
+3. A later apply step merges changes into the canonical CSVs once both reviewers have `approved` them.
 
 Review UI:
 
@@ -192,8 +198,8 @@ selection without calling a provider.
 2. Identify the current declared candidates for that race.
 3. Research each candidate's public AI-related record.
 4. Append proposed edits to `changes.csv`, not directly to the canonical CSVs.
-5. Review the queued edits and mark them `approved` or `denied`.
-6. Apply approved changes to the canonical CSVs.
+5. Review the queued edits and mark reviewer decisions in `D` and `I`.
+6. Apply changes that both reviewers approved to the canonical CSVs.
 7. Run `python3 build.py`.
 8. Stop and check in about any uncertain verdicts before starting the next race.
 
@@ -254,6 +260,17 @@ This watches:
 - `data/*.csv`
 
 and reruns `build.py` after each save.
+
+Watch mode with browser auto-reload:
+
+```bash
+python3 scripts/watch_build.py --serve --host 127.0.0.1 --port 5503
+```
+
+This serves:
+- `http://127.0.0.1:5503/guide.html`
+
+and reloads the browser only after a build completes successfully.
 
 Python dependencies:
 

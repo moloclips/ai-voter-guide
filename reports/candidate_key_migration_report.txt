@@ -1,0 +1,58 @@
+Candidate key migration report
+
+Duplicate candidate names:
+- Amir Hassan: Michigan|House MI-08|Amir Hassan, Michigan|House MI-05|Amir Hassan
+- Angelina Sigala: California|House CA-13|Angelina Sigala, California|House CA-05|Angelina Sigala
+- Brad Sherman: Iowa|Governor|Brad Sherman, California|House CA-32|Brad Sherman
+- David Jolly: Florida|Governor|David Jolly, Florida|House FL-05|David Jolly
+- David Jones: Maine|Governor|David Jones, California|House CA-23|David Jones
+- Donnie Ownby: Tennessee|House TN-06|Donnie Ownby, Tennessee|House TN-03|Donnie Ownby
+- Eric Swalwell: California|Governor|Eric Swalwell, California|House CA-14|Eric Swalwell
+- Evan Hutchison: New York|House NY-10|Evan Hutchison, New York|House NY-07|Evan Hutchison
+- Heath Fulkerson: California|House CA-07|Heath Fulkerson, California|House CA-12|Heath Fulkerson
+- Kenneth Morgan-Aguilera: Texas|House TX-13|Kenneth Morgan-Aguilera, Texas|House TX-12|Kenneth Morgan-Aguilera
+- Mike Johnson: Florida|House FL-07|Mike Johnson, Louisiana|House LA-04|Mike Johnson
+- Mike Rogers: Michigan|Senate|Mike Rogers, Alabama|House AL-03|Mike Rogers
+- Monica Sanchez: California|House CA-38|Monica Sanchez, Texas|House TX-14|Monica Sanchez
+
+Ambiguous existing evidence rows without Candidate_Key:
+- Evidence_ID 19: Eric Swalwell -> ['California|Governor|Eric Swalwell', 'California|House CA-14|Eric Swalwell']
+- Evidence_ID 20: Eric Swalwell -> ['California|Governor|Eric Swalwell', 'California|House CA-14|Eric Swalwell']
+- Evidence_ID 21: Eric Swalwell -> ['California|Governor|Eric Swalwell', 'California|House CA-14|Eric Swalwell']
+- Evidence_ID 57: David Jolly -> ['Florida|Governor|David Jolly', 'Florida|House FL-05|David Jolly']
+- Evidence_ID 132: Mike Rogers -> ['Michigan|Senate|Mike Rogers', 'Alabama|House AL-03|Mike Rogers']
+- Evidence_ID 133: Mike Rogers -> ['Michigan|Senate|Mike Rogers', 'Alabama|House AL-03|Mike Rogers']
+- Evidence_ID 134: Mike Rogers -> ['Michigan|Senate|Mike Rogers', 'Alabama|House AL-03|Mike Rogers']
+- Evidence_ID 352: Brad Sherman -> ['Iowa|Governor|Brad Sherman', 'California|House CA-32|Brad Sherman']
+- Evidence_ID 368: David Jones -> ['Maine|Governor|David Jones', 'California|House CA-23|David Jones']
+- Evidence_ID 718: Angelina Sigala -> ['California|House CA-13|Angelina Sigala', 'California|House CA-05|Angelina Sigala']
+- Evidence_ID 735: Amir Hassan -> ['Michigan|House MI-08|Amir Hassan', 'Michigan|House MI-05|Amir Hassan']
+- Evidence_ID 880: Mike Johnson -> ['Florida|House FL-07|Mike Johnson', 'Louisiana|House LA-04|Mike Johnson']
+- Evidence_ID 949: Mike Rogers -> ['Michigan|Senate|Mike Rogers', 'Alabama|House AL-03|Mike Rogers']
+- Evidence_ID 950: Mike Rogers -> ['Michigan|Senate|Mike Rogers', 'Alabama|House AL-03|Mike Rogers']
+- Evidence_ID 1040: Angelina Sigala -> ['California|House CA-13|Angelina Sigala', 'California|House CA-05|Angelina Sigala']
+- Evidence_ID 1054: Heath Fulkerson -> ['California|House CA-07|Heath Fulkerson', 'California|House CA-12|Heath Fulkerson']
+- Evidence_ID 1086: Eric Swalwell -> ['California|Governor|Eric Swalwell', 'California|House CA-14|Eric Swalwell']
+- Evidence_ID 1123: David Jones -> ['Maine|Governor|David Jones', 'California|House CA-23|David Jones']
+- Evidence_ID 1168: Brad Sherman -> ['Iowa|Governor|Brad Sherman', 'California|House CA-32|Brad Sherman']
+- Evidence_ID 1194: Monica Sanchez -> ['California|House CA-38|Monica Sanchez', 'Texas|House TX-14|Monica Sanchez']
+- Evidence_ID 1411: Monica Sanchez -> ['California|House CA-38|Monica Sanchez', 'Texas|House TX-14|Monica Sanchez']
+- Evidence_ID 1416: Kenneth Morgan-Aguilera -> ['Texas|House TX-13|Kenneth Morgan-Aguilera', 'Texas|House TX-12|Kenneth Morgan-Aguilera']
+- Evidence_ID 1418: Kenneth Morgan-Aguilera -> ['Texas|House TX-13|Kenneth Morgan-Aguilera', 'Texas|House TX-12|Kenneth Morgan-Aguilera']
+- Evidence_ID 1482: Donnie Ownby -> ['Tennessee|House TN-06|Donnie Ownby', 'Tennessee|House TN-03|Donnie Ownby']
+- Evidence_ID 1495: Donnie Ownby -> ['Tennessee|House TN-06|Donnie Ownby', 'Tennessee|House TN-03|Donnie Ownby']
+- Evidence_ID 1629: Mike Johnson -> ['Florida|House FL-07|Mike Johnson', 'Louisiana|House LA-04|Mike Johnson']
+- Evidence_ID 1896: Evan Hutchison -> ['New York|House NY-10|Evan Hutchison', 'New York|House NY-07|Evan Hutchison']
+- Evidence_ID 2046: Brad Sherman -> ['Iowa|Governor|Brad Sherman', 'California|House CA-32|Brad Sherman']
+- Evidence_ID 2142: Amir Hassan -> ['Michigan|House MI-08|Amir Hassan', 'Michigan|House MI-05|Amir Hassan']
+- Evidence_ID 2512: David Jolly -> ['Florida|Governor|David Jolly', 'Florida|House FL-05|David Jolly']
+
+Ambiguous candidate-table change keys left unchanged:
+- change_id 123: Mike Rogers -> ['Michigan|Senate|Mike Rogers', 'Alabama|House AL-03|Mike Rogers']
+
+Ambiguous evidence-add change groups left without Candidate_Key row:
+- change_id 50: David Jolly -> ['Florida|Governor|David Jolly', 'Florida|House FL-05|David Jolly']
+- change_id 122: Mike Rogers -> ['Michigan|Senate|Mike Rogers', 'Alabama|House AL-03|Mike Rogers']
+- change_id 290: David Jones -> ['Maine|Governor|David Jones', 'California|House CA-23|David Jones']
+- change_id 746: Mike Johnson -> ['Florida|House FL-07|Mike Johnson', 'Louisiana|House LA-04|Mike Johnson']
+- change_id 1651: Eric Swalwell -> ['California|Governor|Eric Swalwell', 'California|House CA-14|Eric Swalwell']

@@ -15,10 +15,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.changes_file import DEFAULT_CHANGES_FILENAME, resolve_changes_csv
+from scripts.verdict_legend import inject_verdict_legend
+
 README_PATH = ROOT / "README.md"
-CHANGES_CSV = ROOT / "changes.csv"
+CHANGES_CSV = resolve_changes_csv()
 CANDIDATES_CSV = ROOT / "data" / "candidates.csv"
 EVIDENCE_CSV = ROOT / "data" / "evidence.csv"
 RACES_CSV = ROOT / "data" / "races.csv"
@@ -26,20 +31,42 @@ LOG_DIR = ROOT / ".claude" / "race_runner_logs"
 SCHEMA_PATH = ROOT / "scripts" / "race_runner.schema.json"
 PROMPT_TEMPLATE_PATH = ROOT / "scripts" / "race_runner_prompt.txt"
 
-CHANGE_FIELDNAMES = ["change_id", "table", "key", "action", "reasoning", "field", "value", "status"]
-ACTIVE_CHANGE_STATUSES = {"pending", "approved", "applied"}
+CHANGE_FIELDNAMES = ["change_id", "table", "key", "action", "reasoning", "Model", "field", "value", "D", "Reasoning D", "I", "Reasoning I"]
+REVIEW_COLUMNS = ("D", "I")
+VALID_REVIEW_STATUSES = {"pending", "approved", "denied", "applied", "conflict"}
+ACTIVE_CHANGE_STATUSES = {"", "approved", "applied"}
 DEFAULT_ALLOWED_TOOLS = "Read,Grep,Glob,WebFetch,WebSearch"
 DEFAULT_TIMEOUT_SECONDS = 600
 DEFAULT_DISALLOWED_TOOLS = "Edit,Write,NotebookEdit,MultiEdit,Bash,TodoWrite"
 REVIEWER_COLUMNS = {"claude": "Claude", "codex": "Codex", "gemini": "Gemini"}
-VALID_CANDIDATE_FIELDS = {"Verdict", "Status"}
+VALID_CANDIDATE_FIELDS = {"Verdict", "Status", "Active"}
 VALID_EVIDENCE_FIELDS = {"Source_Description", "URL"}
 VALID_VERDICTS = {"nice", "nuanced", "no_record", "naughty"}
 VALID_STATUS_VALUES = {"Out"}
+VALID_ACTIVE_VALUES = {"In", "Out"}
+
+
+def candidate_key(row: dict[str, str]) -> str:
+    existing = str(row.get("Candidate_Key", "")).strip()
+    if existing:
+        return existing
+    candidate = str(row.get("Candidate", "")).strip()
+    state = str(row.get("State", "")).strip()
+    office = str(row.get("Office", "")).strip()
+    if candidate and state and office:
+        return f"{state}|{office}|{candidate}"
+    return candidate
+
+
+def evidence_matches_candidate(evidence_row: dict[str, str], candidate_row: dict[str, str]) -> bool:
+    evidence_candidate_key = str(evidence_row.get("Candidate_Key", "")).strip()
+    if evidence_candidate_key:
+        return evidence_candidate_key == candidate_key(candidate_row)
+    return str(evidence_row.get("Candidate", "")).strip() == str(candidate_row.get("Candidate", "")).strip()
 
 
 def load_prompt_template() -> str:
-    return PROMPT_TEMPLATE_PATH.read_text(encoding="utf-8")
+    return inject_verdict_legend(PROMPT_TEMPLATE_PATH.read_text(encoding="utf-8"))
 
 
 DEFAULT_PROMPT_TEMPLATE = load_prompt_template()
@@ -71,11 +98,34 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+def write_csv(path: Path, rows: list[dict[str, str]]) -> None:
+    fieldnames = list(rows[0].keys()) if rows else []
+    if not fieldnames:
+        return
+    with path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def write_changes(rows: list[dict[str, str]]) -> None:
     with CHANGES_CSV.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=CHANGE_FIELDNAMES)
         writer.writeheader()
         writer.writerows(rows)
+
+
+def append_change_rows(rows: list[dict[str, str]]) -> None:
+    if not rows:
+        return
+    ensure_changes_csv()
+    with CHANGES_CSV.open("a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=CHANGE_FIELDNAMES)
+        writer.writerows(rows)
+
+
+def row_is_active(row: dict[str, str]) -> bool:
+    return any(row.get(column, "").strip() in ACTIVE_CHANGE_STATUSES for column in REVIEW_COLUMNS)
 
 
 def ensure_changes_csv() -> None:
@@ -110,7 +160,6 @@ def select_races(rows: list[dict[str, str]], requested_race: str | None, max_rac
     ordered = sorted(
         rows,
         key=lambda row: (
-            parse_int(row.get("Claude", "0")),
             parse_int(row.get("Priority", "999999"), default=999999),
             row.get("State", ""),
             row.get("Office", ""),
@@ -164,7 +213,7 @@ def group_signature(rows: list[dict[str, str]]) -> tuple[Any, ...]:
 def active_group_signatures(changes: list[dict[str, str]]) -> set[tuple[Any, ...]]:
     signatures: set[tuple[Any, ...]] = set()
     for group in existing_change_groups(changes).values():
-        if not any(row.get("status", "").strip() in ACTIVE_CHANGE_STATUSES for row in group):
+        if not any(row_is_active(row) for row in group):
             continue
         signatures.add(group_signature(group))
     return signatures
@@ -177,13 +226,23 @@ def relevant_existing_changes(
 ) -> list[dict[str, str]]:
     evidence_ids = {row.get("Evidence_ID", "").strip() for row in evidence_rows}
     candidate = candidate_row.get("Candidate", "").strip()
+    candidate_id = candidate_key(candidate_row)
     relevant: list[dict[str, str]] = []
     for row in changes:
         table = row.get("table", "").strip()
         key = row.get("key", "").strip()
-        if table == "candidates" and key == candidate:
+        if table == "candidates" and key == candidate_id:
             relevant.append(row)
-        elif table == "evidence" and (key in evidence_ids or (not key and row.get("field", "").strip() == "Candidate" and row.get("value", "").strip() == candidate)):
+        elif table == "evidence" and (
+            key in evidence_ids
+            or (
+                not key
+                and (
+                    (row.get("field", "").strip() == "Candidate_Key" and row.get("value", "").strip() == candidate_id)
+                    or (row.get("field", "").strip() == "Candidate" and row.get("value", "").strip() == candidate)
+                )
+            )
+        ):
             relevant.append(row)
     return relevant
 
@@ -196,6 +255,38 @@ def candidate_has_existing_changes(
     return bool(relevant_existing_changes(changes, candidate_row, evidence_rows))
 
 
+def candidate_review_column(provider: str) -> str:
+    return REVIEWER_COLUMNS.get(provider, provider)
+
+
+def candidate_is_reviewed(
+    candidate_row: dict[str, str],
+    provider: str,
+    changes: list[dict[str, str]],
+    evidence_rows: list[dict[str, str]],
+) -> bool:
+    review_column = candidate_review_column(provider)
+    if parse_int(candidate_row.get(review_column, "0"), default=0) > 0:
+        return True
+    return candidate_has_existing_changes(changes, candidate_row, evidence_rows)
+
+
+def increment_candidate_review_count(
+    candidate_rows: list[dict[str, str]],
+    candidate_row: dict[str, str],
+    provider: str,
+) -> bool:
+    review_column = candidate_review_column(provider)
+    target_key = candidate_key(candidate_row)
+    for row in candidate_rows:
+        if candidate_key(row) != target_key:
+            continue
+        row[review_column] = str(parse_int(row.get(review_column, "0"), default=0) + 1)
+        candidate_row[review_column] = row[review_column]
+        return True
+    return False
+
+
 def stop_requested(stop_file: str) -> bool:
     return bool(stop_file) and Path(stop_file).exists()
 
@@ -206,15 +297,18 @@ def build_prompt(
     change_rows: list[dict[str, str]],
     prompt_template: str,
 ) -> str:
+    if change_rows:
+        changes_block = "Existing queued and reviewed changes already touching this candidate:\n{changes_json}\n\n"
+    else:
+        changes_block = ""
     candidate_json = json.dumps(candidate_row, indent=2, ensure_ascii=True)
     evidence_json = json.dumps(evidence_rows, indent=2, ensure_ascii=True)
     changes_json = json.dumps(change_rows, indent=2, ensure_ascii=True)
-    today = datetime.now().date().isoformat()
     return prompt_template.format(
-        today=today,
         candidate_json=candidate_json,
         evidence_json=evidence_json,
         changes_json=changes_json,
+        changes_block=changes_block,
     )
 
 
@@ -249,6 +343,39 @@ def extract_claude_payload(result_obj: dict[str, Any]) -> dict[str, Any]:
 
 def extract_generic_payload(text: str) -> dict[str, Any]:
     return extract_json(text)
+
+
+def extract_gemini_payload(text: str) -> dict[str, Any]:
+    obj = extract_json(text)
+    response = obj.get("response") if isinstance(obj, dict) else None
+    if isinstance(response, dict):
+        return response
+    if isinstance(response, str):
+        return extract_json(response)
+    if isinstance(obj, dict):
+        return obj
+    raise ValueError("Gemini returned an unexpected JSON envelope")
+
+
+def extract_gemini_stream_payload(events: list[dict[str, Any]]) -> dict[str, Any]:
+    assistant_chunks: list[str] = []
+    result_event: dict[str, Any] | None = None
+    for event in events:
+        event_type = str(event.get("type", "")).strip()
+        if event_type == "message" and str(event.get("role", "")).strip() == "assistant":
+            content = event.get("content")
+            if isinstance(content, str):
+                assistant_chunks.append(content)
+        elif event_type == "result":
+            result_event = event
+    if result_event and str(result_event.get("status", "")).strip() == "error":
+        error = result_event.get("error") or {}
+        message = str(error.get("message", "")).strip() or "Gemini stream returned an error"
+        raise ValueError(message)
+    joined = "".join(assistant_chunks).strip()
+    if not joined:
+        raise ValueError("Gemini produced no assistant response in stream-json mode")
+    return extract_json(joined)
 
 
 def render_stream_event(obj: dict[str, Any], start_time: float) -> None:
@@ -387,6 +514,79 @@ def render_codex_event(obj: dict[str, Any], start_time: float) -> None:
         return
 
 
+def render_gemini_event(obj: dict[str, Any], start_time: float) -> None:
+    elapsed = int(time.time() - start_time)
+    prefix = f"[gemini {elapsed:>3}s]"
+    event_type = str(obj.get("type", "")).strip()
+
+    if event_type == "init":
+        model = str(obj.get("model", "")).strip()
+        print(f"{prefix} session started | model={model}" if model else f"{prefix} session started", file=sys.stderr, flush=True)
+        return
+    if event_type == "message":
+        role = str(obj.get("role", "")).strip()
+        if role == "assistant":
+            text = " ".join(str(obj.get("content", "")).split())
+            if text:
+                short = text[:120] + "…" if len(text) > 120 else text
+                print(f"{prefix} {short}", file=sys.stderr, flush=True)
+        return
+    if event_type == "tool_use":
+        name = str(obj.get("tool_name", "")).strip() or "tool"
+        params = obj.get("parameters") or {}
+        detail = (
+            params.get("query")
+            or params.get("prompt")
+            or params.get("url")
+            or params.get("file_path")
+            or params.get("command")
+            or ""
+        )
+        if detail:
+            short = str(detail)
+            short = short[:90] + "…" if len(short) > 90 else short
+            print(f"{prefix} {name}({short})", file=sys.stderr, flush=True)
+        else:
+            print(f"{prefix} {name}()", file=sys.stderr, flush=True)
+        return
+    if event_type == "tool_result":
+        status = str(obj.get("status", "")).strip() or "success"
+        tool_id = str(obj.get("tool_id", "")).strip()
+        output = str(obj.get("output", "")).strip()
+        if status == "error":
+            error = obj.get("error") or {}
+            message = str(error.get("message", "")).strip() or "tool failed"
+            short = message[:120] + "…" if len(message) > 120 else message
+            print(f"{prefix} tool failed{f' | {tool_id}' if tool_id else ''} | {short}", file=sys.stderr, flush=True)
+        else:
+            if output:
+                short = output[:100] + "…" if len(output) > 100 else output
+                print(f"{prefix} tool completed{f' | {tool_id}' if tool_id else ''} | {short}", file=sys.stderr, flush=True)
+            else:
+                print(f"{prefix} tool completed{f' | {tool_id}' if tool_id else ''}", file=sys.stderr, flush=True)
+        return
+    if event_type == "error":
+        message = str(obj.get("message", "")).strip() or "error"
+        short = message[:160] + "…" if len(message) > 160 else message
+        print(f"{prefix} error | {short}", file=sys.stderr, flush=True)
+        return
+    if event_type == "result":
+        status = str(obj.get("status", "")).strip() or "success"
+        stats = obj.get("stats") or {}
+        fragments = [f"{prefix} done | status={status}"]
+        input_tokens = stats.get("input_tokens")
+        output_tokens = stats.get("output_tokens")
+        tool_calls = stats.get("tool_calls")
+        if input_tokens not in (None, ""):
+            fragments.append(f"in={input_tokens}")
+        if output_tokens not in (None, ""):
+            fragments.append(f"out={output_tokens}")
+        if tool_calls not in (None, ""):
+            fragments.append(f"tools={tool_calls}")
+        print(" | ".join(fragments), file=sys.stderr, flush=True)
+        return
+
+
 def stream_subprocess_lines(proc: subprocess.Popen[str], renderer, start_time: float) -> tuple[str, str, list[dict[str, Any]]]:
     stdout_lines: list[str] = []
     stderr_lines: list[str] = []
@@ -420,7 +620,7 @@ def stream_subprocess_lines(proc: subprocess.Popen[str], renderer, start_time: f
     return "".join(stdout_lines), "".join(stderr_lines), parsed_events
 
 
-def validate_proposal(candidate_name: str, proposal: dict[str, Any]) -> None:
+def validate_proposal(candidate_identifier: str, proposal: dict[str, Any]) -> None:
     table = proposal.get("table", "")
     action = proposal.get("action", "")
     key = proposal.get("key", "")
@@ -431,8 +631,6 @@ def validate_proposal(candidate_name: str, proposal: dict[str, Any]) -> None:
         raise ValueError(f"Unsupported action: {action}")
     if not isinstance(fields, list):
         raise ValueError("Proposal fields must be a list")
-    if table == "candidates" and key != candidate_name:
-        raise ValueError(f"Candidate proposal key must match candidate name: {key}")
     if table == "candidates" and action == "add":
         raise ValueError("Candidate add changes are not supported")
     if table == "evidence" and action in {"mod", "del"} and not key:
@@ -454,9 +652,11 @@ def validate_proposal(candidate_name: str, proposal: dict[str, Any]) -> None:
                 raise ValueError(f"Invalid Verdict value: {value}")
             if field == "Status" and value not in VALID_STATUS_VALUES:
                 raise ValueError(f"Invalid Status value: {value}")
+            if field == "Active" and value not in VALID_ACTIVE_VALUES:
+                raise ValueError(f"Invalid Active value: {value}")
     if table == "evidence" and action in {"add", "mod"}:
         # Candidate is auto-injected by append_changes; ignore if model includes it
-        non_auto_fields = [item for item in fields if item.get("field", "").strip() != "Candidate"]
+        non_auto_fields = [item for item in fields if item.get("field", "").strip() not in {"Candidate", "Candidate_Key"}]
         invalid = [item.get("field", "").strip() for item in non_auto_fields if item.get("field", "").strip() not in VALID_EVIDENCE_FIELDS]
         if invalid:
             raise ValueError(f"Invalid evidence fields: {invalid}")
@@ -468,12 +668,13 @@ def validate_proposals_for_candidate(
     proposed_changes: list[dict[str, Any]],
 ) -> None:
     candidate_name = candidate_row.get("Candidate", "").strip()
+    candidate_identifier = candidate_key(candidate_row)
     evidence_lookup = {row.get("Evidence_ID", "").strip(): row for row in evidence_rows}
     deleted_evidence_ids: set[str] = set()
     added_evidence_count = 0
 
     for proposal in proposed_changes:
-        validate_proposal(candidate_name, proposal)
+        validate_proposal(candidate_identifier, proposal)
         table = proposal.get("table", "").strip()
         action = proposal.get("action", "").strip()
         key = proposal.get("key", "").strip()
@@ -529,84 +730,99 @@ def proposal_signature(proposal: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
-def append_changes(changes: list[dict[str, str]], proposed_changes: list[dict[str, Any]], candidate_name: str) -> int:
+def proposal_model_label(args: argparse.Namespace) -> str:
+    model = str(getattr(args, "model", "") or "").strip()
+    if model:
+        return model
+    return REVIEWER_COLUMNS.get(args.provider, args.provider)
+
+
+def append_changes(
+    changes: list[dict[str, str]],
+    proposed_changes: list[dict[str, Any]],
+    candidate_row: dict[str, str],
+    args: argparse.Namespace,
+) -> tuple[int, list[dict[str, str]]]:
     signatures = active_group_signatures(changes)
     appended = 0
+    appended_rows: list[dict[str, str]] = []
     current_change_id = next_change_id(changes)
+    candidate_identifier = candidate_key(candidate_row)
+    model_label = proposal_model_label(args)
     for proposal in proposed_changes:
-        signature = proposal_signature(proposal)
-        if signature in signatures:
-            continue
+        table = proposal.get("table", "").strip()
+        action = proposal.get("action", "").strip()
         reasoning = proposal.get("reasoning", "").strip()
-        if proposal["action"] == "del":
-            changes.append(
-                {
-                    "change_id": str(current_change_id),
-                    "table": proposal["table"],
-                    "key": proposal["key"],
-                    "action": proposal["action"],
-                    "reasoning": reasoning,
-                    "field": "",
-                    "value": "",
-                    "status": "pending",
-                }
-            )
+        key = proposal.get("key", "").strip()
+        if table == "candidates":
+            key = candidate_identifier
+        signature = (
+            table,
+            key,
+            action,
+            tuple(sorted((item.get("field", "").strip(), item.get("value", "")) for item in proposal.get("fields", []))),
+        )
+        if action == "del":
+            if signature in signatures:
+                continue
+            new_row = {
+                "change_id": str(current_change_id),
+                "table": table,
+                "key": key,
+                "action": action,
+                "reasoning": reasoning,
+                "Model": model_label,
+                "field": "",
+                "value": "",
+                "D": "",
+                "Reasoning D": "",
+                "I": "",
+                "Reasoning I": "",
+            }
+            changes.append(new_row)
+            appended_rows.append(new_row)
         else:
-            # Strip any Candidate field the model may have included; it is re-added below
-            field_changes = [f for f in proposal["fields"] if f.get("field", "").strip() != "Candidate"]
-            if proposal["table"] == "evidence" and proposal["action"] == "add":
-                field_changes = [{"field": "Candidate", "value": candidate_name}] + field_changes
-            for field_change in field_changes:
-                changes.append(
-                    {
-                        "change_id": str(current_change_id),
-                        "table": proposal["table"],
-                        "key": proposal["key"],
-                        "action": proposal["action"],
-                        "reasoning": reasoning,
-                        "field": field_change["field"],
-                        "value": field_change["value"],
-                        "status": "pending",
-                    }
+            # Strip any auto-managed candidate identity fields the model may have included.
+            field_changes = [f for f in proposal["fields"] if f.get("field", "").strip() not in {"Candidate", "Candidate_Key"}]
+            if table == "evidence" and action == "add":
+                field_changes = [{"field": "Candidate_Key", "value": candidate_identifier}] + field_changes
+                signature = (
+                    table,
+                    key,
+                    action,
+                    tuple(sorted((item.get("field", "").strip(), item.get("value", "")) for item in field_changes)),
                 )
+            elif table == "candidates":
+                signature = (
+                    table,
+                    key,
+                    action,
+                    tuple(sorted((item.get("field", "").strip(), item.get("value", "")) for item in field_changes)),
+                )
+            if signature in signatures:
+                continue
+            for field_change in field_changes:
+                new_row = {
+                    "change_id": str(current_change_id),
+                    "table": table,
+                    "key": key,
+                    "action": action,
+                    "reasoning": reasoning,
+                    "Model": model_label,
+                    "field": field_change["field"],
+                    "value": field_change["value"],
+                    "D": "",
+                    "Reasoning D": "",
+                    "I": "",
+                    "Reasoning I": "",
+                }
+                changes.append(new_row)
+                appended_rows.append(new_row)
         signatures.add(signature)
         current_change_id += 1
         appended += 1
-    return appended
+    return appended, appended_rows
 
-
-def has_pending_race_increment(changes: list[dict[str, str]], key: str, reviewer_column: str) -> bool:
-    for row in changes:
-        if (
-            row.get("table", "").strip() == "races"
-            and row.get("key", "").strip() == key
-            and row.get("action", "").strip() == "check"
-            and row.get("field", "").strip() == reviewer_column
-            and row.get("value", "").strip() == "+1"
-            and row.get("status", "").strip() in {"pending", "approved"}
-        ):
-            return True
-    return False
-
-
-def append_race_increment(changes: list[dict[str, str]], race_row: dict[str, str], reviewer_column: str) -> bool:
-    key = race_key(race_row)
-    if has_pending_race_increment(changes, key, reviewer_column):
-        return False
-    change_id = next_change_id(changes)
-    changes.append(
-        {
-            "change_id": str(change_id),
-            "table": "races",
-            "key": key,
-            "action": "check",
-            "reasoning": f"Completed {reviewer_column} review pass via race_runner.py",
-            "field": reviewer_column,
-            "value": "+1",
-            "status": "pending",
-        }
-    )
-    return True
 
 
 def ensure_log_dir() -> None:
@@ -761,19 +977,62 @@ def run_gemini(prompt: str, args: argparse.Namespace) -> dict[str, Any]:
     cmd = [cli, "-p"]
     if args.model:
         cmd.extend(["-m", args.model])
-    cmd.append(prompt)
-    proc = subprocess.run(
-        cmd,
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        env=provider_env(),
-        timeout=args.timeout,
-    )
-    if proc.returncode != 0:
-        raise ClaudeRunError(proc.stderr.strip() or proc.stdout.strip() or f"Gemini exited with code {proc.returncode}", stdout=proc.stdout, stderr=proc.stderr)
-    print(proc.stdout.strip(), file=sys.stderr, flush=True)
-    return {"stdout": proc.stdout, "stderr": proc.stderr, "data": extract_generic_payload(proc.stdout)}
+    cmd.extend([prompt, "--output-format", "stream-json"])
+    start_time = time.time()
+    stdout_lines: list[str] = []
+    stderr_lines: list[str] = []
+    parsed_events: list[dict[str, Any]] = []
+    try:
+        proc = subprocess.Popen(
+            cmd,
+            cwd=ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            env=provider_env(),
+        )
+
+        assert proc.stdout is not None
+        assert proc.stderr is not None
+
+        def _drain_stdout() -> None:
+            for line in proc.stdout:
+                stdout_lines.append(line)
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                try:
+                    obj = json.loads(stripped)
+                except json.JSONDecodeError:
+                    print(stripped, file=sys.stderr, flush=True)
+                    continue
+                parsed_events.append(obj)
+                render_gemini_event(obj, start_time)
+
+        def _drain_stderr() -> None:
+            text = proc.stderr.read()
+            if text:
+                stderr_lines.append(text)
+
+        stdout_thread = threading.Thread(target=_drain_stdout, daemon=True)
+        stderr_thread = threading.Thread(target=_drain_stderr, daemon=True)
+        stdout_thread.start()
+        stderr_thread.start()
+        return_code = proc.wait(timeout=args.timeout)
+        stdout_thread.join(timeout=2)
+        stderr_thread.join(timeout=2)
+    except subprocess.TimeoutExpired as exc:
+        proc.kill()
+        proc.wait()
+        stdout = "".join(stdout_lines)
+        stderr = "".join(stderr_lines)
+        hint = " Gemini CLI may need interactive auth or may be hung; try running `gemini` manually in a terminal." if not stdout.strip() and not stderr.strip() else ""
+        raise ClaudeRunError(f"Gemini timed out after {args.timeout}s.{hint}", stdout=stdout, stderr=stderr) from exc
+    stdout_text = "".join(stdout_lines)
+    stderr_joined = "".join(stderr_lines)
+    if return_code != 0:
+        raise ClaudeRunError(stderr_joined.strip() or stdout_text.strip() or f"Gemini exited with code {return_code}", stdout=stdout_text, stderr=stderr_joined)
+    return {"stdout": stdout_text, "stderr": stderr_joined, "data": extract_gemini_stream_payload(parsed_events)}
 
 
 def run_provider(prompt: str, args: argparse.Namespace) -> dict[str, Any]:
@@ -789,6 +1048,7 @@ def run_provider(prompt: str, args: argparse.Namespace) -> dict[str, Any]:
 def process_candidate(
     args: argparse.Namespace,
     changes: list[dict[str, str]],
+    candidate_rows: list[dict[str, str]],
     race_row: dict[str, str],
     candidate_row: dict[str, str],
     evidence_rows: list[dict[str, str]],
@@ -822,8 +1082,10 @@ def process_candidate(
     data = result["data"]
     proposed_changes = list(data.get("changes", []))
     validate_proposals_for_candidate(candidate_row, evidence_rows, proposed_changes)
-    appended = append_changes(changes, proposed_changes, candidate_row.get("Candidate", "").strip())
-    write_changes(changes)
+    appended, appended_rows = append_changes(changes, proposed_changes, candidate_row, args)
+    append_change_rows(appended_rows)
+    if increment_candidate_review_count(candidate_rows, candidate_row, args.provider):
+        write_csv(CANDIDATES_CSV, candidate_rows)
     print(f'{candidate_row.get("Candidate", "").strip()}: proposed groups appended: {appended}', flush=True)
     return True, appended
 
@@ -834,7 +1096,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--race", help='Specific race key, e.g. "Arizona|Governor"')
     parser.add_argument("--candidate", help="Limit to a single candidate name within the selected race")
     parser.add_argument("--candidate-verdict", choices=sorted(VALID_VERDICTS), help="Only review candidates whose current Verdict matches this value")
-    parser.add_argument("--skip-candidates-with-changes", action="store_true", help="Skip candidates that already have candidate/evidence rows in changes.csv")
+    parser.add_argument("--skip-candidates-with-changes", action="store_true", help="Skip candidates already reviewed by this provider or already present in the selected changes file")
+    parser.add_argument("--changes-file", default=DEFAULT_CHANGES_FILENAME, help="Changes CSV filename in the repo root")
     parser.add_argument("--max-races", type=int, default=1, help="How many races to process; 0 means all races")
     parser.add_argument(
         "--permission-mode",
@@ -857,7 +1120,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT_SECONDS, help="Seconds before killing a Claude subprocess (default: 600)")
     parser.add_argument("--claude-arg", action="append", default=[], help="Extra raw argument to pass to the Claude CLI")
-    parser.add_argument("--prompt-template", default=DEFAULT_PROMPT_TEMPLATE, help="Full prompt template with {today}, {candidate_json}, {evidence_json}, and {changes_json} placeholders")
+    parser.add_argument("--prompt-template", default=DEFAULT_PROMPT_TEMPLATE, help="Full prompt template with {candidate_json}, {evidence_json}, {changes_json}, and {changes_block} placeholders")
     parser.add_argument("--stop-file", default="", help="Internal marker file used to request a graceful stop after the current candidate finishes")
     parser.add_argument("--dry-run", action="store_true", help="Select work and print what would run without calling Claude")
     return parser.parse_args()
@@ -865,7 +1128,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    reviewer_column = REVIEWER_COLUMNS.get(args.provider, "Claude")
+    global CHANGES_CSV
+    CHANGES_CSV = resolve_changes_csv(args.changes_file)
     ensure_changes_csv()
     candidate_rows = read_csv(CANDIDATES_CSV)
     evidence_rows = read_csv(EVIDENCE_CSV)
@@ -886,10 +1150,11 @@ def main() -> None:
             selected_candidates = [
                 row
                 for row in selected_candidates
-                if not candidate_has_existing_changes(
-                    changes,
+                if not candidate_is_reviewed(
                     row,
-                    [ev for ev in evidence_rows if ev.get("Candidate", "").strip() == row.get("Candidate", "").strip()],
+                    args.provider,
+                    changes,
+                    [ev for ev in evidence_rows if evidence_matches_candidate(ev, row)],
                 )
             ]
         if not selected_candidates:
@@ -906,11 +1171,12 @@ def main() -> None:
                 print("Graceful stop requested; exiting before next candidate.", flush=True)
                 break
             candidate_name = candidate_row.get("Candidate", "").strip()
-            candidate_evidence = [row for row in evidence_rows if row.get("Candidate", "").strip() == candidate_name]
+            candidate_evidence = [row for row in evidence_rows if evidence_matches_candidate(row, candidate_row)]
             try:
                 ok, appended = process_candidate(
                     args=args,
                     changes=changes,
+                    candidate_rows=candidate_rows,
                     race_row=race_row,
                     candidate_row=candidate_row,
                     evidence_rows=candidate_evidence,
@@ -935,17 +1201,9 @@ def main() -> None:
             continue
 
         if race_ok:
-            full_race = not args.candidate
-            added_increment = append_race_increment(changes, race_row, reviewer_column) if full_race and not should_stop else False
-            write_changes(changes)
-            print(
-                f'Completed race {race_key(race_row)} | change groups appended: {race_total} | '
-                f'{reviewer_column} increment queued: {"yes" if added_increment else ("already pending" if (full_race and not should_stop) else ("skipped (partial run)" if not full_race else "skipped (graceful stop)"))}',
-                flush=True,
-            )
+            print(f'Completed race {race_key(race_row)} | change groups appended: {race_total}', flush=True)
         else:
-            write_changes(changes)
-            print(f'Stopped race {race_key(race_row)} before queueing {reviewer_column} increment', file=sys.stderr, flush=True)
+            print(f'Stopped race {race_key(race_row)}', file=sys.stderr, flush=True)
             break
         if should_stop:
             break
